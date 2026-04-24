@@ -23,9 +23,10 @@ class Settings(BaseSettings):
     cors_allow_headers: list = ["*"]
     
     # External API settings
-    external_api_url: str = "http://projet1-virtual-machine"
+    external_api_url: str = "https://projet1-virtual-machine"
     external_api_token: str = "ea3c4b6b-4b64-47f5-9954-89e184ec3039"
     external_api_verify_ssl: bool = False
+    no_proxy: bool = True  # Disable proxy for external API requests
     
     class Config:
         env_file = ".env"

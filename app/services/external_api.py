@@ -19,10 +19,15 @@ class ExternalAPIClient:
         self.client: Optional[httpx.AsyncClient] = None
     
     async def __aenter__(self):
+        # Disable proxy by setting all proxies to None
         self.client = httpx.AsyncClient(
             base_url=self.base_url,
-            verify=self.verify_ssl,  # Just pass False directly — that's all you need
+            verify=self.verify_ssl,
             timeout=30.0,
+            mounts={
+                "http://": None,
+                "https://": None,
+            },
         )
         return self
     
