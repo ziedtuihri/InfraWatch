@@ -22,7 +22,7 @@ async def get_item(item_id: int):
 # External API endpoints
 @router.get("/instance-types")
 async def fetch_instance_types(
-    max: int = Query(25, description="Maximum number of items"),
+    max: int = Query(1000, description="Maximum number of items"),
     offset: int = Query(0, description="Offset for pagination"),
     sort: str = Query("name", description="Field to sort by"),
     direction: str = Query("asc", description="Sort direction (asc or desc)"),
