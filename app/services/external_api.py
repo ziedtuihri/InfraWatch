@@ -19,18 +19,9 @@ class ExternalAPIClient:
         self.client: Optional[httpx.AsyncClient] = None
     
     async def __aenter__(self):
-        """Async context manager entry"""
-        # Create SSL context that ignores certificate verification if needed
-        if not self.verify_ssl:
-            ssl_context = ssl.create_default_context()
-            ssl_context.check_hostname = False
-            ssl_context.verify_mode = ssl.CERT_NONE
-        else:
-            ssl_context = None
-        
         self.client = httpx.AsyncClient(
             base_url=self.base_url,
-            verify=ssl_context if ssl_context else True,
+            verify=self.verify_ssl,  # Just pass False directly — that's all you need
             timeout=30.0,
         )
         return self
