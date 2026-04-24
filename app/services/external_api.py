@@ -1,7 +1,9 @@
 """Service for consuming external API"""
 import httpx
 import logging
+import ssl
 from typing import Optional, Any, Dict
+from fastapi import HTTPException
 from config import settings
 
 logger = logging.getLogger(__name__)
@@ -18,9 +20,17 @@ class ExternalAPIClient:
     
     async def __aenter__(self):
         """Async context manager entry"""
+        # Create SSL context that ignores certificate verification if needed
+        if not self.verify_ssl:
+            ssl_context = ssl.create_default_context()
+            ssl_context.check_hostname = False
+            ssl_context.verify_mode = ssl.CERT_NONE
+        else:
+            ssl_context = None
+        
         self.client = httpx.AsyncClient(
             base_url=self.base_url,
-            verify=self.verify_ssl,
+            verify=ssl_context if ssl_context else True,
             timeout=30.0,
         )
         return self
@@ -67,19 +77,24 @@ class ExternalAPIClient:
         }
         
         try:
+            logger.debug(f"Requesting {self.base_url}/api/instance-types with params: {params}")
             response = await self.client.get(
                 "/api/instance-types",
                 params=params,
                 headers=self._get_headers(),
             )
             response.raise_for_status()
+            logger.debug(f"Received response: {response.status_code}")
             return response.json()
         except httpx.RequestError as e:
             logger.error(f"API request error: {str(e)}")
-            raise
+            raise HTTPException(status_code=502, detail=f"Failed to reach external API: {str(e)}")
         except httpx.HTTPStatusError as e:
             logger.error(f"API HTTP error: {e.response.status_code} - {e.response.text}")
-            raise
+            raise HTTPException(status_code=502, detail=f"External API error: {e.response.status_code}")
+        except Exception as e:
+            logger.error(f"Unexpected error: {str(e)}", exc_info=True)
+            raise HTTPException(status_code=502, detail=f"Unexpected error: {str(e)}")
 
 
 async def get_instance_types(
@@ -100,14 +115,20 @@ async def get_instance_types(
     Returns:
         Instance types data
     """
-    async with ExternalAPIClient(
-        base_url=settings.external_api_url,
-        bearer_token=settings.external_api_token,
-        verify_ssl=settings.external_api_verify_ssl,
-    ) as client:
-        return await client.get_instance_types(
-            max_items=max_items,
-            offset=offset,
-            sort=sort,
-            direction=direction,
-        )
+    try:
+        async with ExternalAPIClient(
+            base_url=settings.external_api_url,
+            bearer_token=settings.external_api_token,
+            verify_ssl=settings.external_api_verify_ssl,
+        ) as client:
+            return await client.get_instance_types(
+                max_items=max_items,
+                offset=offset,
+                sort=sort,
+                direction=direction,
+            )
+    except HTTPException:
+        raise
+    except Exception as e:
+        logger.error(f"Unexpected error in get_instance_types: {str(e)}", exc_info=True)
+        raise HTTPException(status_code=502, detail=f"Service unavailable: {str(e)}")
