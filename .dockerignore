@@ -1,0 +1,13 @@
+__pycache__
+*.pyc
+.git
+.gitignore
+.dockerignore
+.env
+venv
+.pytest_cache
+.coverage
+htmlcov
+*.egg-info
+.idea
+.vscode
