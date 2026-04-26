@@ -53,7 +53,7 @@ async def fetch_activity_list(
     """
     Fetch  activity list from external API
     
-    Route: GET /api/v1/activity_list
+    Route: GET /api/v1/activity
     
     Query Parameters:
     - **max**: Maximum number of items to return (default: 25)
