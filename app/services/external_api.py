@@ -92,44 +92,6 @@ class ExternalAPIClient:
             logger.error(f"Unexpected error: {str(e)}", exc_info=True)
             raise HTTPException(status_code=502, detail=f"Unexpected error: {str(e)}")
 
-
-async def get_instance_types(
-    max_items: int = 25,
-    offset: int = 0,
-    sort: str = "name",
-    direction: str = "asc",
-) -> Dict[str, Any]:
-    """
-    Fetch instance types from external API
-    
-    Args:
-        max_items: Maximum number of items to return
-        offset: Offset for pagination
-        sort: Field to sort by
-        direction: Sort direction (asc or desc)
-    
-    Returns:
-        Instance types data
-    """
-    try:
-        async with ExternalAPIClient(
-            base_url=settings.external_api_url,
-            bearer_token=settings.external_api_token,
-            verify_ssl=settings.external_api_verify_ssl,
-        ) as client:
-            return await client.get_instance_types(
-                max_items=max_items,
-                offset=offset,
-                sort=sort,
-                direction=direction,
-            )
-    except HTTPException:
-        raise
-    except Exception as e:
-        logger.error(f"Unexpected error in get_instance_types: {str(e)}", exc_info=True)
-        raise HTTPException(status_code=502, detail=f"Service unavailable: {str(e)}")
-    
-
     async def get_activity_list(
         self,
         max_items: int = 25,
@@ -441,6 +403,43 @@ async def get_instance_types(
         except Exception as e:
             logger.error(f"Unexpected error: {str(e)}", exc_info=True)
             raise HTTPException(status_code=502, detail=f"Unexpected error: {str(e)}")
+
+
+async def get_instance_types(
+    max_items: int = 25,
+    offset: int = 0,
+    sort: str = "name",
+    direction: str = "asc",
+) -> Dict[str, Any]:
+    """
+    Fetch instance types from external API
+    
+    Args:
+        max_items: Maximum number of items to return
+        offset: Offset for pagination
+        sort: Field to sort by
+        direction: Sort direction (asc or desc)
+    
+    Returns:
+        Instance types data
+    """
+    try:
+        async with ExternalAPIClient(
+            base_url=settings.external_api_url,
+            bearer_token=settings.external_api_token,
+            verify_ssl=settings.external_api_verify_ssl,
+        ) as client:
+            return await client.get_instance_types(
+                max_items=max_items,
+                offset=offset,
+                sort=sort,
+                direction=direction,
+            )
+    except HTTPException:
+        raise
+    except Exception as e:
+        logger.error(f"Unexpected error in get_instance_types: {str(e)}", exc_info=True)
+        raise HTTPException(status_code=502, detail=f"Service unavailable: {str(e)}")
 
 
 async def get_activity_list(
