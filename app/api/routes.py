@@ -63,7 +63,7 @@ async def fetch_activity_list(
     """
     try:
         logger.info(f"Fetching activity list with params: max={max}, offset={offset}, sort={sort}, direction={direction}")
-        result = await get_activity_list(
+        result = await get_instance_types(
             max_items=max,
             offset=offset,
             sort=sort,
