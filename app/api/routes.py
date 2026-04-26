@@ -1,5 +1,5 @@
 from fastapi import APIRouter, Query, HTTPException
-from app.services.external_api import get_activity_list, get_instance_types
+from app.services.external_api import get_instance_types
 import logging
 
 logger = logging.getLogger(__name__)
