@@ -4,7 +4,7 @@ import logging
 
 logger = logging.getLogger(__name__)
 
-router = APIRouter(prefix="/api/", tags=["items"])
+router = APIRouter(prefix="/api/v1", tags=["items"])
 
 # External API endpoints
 @router.get("/instance-types")
