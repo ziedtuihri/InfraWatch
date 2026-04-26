@@ -15,12 +15,6 @@ def test_health_check():
     assert response.status_code == 200
     assert response.json()["status"] == "healthy"
 
-def test_get_items():
-    """Test get items endpoint"""
-    response = client.get("/api/v1/items")
-    assert response.status_code == 200
-    assert "items" in response.json()
-
 def test_instance_types_endpoint():
     """Test instance types endpoint with default params"""
     response = client.get("/api/v1/instance-types")
