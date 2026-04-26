@@ -156,9 +156,6 @@ async def get_instance_types(
         
         params = {
             "max": max_items,
-            "offset": offset,
-            "sort": sort,
-            "direction": direction,
         }
         
         try:
