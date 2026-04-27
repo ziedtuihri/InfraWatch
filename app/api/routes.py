@@ -1,5 +1,6 @@
 from fastapi import APIRouter, Query, HTTPException
 from app.services.external_api import (
+    get_All_Instances,
     get_instance_types,
     get_activity_list,
     get_service_plans,
@@ -268,3 +269,39 @@ async def fetch_clients(
     except Exception as e:
         logger.error(f"Error fetching clients: {str(e)}", exc_info=True)
         raise HTTPException(status_code=502, detail=f"Failed to fetch clients: {str(e)}")
+    
+
+@router.get("/AllInstances")
+async def fetch_All_Instances(
+    max: int = Query(25, description="Maximum number of items"),
+    offset: int = Query(0, description="Offset for pagination"),
+    show_deleted: bool = Query(False, description="Whether to include deleted instances"),
+    details: bool = Query(False, description="Whether to include detailed information"),
+):
+    """
+    Fetch all instances from external API
+    
+    Route: GET /api/v1/instances
+    
+    Query Parameters:
+    - **max**: Maximum number of items to return (default: 25)
+    - **offset**: Offset for pagination (default: 0)
+    - **show_deleted**: Whether to include deleted instances (default: False)
+    - **details**: Whether to include detailed information (default: False)
+    """
+    try:
+        logger.info(f"Fetching all instances with params: max={max}, offset={offset}, show_deleted={show_deleted}, details={details}")
+        result = await get_All_Instances(
+            max_items=max,
+            offset=offset,
+            show_deleted=show_deleted,
+            details=details,
+        )
+        logger.info("Successfully fetched all instances")
+        return result
+    except HTTPException:
+        raise
+    except Exception as e:
+        logger.error(f"Error fetching all instances: {str(e)}", exc_info=True)
+        raise HTTPException(status_code=502, detail=f"Failed to fetch all instances: {str(e)}")
+
