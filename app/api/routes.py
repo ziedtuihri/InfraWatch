@@ -9,6 +9,7 @@ from app.services.external_api import (
     get_apps,
     get_budgets,
     get_clients,
+    get_All_Images
 )
 import logging
 from typing import Optional
@@ -296,6 +297,36 @@ async def fetch_All_Instances(
             offset=offset,
             show_deleted=show_deleted,
             details=details,
+        )
+        logger.info("Successfully fetched all instances")
+        return result
+    except HTTPException:
+        raise
+    except Exception as e:
+        logger.error(f"Error fetching all instances: {str(e)}", exc_info=True)
+        raise HTTPException(status_code=502, detail=f"Failed to fetch all instances: {str(e)}")
+    
+
+
+@router.get("/AllImages")
+async def fetch_All_Images(
+    max: int = Query(25, description="Maximum number of items"),
+):
+    """
+    Fetch all instances from external API
+    
+    Route: GET /api/v1/instances
+    
+    Query Parameters:
+    - **max**: Maximum number of items to return (default: 25)
+    - **offset**: Offset for pagination (default: 0)
+    - **show_deleted**: Whether to include deleted instances (default: False)
+    - **details**: Whether to include detailed information (default: False)
+    """
+    try:
+        logger.info(f"Fetching all instances with params: max={max}, offset={offset}, show_deleted={show_deleted}, details={details}")
+        result = await get_All_Images(
+            max_items=max,
         )
         logger.info("Successfully fetched all instances")
         return result
