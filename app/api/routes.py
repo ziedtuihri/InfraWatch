@@ -319,12 +319,9 @@ async def fetch_All_Images(
     
     Query Parameters:
     - **max**: Maximum number of items to return (default: 25)
-    - **offset**: Offset for pagination (default: 0)
-    - **show_deleted**: Whether to include deleted instances (default: False)
-    - **details**: Whether to include detailed information (default: False)
     """
     try:
-        logger.info(f"Fetching all instances with params: max={max}, offset={offset}, show_deleted={show_deleted}, details={details}")
+        logger.info(f"Fetching all instances with params: max={max}")
         result = await get_All_Images(
             max_items=max,
         )

@@ -466,10 +466,6 @@ class ExternalAPIClient:
 
         Args:
             max_items: Maximum number of items to return
-            offset: Offset for pagination
-            show_deleted: Whether to include deleted instances
-            details: Whether to include detailed information
-            direction: Sort direction (asc or desc)
         
         Returns:
             API response as dictionary
@@ -512,9 +508,6 @@ async def get_All_Images(
     
     Args:
         max_items: Maximum number of items to return
-        offset: Offset for pagination
-        show_deleted: Whether to include deleted instances
-        details: Whether to include detailed information
     
     Returns:
         Instances data
