@@ -346,11 +346,18 @@ async def execute_task_endpoint(
     Route: POST /api/v1/tasks/{task_id}/execute
     """
     try:
-        custom_options = payload.get("job", {}).get("customOptions", {})
-        logger.info(f"Executing task {task_id} with options: {custom_options}")
+        job = payload.get("job")
+        if not isinstance(job, dict):
+            raise HTTPException(status_code=422, detail="Missing or invalid 'job' in request body")
+
+        logger.info(
+            "Executing task %s with job keys: %s",
+            task_id,
+            sorted(list(job.keys())),
+        )
         result = await execute_task(
             task_id=task_id,
-            custom_options=custom_options,
+            job=job,
         )
         logger.info(f"Successfully executed task {task_id}")
         return result
@@ -359,3 +366,6 @@ async def execute_task_endpoint(
     except Exception as e:
         logger.error(f"Error executing task {task_id}: {str(e)}", exc_info=True)
         raise HTTPException(status_code=502, detail=f"Failed to execute task: {str(e)}")
+
+
+

@@ -19,15 +19,12 @@ class ExternalAPIClient:
         self.client: Optional[httpx.AsyncClient] = None
     
     async def __aenter__(self):
-        # Disable proxy by setting all proxies to None
+        # Disable proxy usage from environment variables (HTTP_PROXY, HTTPS_PROXY, etc.).
         self.client = httpx.AsyncClient(
             base_url=self.base_url,
             verify=self.verify_ssl,
             timeout=30.0,
-            mounts={
-                "http://": None,
-                "https://": None,
-            },
+            trust_env=False,
         )
         return self
     
@@ -407,14 +404,14 @@ class ExternalAPIClient:
     async def execute_task(
         self,
         task_id: int,
-        custom_options: Dict[str, Any],
+        job: Dict[str, Any],
     ) -> Dict[str, Any]:
         """
         Execute a task via external API
 
         Args:
             task_id: ID of the task to execute
-            custom_options: Custom options for the task job
+            job: Full job payload (e.g. targetType/instances/customOptions)
         
         Returns:
             API response as dictionary
@@ -422,11 +419,7 @@ class ExternalAPIClient:
         if not self.client:
             raise RuntimeError("Client not initialized. Use 'async with' context manager.")
         
-        payload = {
-            "job": {
-                "customOptions": custom_options
-            }
-        }
+        payload = {"job": job}
         
         try:
             logger.debug(f"Requesting POST {self.base_url}/api/tasks/{task_id}/execute with payload: {payload}")
@@ -878,14 +871,14 @@ async def get_clients(
 
 async def execute_task(
     task_id: int,
-    custom_options: Dict[str, Any],
+    job: Dict[str, Any],
 ) -> Dict[str, Any]:
     """
     Execute a task via external API
     
     Args:
         task_id: ID of the task to execute
-        custom_options: Custom options for the task job
+        job: Full job payload (e.g. targetType/instances/customOptions)
     
     Returns:
         Task execution data
@@ -898,7 +891,7 @@ async def execute_task(
         ) as client:
             return await client.execute_task(
                 task_id=task_id,
-                custom_options=custom_options,
+                job=job,
             )
     except HTTPException:
         raise
