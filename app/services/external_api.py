@@ -404,6 +404,50 @@ class ExternalAPIClient:
             logger.error(f"Unexpected error: {str(e)}", exc_info=True)
             raise HTTPException(status_code=502, detail=f"Unexpected error: {str(e)}")
 
+    async def execute_task(
+        self,
+        task_id: int,
+        custom_options: Dict[str, Any],
+    ) -> Dict[str, Any]:
+        """
+        Execute a task via external API
+
+        Args:
+            task_id: ID of the task to execute
+            custom_options: Custom options for the task job
+        
+        Returns:
+            API response as dictionary
+        """
+        if not self.client:
+            raise RuntimeError("Client not initialized. Use 'async with' context manager.")
+        
+        payload = {
+            "job": {
+                "customOptions": custom_options
+            }
+        }
+        
+        try:
+            logger.debug(f"Requesting POST {self.base_url}/api/tasks/{task_id}/execute with payload: {payload}")
+            response = await self.client.post(
+                f"/api/tasks/{task_id}/execute",
+                json=payload,
+                headers=self._get_headers(),
+            )
+            response.raise_for_status()
+            logger.debug(f"Received response: {response.status_code}")
+            return response.json()
+        except httpx.RequestError as e:
+            logger.error(f"API request error: {str(e)}")
+            raise HTTPException(status_code=502, detail=f"Failed to reach external API: {str(e)}")
+        except httpx.HTTPStatusError as e:
+            logger.error(f"API HTTP error: {e.response.status_code} - {e.response.text}")
+            raise HTTPException(status_code=502, detail=f"External API error: {e.response.status_code}")
+        except Exception as e:
+            logger.error(f"Unexpected error: {str(e)}", exc_info=True)
+            raise HTTPException(status_code=502, detail=f"Unexpected error: {str(e)}")
+
 
     async def get_All_Instances(
         self,
@@ -829,6 +873,37 @@ async def get_clients(
         raise
     except Exception as e:
         logger.error(f"Unexpected error in get_clients: {str(e)}", exc_info=True)
+        raise HTTPException(status_code=502, detail=f"Service unavailable: {str(e)}")
+
+
+async def execute_task(
+    task_id: int,
+    custom_options: Dict[str, Any],
+) -> Dict[str, Any]:
+    """
+    Execute a task via external API
+    
+    Args:
+        task_id: ID of the task to execute
+        custom_options: Custom options for the task job
+    
+    Returns:
+        Task execution data
+    """
+    try:
+        async with ExternalAPIClient(
+            base_url=settings.external_api_url,
+            bearer_token=settings.external_api_token,
+            verify_ssl=settings.external_api_verify_ssl,
+        ) as client:
+            return await client.execute_task(
+                task_id=task_id,
+                custom_options=custom_options,
+            )
+    except HTTPException:
+        raise
+    except Exception as e:
+        logger.error(f"Unexpected error in execute_task: {str(e)}", exc_info=True)
         raise HTTPException(status_code=502, detail=f"Service unavailable: {str(e)}")
 
 

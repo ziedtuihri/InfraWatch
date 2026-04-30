@@ -1,4 +1,4 @@
-from fastapi import APIRouter, Query, HTTPException
+from fastapi import APIRouter, Query, HTTPException, Body
 from app.services.external_api import (
     get_All_Instances,
     get_instance_types,
@@ -9,10 +9,11 @@ from app.services.external_api import (
     get_apps,
     get_budgets,
     get_clients,
-    get_All_Images
+    get_All_Images,
+    execute_task
 )
 import logging
-from typing import Optional
+from typing import Optional, Dict, Any
 
 logger = logging.getLogger(__name__)
 
@@ -333,3 +334,28 @@ async def fetch_All_Images(
         logger.error(f"Error fetching all instances: {str(e)}", exc_info=True)
         raise HTTPException(status_code=502, detail=f"Failed to fetch all instances: {str(e)}")
 
+
+@router.post("/tasks/{task_id}/execute")
+async def execute_task_endpoint(
+    task_id: int,
+    payload: Dict[str, Any] = Body(...),
+):
+    """
+    Execute a task by ID
+    
+    Route: POST /api/v1/tasks/{task_id}/execute
+    """
+    try:
+        custom_options = payload.get("job", {}).get("customOptions", {})
+        logger.info(f"Executing task {task_id} with options: {custom_options}")
+        result = await execute_task(
+            task_id=task_id,
+            custom_options=custom_options,
+        )
+        logger.info(f"Successfully executed task {task_id}")
+        return result
+    except HTTPException:
+        raise
+    except Exception as e:
+        logger.error(f"Error executing task {task_id}: {str(e)}", exc_info=True)
+        raise HTTPException(status_code=502, detail=f"Failed to execute task: {str(e)}")
