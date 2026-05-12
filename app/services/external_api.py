@@ -441,17 +441,19 @@ class ExternalAPIClient:
             logger.error(f"Unexpected error: {str(e)}", exc_info=True)
             raise HTTPException(status_code=502, detail=f"Unexpected error: {str(e)}")
 
-    async def install_agent(
+    async def make_managed(
         self,
         server_id: str,
         server: Dict[str, Any],
+        install_agent: bool,
     ) -> Dict[str, Any]:
         """
-        Install agent on a server via external API.
+        Mark a server as managed via external API.
 
         Args:
             server_id: ID/UUID of the server record
-            server: Server credentials payload (e.g. sshUsername/sshPassword)
+            server: Server SSH connection payload (e.g. sshHost/sshUsername/sshPassword)
+            install_agent: Whether to install the agent as part of the operation
 
         Returns:
             API response as dictionary
@@ -459,17 +461,17 @@ class ExternalAPIClient:
         if not self.client:
             raise RuntimeError("Client not initialized. Use 'async with' context manager.")
 
-        payload = {"server": server}
+        payload = {"server": server, "installAgent": install_agent}
 
         try:
             logger.debug(
-                "Requesting PUT %s/api/servers/%s/install-agent with payload keys: %s",
+                "Requesting PUT %s/api/servers/%s/make-managed with payload keys: %s",
                 self.base_url,
                 server_id,
-                sorted(list(server.keys())),
+                sorted(list(payload.keys())),
             )
             response = await self.client.put(
-                f"/api/servers/{server_id}/install-agent",
+                f"/api/servers/{server_id}/make-managed",
                 json=payload,
                 headers={
                     **self._get_headers(),
@@ -947,19 +949,21 @@ async def execute_task(
         logger.error(f"Unexpected error in execute_task: {str(e)}", exc_info=True)
         raise HTTPException(status_code=502, detail=f"Service unavailable: {str(e)}")
 
-async def install_agent(
+async def make_managed(
     server_id: str,
     server: Dict[str, Any],
+    install_agent: bool,
 ) -> Dict[str, Any]:
     """
-    Install agent on a server via external API.
+    Mark a server as managed via external API.
 
     Args:
         server_id: ID/UUID of the server record
-        server: Server credentials payload (e.g. sshUsername/sshPassword)
+        server: Server SSH connection payload (e.g. sshHost/sshUsername/sshPassword)
+        install_agent: Whether to install the agent as part of the operation
 
     Returns:
-        Install agent response data
+        Make-managed response data
     """
     try:
         async with ExternalAPIClient(
@@ -967,14 +971,15 @@ async def install_agent(
             bearer_token=settings.external_api_token,
             verify_ssl=settings.external_api_verify_ssl,
         ) as client:
-            return await client.install_agent(
+            return await client.make_managed(
                 server_id=server_id,
                 server=server,
+                install_agent=install_agent,
             )
     except HTTPException:
         raise
     except Exception as e:
-        logger.error(f"Unexpected error in install_agent: {str(e)}", exc_info=True)
+        logger.error(f"Unexpected error in make_managed: {str(e)}", exc_info=True)
         raise HTTPException(status_code=502, detail=f"Service unavailable: {str(e)}")
 
 

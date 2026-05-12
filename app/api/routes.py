@@ -11,7 +11,7 @@ from app.services.external_api import (
     get_clients,
     get_All_Images,
     execute_task,
-    install_agent,
+    make_managed,
 )
 import logging
 from typing import Optional, Dict, Any
@@ -369,21 +369,23 @@ async def execute_task_endpoint(
         raise HTTPException(status_code=502, detail=f"Failed to execute task: {str(e)}")
 
 
-@router.put("/servers/{server_id}/install-agent")
-async def install_agent_endpoint(
+@router.put("/servers/{server_id}/make-managed")
+async def make_managed_endpoint(
     server_id: str,
     payload: Dict[str, Any] = Body(...),
 ):
     """
-    Install agent on a server by ID/UUID.
+    Mark a server as managed by ID/UUID.
 
-    Route: PUT /api/v1/servers/{server_id}/install-agent
+    Route: PUT /api/v1/servers/{server_id}/make-managed
     Body:
     {
       "server": {
+        "sshHost": "...",
         "sshUsername": "...",
         "sshPassword": "..."
-      }
+      },
+      "installAgent": true
     }
     """
     try:
@@ -391,25 +393,31 @@ async def install_agent_endpoint(
         if not isinstance(server, dict):
             raise HTTPException(status_code=422, detail="Missing or invalid 'server' in request body")
 
+        ssh_host = server.get("sshHost")
         ssh_username = server.get("sshUsername")
         ssh_password = server.get("sshPassword")
-        if not ssh_username or not ssh_password:
+        if not ssh_host or not ssh_username or not ssh_password:
             raise HTTPException(
                 status_code=422,
-                detail="Missing 'server.sshUsername' or 'server.sshPassword' in request body",
+                detail="Missing 'server.sshHost', 'server.sshUsername' or 'server.sshPassword' in request body",
             )
 
-        logger.info("Installing agent for server %s", server_id)
-        result = await install_agent(
+        install_agent = payload.get("installAgent")
+        if not isinstance(install_agent, bool):
+            raise HTTPException(status_code=422, detail="Missing or invalid 'installAgent' (must be boolean)")
+
+        logger.info("Marking server %s as managed (installAgent=%s)", server_id, install_agent)
+        result = await make_managed(
             server_id=server_id,
             server=server,
+            install_agent=install_agent,
         )
-        logger.info("Successfully triggered install-agent for server %s", server_id)
+        logger.info("Successfully triggered make-managed for server %s", server_id)
         return result
     except HTTPException:
         raise
     except Exception as e:
-        logger.error("Error installing agent for server %s: %s", server_id, str(e), exc_info=True)
-        raise HTTPException(status_code=502, detail=f"Failed to install agent: {str(e)}")
+        logger.error("Error make-managed for server %s: %s", server_id, str(e), exc_info=True)
+        raise HTTPException(status_code=502, detail=f"Failed to make server managed: {str(e)}")
 
 
