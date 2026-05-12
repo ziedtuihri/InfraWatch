@@ -10,7 +10,8 @@ from app.services.external_api import (
     get_budgets,
     get_clients,
     get_All_Images,
-    execute_task
+    execute_task,
+    install_agent,
 )
 import logging
 from typing import Optional, Dict, Any
@@ -367,5 +368,48 @@ async def execute_task_endpoint(
         logger.error(f"Error executing task {task_id}: {str(e)}", exc_info=True)
         raise HTTPException(status_code=502, detail=f"Failed to execute task: {str(e)}")
 
+
+@router.put("/servers/{server_id}/install-agent")
+async def install_agent_endpoint(
+    server_id: str,
+    payload: Dict[str, Any] = Body(...),
+):
+    """
+    Install agent on a server by ID/UUID.
+
+    Route: PUT /api/v1/servers/{server_id}/install-agent
+    Body:
+    {
+      "server": {
+        "sshUsername": "...",
+        "sshPassword": "..."
+      }
+    }
+    """
+    try:
+        server = payload.get("server")
+        if not isinstance(server, dict):
+            raise HTTPException(status_code=422, detail="Missing or invalid 'server' in request body")
+
+        ssh_username = server.get("sshUsername")
+        ssh_password = server.get("sshPassword")
+        if not ssh_username or not ssh_password:
+            raise HTTPException(
+                status_code=422,
+                detail="Missing 'server.sshUsername' or 'server.sshPassword' in request body",
+            )
+
+        logger.info("Installing agent for server %s", server_id)
+        result = await install_agent(
+            server_id=server_id,
+            server=server,
+        )
+        logger.info("Successfully triggered install-agent for server %s", server_id)
+        return result
+    except HTTPException:
+        raise
+    except Exception as e:
+        logger.error("Error installing agent for server %s: %s", server_id, str(e), exc_info=True)
+        raise HTTPException(status_code=502, detail=f"Failed to install agent: {str(e)}")
 
 

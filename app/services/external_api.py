@@ -441,6 +441,54 @@ class ExternalAPIClient:
             logger.error(f"Unexpected error: {str(e)}", exc_info=True)
             raise HTTPException(status_code=502, detail=f"Unexpected error: {str(e)}")
 
+    async def install_agent(
+        self,
+        server_id: str,
+        server: Dict[str, Any],
+    ) -> Dict[str, Any]:
+        """
+        Install agent on a server via external API.
+
+        Args:
+            server_id: ID/UUID of the server record
+            server: Server credentials payload (e.g. sshUsername/sshPassword)
+
+        Returns:
+            API response as dictionary
+        """
+        if not self.client:
+            raise RuntimeError("Client not initialized. Use 'async with' context manager.")
+
+        payload = {"server": server}
+
+        try:
+            logger.debug(
+                "Requesting PUT %s/api/servers/%s/install-agent with payload keys: %s",
+                self.base_url,
+                server_id,
+                sorted(list(server.keys())),
+            )
+            response = await self.client.put(
+                f"/api/servers/{server_id}/install-agent",
+                json=payload,
+                headers={
+                    **self._get_headers(),
+                    "Content-Type": "application/json",
+                },
+            )
+            response.raise_for_status()
+            logger.debug("Received response: %s", response.status_code)
+            return response.json()
+        except httpx.RequestError as e:
+            logger.error(f"API request error: {str(e)}")
+            raise HTTPException(status_code=502, detail=f"Failed to reach external API: {str(e)}")
+        except httpx.HTTPStatusError as e:
+            logger.error(f"API HTTP error: {e.response.status_code} - {e.response.text}")
+            raise HTTPException(status_code=502, detail=f"External API error: {e.response.status_code}")
+        except Exception as e:
+            logger.error(f"Unexpected error: {str(e)}", exc_info=True)
+            raise HTTPException(status_code=502, detail=f"Unexpected error: {str(e)}")
+
 
     async def get_All_Instances(
         self,
@@ -897,6 +945,36 @@ async def execute_task(
         raise
     except Exception as e:
         logger.error(f"Unexpected error in execute_task: {str(e)}", exc_info=True)
+        raise HTTPException(status_code=502, detail=f"Service unavailable: {str(e)}")
+
+async def install_agent(
+    server_id: str,
+    server: Dict[str, Any],
+) -> Dict[str, Any]:
+    """
+    Install agent on a server via external API.
+
+    Args:
+        server_id: ID/UUID of the server record
+        server: Server credentials payload (e.g. sshUsername/sshPassword)
+
+    Returns:
+        Install agent response data
+    """
+    try:
+        async with ExternalAPIClient(
+            base_url=settings.external_api_url,
+            bearer_token=settings.external_api_token,
+            verify_ssl=settings.external_api_verify_ssl,
+        ) as client:
+            return await client.install_agent(
+                server_id=server_id,
+                server=server,
+            )
+    except HTTPException:
+        raise
+    except Exception as e:
+        logger.error(f"Unexpected error in install_agent: {str(e)}", exc_info=True)
         raise HTTPException(status_code=502, detail=f"Service unavailable: {str(e)}")
 
 
