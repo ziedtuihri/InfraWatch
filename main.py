@@ -2,14 +2,18 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from contextlib import asynccontextmanager
 from app.api.routes import router as api_router
+from app.api.auth_routes import router as auth_router
+from app.db.postgres import init_postgres_pool, close_postgres_pool
 
 # Lifespan context manager
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     # Startup
     print("Application startup")
+    await init_postgres_pool()
     yield
     # Shutdown
+    await close_postgres_pool()
     print("Application shutdown")
 
 # Create FastAPI app instance
@@ -31,6 +35,7 @@ app.add_middleware(
 
 # Include routers
 app.include_router(api_router)
+app.include_router(auth_router)
 
 # Health check endpoint
 @app.get("/health")

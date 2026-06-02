@@ -1,6 +1,4 @@
 from pydantic_settings import BaseSettings
-from typing import Optional
-
 class Settings(BaseSettings):
     """Application settings"""
     
@@ -13,8 +11,8 @@ class Settings(BaseSettings):
     host: str = "0.0.0.0"
     port: int = 8000
     
-    # Database settings (optional)
-    database_url: Optional[str] = None
+    # Local PostgreSQL (used only for login authentication)
+    database_url: str = "postgresql://postgres:postgres@localhost:5432/alien_datacenter"
     
     # CORS settings
     cors_origins: list = ["*"]
