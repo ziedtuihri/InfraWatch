@@ -1,7 +1,7 @@
 """Authentication against local PostgreSQL (not Morpheus API)."""
 import logging
+import secrets
 
-import bcrypt
 from fastapi import HTTPException
 from psycopg.rows import dict_row
 
@@ -14,6 +14,8 @@ logger = logging.getLogger(__name__)
 async def authenticate_user(username: str, password: str) -> UserInfo:
     """
     Validate username and password against the local PostgreSQL users table.
+
+    Passwords are stored and compared in plain text (no hashing).
 
     Raises HTTPException 401 if credentials are invalid.
     Raises HTTPException 503 if the database is unavailable.
@@ -33,7 +35,7 @@ async def authenticate_user(username: str, password: str) -> UserInfo:
             async with connection.cursor(row_factory=dict_row) as cursor:
                 await cursor.execute(
                     """
-                    SELECT id, username, password_hash
+                    SELECT id, username, password
                     FROM users
                     WHERE username = %s
                     """,
@@ -50,11 +52,8 @@ async def authenticate_user(username: str, password: str) -> UserInfo:
     if row is None:
         raise HTTPException(status_code=401, detail="Invalid username or password")
 
-    stored_hash = row["password_hash"]
-    if isinstance(stored_hash, str):
-        stored_hash = stored_hash.encode("utf-8")
-
-    if not bcrypt.checkpw(password.encode("utf-8"), stored_hash):
+    stored_password = row["password"] or ""
+    if not secrets.compare_digest(stored_password, password):
         raise HTTPException(status_code=401, detail="Invalid username or password")
 
     return UserInfo(id=row["id"], username=row["username"])
