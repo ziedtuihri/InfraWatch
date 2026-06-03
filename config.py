@@ -12,7 +12,7 @@ class Settings(BaseSettings):
     port: int = 8000
     
     # Local PostgreSQL (used only for login authentication)
-    database_url: str = "postgresql://postgres:postgres@localhost:5432/alien_datacenter"
+    database_url: str = "postgresql://postgres:postgres@localhost:5432/postgres"
     
     # CORS settings
     cors_origins: list = ["*"]
