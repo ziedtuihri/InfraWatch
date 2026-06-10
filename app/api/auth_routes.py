@@ -13,18 +13,11 @@ router = APIRouter(prefix="/api/v1", tags=["auth"])
 
 @router.post("/login", response_model=LoginResponse)
 async def login(credentials: LoginRequest):
-    """
-    Authenticate a user against the local PostgreSQL database.
-
-    Route: POST /api/v1/login
-
-    This endpoint does not call the Morpheus external API.
-    """
     try:
         logger.info("Login attempt for user: %s", credentials.username)
-        user = await authenticate_user(credentials.username, credentials.password)
+        token, user = await authenticate_user(credentials.username, credentials.password)  # ✅ unpack tuple
         logger.info("Login successful for user: %s", credentials.username)
-        return LoginResponse(user=user)
+        return LoginResponse(token=token, user=user)   # ✅ return token
     except HTTPException:
         raise
     except Exception as exc:

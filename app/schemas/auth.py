@@ -16,6 +16,7 @@ class UserInfo(BaseModel):
 
 class LoginResponse(BaseModel):
     success: bool = True
+    token: str          # ✅ add this
     user: UserInfo
 
 
