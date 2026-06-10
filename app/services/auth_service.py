@@ -35,7 +35,7 @@ async def authenticate_user(username: str, password: str) -> UserInfo:
             async with connection.cursor(row_factory=dict_row) as cursor:
                 await cursor.execute(
                     """
-                    SELECT id, username, password
+                    SELECT id, username, password, role
                     FROM users
                     WHERE username = %s
                     """,
@@ -56,4 +56,4 @@ async def authenticate_user(username: str, password: str) -> UserInfo:
     if not secrets.compare_digest(stored_password, password):
         raise HTTPException(status_code=401, detail="Invalid username or password")
 
-    return UserInfo(id=row["id"], username=row["username"])
+    return UserInfo(id=row["id"], username=row["username"], role=row["role"])
