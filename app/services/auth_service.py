@@ -52,8 +52,20 @@ async def authenticate_user(username: str, password: str) -> UserInfo:
     if row is None:
         raise HTTPException(status_code=401, detail="Invalid username or password")
 
+    import bcrypt
+
     stored_password = row["password"] or ""
-    if not secrets.compare_digest(stored_password, password):
+    
+    is_valid = False
+    if stored_password.startswith("$2b$") or stored_password.startswith("$2a$"):
+        try:
+            is_valid = bcrypt.checkpw(password.encode('utf-8'), stored_password.encode('utf-8'))
+        except Exception:
+            is_valid = False
+    else:
+        is_valid = secrets.compare_digest(stored_password, password)
+
+    if not is_valid:
         raise HTTPException(status_code=401, detail="Invalid username or password")
 
     return UserInfo(id=row["id"], username=row["username"], role=row["role"])

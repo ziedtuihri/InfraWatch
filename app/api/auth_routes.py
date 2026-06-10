@@ -78,13 +78,18 @@ async def create_user(user: UserCreate):
                         detail="Username or email already exists"
                     )
 
+                # Hash password using bcrypt
+                import bcrypt
+                salt = bcrypt.gensalt()
+                hashed_password = bcrypt.hashpw(user.password.encode('utf-8'), salt).decode('utf-8')
+
                 await cursor.execute(
                     """
                     INSERT INTO users (username, email, password, role)
                     VALUES (%s, %s, %s, %s)
                     RETURNING id, username, email, role, created_at
                     """,
-                    (user.username, user.email, user.password, user.role),
+                    (user.username, user.email, hashed_password, user.role),
                 )
                 new_row = await cursor.fetchone()
                 await connection.commit()
