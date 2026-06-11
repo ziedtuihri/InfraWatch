@@ -12,6 +12,7 @@ from app.services.external_api import (
     get_All_Images,
     execute_task,
     make_managed,
+    get_specific_ip
 )
 import logging
 from typing import Optional, Dict, Any
