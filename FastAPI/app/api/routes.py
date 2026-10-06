@@ -12,7 +12,6 @@ from app.services.external_api import (
     get_All_Images,
     execute_task,
     make_managed,
-    get_specific_ip
 )
 import logging
 from typing import Optional, Dict, Any
@@ -420,38 +419,5 @@ async def make_managed_endpoint(
     except Exception as e:
         logger.error("Error make-managed for server %s: %s", server_id, str(e), exc_info=True)
         raise HTTPException(status_code=502, detail=f"Failed to make server managed: {str(e)}")
-
-
-
-@router.get("/networks/floating-ips/{ip_id}")
-async def get_specific_ip_endpoint(ip_id: str):
-    """
-    Get a specific floating IP by ID.
-
-    Route: GET /api/v1/networks/floating-ips/{ip_id}
-    """
-
-    try:
-        logger.info("Fetching floating IP with id %s", ip_id)
-
-        result = await get_specific_ip(ip_id=ip_id)
-
-        logger.info("Successfully retrieved floating IP %s", ip_id)
-        return result
-
-    except HTTPException:
-        raise
-
-    except Exception as e:
-        logger.error(
-            "Error fetching floating IP %s: %s",
-            ip_id,
-            str(e),
-            exc_info=True
-        )
-        raise HTTPException(
-            status_code=502,
-            detail=f"Failed to retrieve floating IP: {str(e)}"
-        )
 
 

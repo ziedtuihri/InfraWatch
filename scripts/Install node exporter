@@ -1,0 +1,97 @@
+#!/bin/bash
+ 
+set -e
+ 
+# --- HARDCODED CONFIG ---
+MORPH_URL="https://projet1-virtual-machine"
+AUTH_TOKEN="ea3c4b6b-4b64-47f5-9954-89e184ec3039"
+FILE_ID="220"   # <-- node_exporter file id (change if needed)
+ 
+INSTALL_DIR="/opt/node_exporter"
+SERVICE_FILE="/etc/systemd/system/node_exporter.service"
+ 
+echo "=============================="
+echo " Node Exporter INSTALL"
+echo "=============================="
+ 
+# 1. Clean temp
+rm -rf /tmp/node_exporter_test
+mkdir -p /tmp/node_exporter_test
+ 
+# 2. Download
+echo "[+] Downloading..."
+curl -k -L "${MORPH_URL}/api/virtual-images/${FILE_ID}/download" \
+  -H "Authorization: Bearer ${AUTH_TOKEN}" \
+  -o /tmp/node_exporter_test/package.zip
+ 
+# 3. Extract ZIP (Python fallback like your working script)
+echo "[+] Extracting ZIP..."
+python3 - << 'EOF'
+import zipfile
+ 
+path = "/tmp/node_exporter_test/package.zip"
+ 
+if not zipfile.is_zipfile(path):
+    raise SystemExit("ERROR: Invalid ZIP")
+ 
+with zipfile.ZipFile(path) as z:
+    z.extractall("/tmp/node_exporter_test/")
+EOF
+ 
+# 4. Extract tar.gz if exists
+TAR_FILE=$(find /tmp/node_exporter_test -name "*.tar.gz" | head -n 1)
+ 
+if [ -n "$TAR_FILE" ]; then
+  echo "[+] Extracting tar.gz..."
+  tar -xzf "$TAR_FILE" -C /tmp/node_exporter_test/
+fi
+ 
+# 5. Find binary
+NP_PATH=$(find /tmp/node_exporter_test -type f -name "node_exporter" | head -n 1)
+ 
+if [ -z "$NP_PATH" ]; then
+  echo "ERROR: node_exporter not found"
+  ls -R /tmp/node_exporter_test
+  exit 1
+fi
+ 
+echo "[+] Found node_exporter: $NP_PATH"
+ 
+# 6. Install permanently
+echo "[+] Installing..."
+ 
+sudo mkdir -p "$INSTALL_DIR"
+sudo cp "$NP_PATH" "$INSTALL_DIR/node_exporter"
+sudo chmod +x "$INSTALL_DIR/node_exporter"
+ 
+# 7. Create systemd service
+echo "[+] Creating systemd service..."
+ 
+sudo tee "$SERVICE_FILE" > /dev/null <<EOF
+[Unit]
+Description=Node Exporter
+After=network.target
+ 
+[Service]
+User=root
+ExecStart=$INSTALL_DIR/node_exporter
+ 
+Restart=always
+RestartSec=5
+ 
+[Install]
+WantedBy=multi-user.target
+EOF
+ 
+# 8. Start service
+sudo systemctl daemon-reload
+sudo systemctl enable node_exporter
+sudo systemctl restart node_exporter
+ 
+echo "=============================="
+echo " NODE EXPORTER READY ✔"
+echo "=============================="
+ 
+# 9. Verify
+ss -lntp | grep 9100 || true
+systemctl status node_exporter --no-pager || true

@@ -1,0 +1,183 @@
+#!/bin/bash
+set -e
+
+# ================= MORPHEUS INPUTS =================
+EXPORTER_NAME="<%=customOptions.EXPORTER_NAME%>"
+FILE_ID="<%=customOptions.FILE_ID%>"
+EXEC_START="<%=customOptions.EXEC_START%>"
+NEEDS_CONFIG="<%=customOptions.NEEDS_CONFIG%>"
+CONFIG_CONTENT="<%=customOptions.CONFIG_CONTENT%>"
+
+MORPH_URL="https://projet1-virtual-machine"
+AUTH_TOKEN="ea3c4b6b-4b64-47f5-9954-89e184ec3039"
+
+# ================= PATHS =================
+INSTALL_DIR="/opt/${EXPORTER_NAME}"
+SERVICE_FILE="/etc/systemd/system/${EXPORTER_NAME}.service"
+TMP_DIR="/tmp/${EXPORTER_NAME}_install"
+
+echo "=============================="
+echo " Installing ${EXPORTER_NAME}"
+echo "=============================="
+
+# ================= VALIDATION =================
+if [ -z "$EXPORTER_NAME" ] || [ -z "$FILE_ID" ] || [ -z "$EXEC_START" ]; then
+  echo "ERROR: Missing required customOptions"
+  exit 1
+fi
+
+echo "[DEBUG] EXPORTER_NAME=$EXPORTER_NAME"
+echo "[DEBUG] FILE_ID=$FILE_ID"
+echo "[DEBUG] EXEC_START=$EXEC_START"
+
+# ================= ENSURE BASE DIRS =================
+echo "[DEBUG] Ensuring base directories exist..."
+mkdir -p /opt || true
+mkdir -p "$TMP_DIR"
+
+# ================= PYTHON DETECT =================
+echo "[DEBUG] Detecting Python..."
+
+PYTHON_CMD=""
+
+if command -v python >/dev/null 2>&1; then
+    PYTHON_CMD="python"
+elif command -v python3 >/dev/null 2>&1; then
+    PYTHON_CMD="python3"
+fi
+
+if [ -z "$PYTHON_CMD" ]; then
+    echo "ERROR: No Python found"
+    exit 1
+fi
+
+echo "[DEBUG] Using Python: $PYTHON_CMD"
+
+# ================= CLEAN INSTALL =================
+echo "[DEBUG] Checking existing installation..."
+
+if systemctl list-unit-files | grep -q "^${EXPORTER_NAME}.service"; then
+    echo "[DEBUG] Existing service found -> cleaning"
+
+    systemctl stop "$EXPORTER_NAME" 2>/dev/null || true
+    systemctl disable "$EXPORTER_NAME" 2>/dev/null || true
+    rm -f "$SERVICE_FILE"
+    systemctl daemon-reload
+    systemctl reset-failed "$EXPORTER_NAME" 2>/dev/null || true
+    rm -rf "$INSTALL_DIR"
+fi
+
+rm -rf "$TMP_DIR"
+mkdir -p "$TMP_DIR"
+
+# ================= DOWNLOAD =================
+echo "[DEBUG] Downloading package..."
+
+curl -k -L "${MORPH_URL}/api/virtual-images/${FILE_ID}/download" \
+  -H "Authorization: Bearer ${AUTH_TOKEN}" \
+  -o "$TMP_DIR/package.zip"
+
+# ================= EXTRACT ZIP =================
+echo "[DEBUG] Extracting ZIP..."
+
+$PYTHON_CMD - <<EOF
+import zipfile
+with zipfile.ZipFile("$TMP_DIR/package.zip") as z:
+    z.extractall("$TMP_DIR")
+EOF
+
+# ================= EXTRACT TAR =================
+echo "[DEBUG] Extracting tar.gz (if exists)..."
+
+TAR_FILE=$(find "$TMP_DIR" -name "*.tar.gz" | head -n 1 || true)
+
+if [ -n "$TAR_FILE" ]; then
+    tar -xzf "$TAR_FILE" -C "$TMP_DIR"
+fi
+
+# ================= FIND REAL BINARY =================
+echo "[DEBUG] Searching for binary..."
+
+# IMPORTANT FIX: NEVER accept tar.gz or zip
+BIN_PATH=$(find "$TMP_DIR" -type f \
+    ! -name "*.tar.gz" \
+    ! -name "*.zip" \
+    -executable 2>/dev/null | head -n 1)
+
+# fallback (node_exporter style)
+if [ -z "$BIN_PATH" ]; then
+    BIN_PATH=$(find "$TMP_DIR" -type f \
+        -name "*${EXPORTER_NAME}*" \
+        ! -name "*.tar.gz" \
+        ! -name "*.zip" | head -n 1)
+fi
+
+echo "[DEBUG] Found candidate: $BIN_PATH"
+
+if [ -z "$BIN_PATH" ]; then
+    echo "ERROR: No binary found"
+    find "$TMP_DIR" | head -50
+    exit 1
+fi
+
+# ================= INSTALL =================
+echo "[DEBUG] Installing binary..."
+
+mkdir -p "$INSTALL_DIR"
+
+BINARY_NAME=$(basename "$BIN_PATH")
+
+cp "$BIN_PATH" "$INSTALL_DIR/$BINARY_NAME"
+chmod +x "$INSTALL_DIR/$BINARY_NAME"
+
+echo "[DEBUG] Installed to $INSTALL_DIR/$BINARY_NAME"
+
+# ================= CONFIG (OPTIONAL) =================
+if [ "$NEEDS_CONFIG" = "true" ]; then
+    echo "[DEBUG] Creating config..."
+
+    CONFIG_FILE="$INSTALL_DIR/${EXPORTER_NAME}.yml"
+
+    echo "$CONFIG_CONTENT" > "$CONFIG_FILE"
+
+    echo "[DEBUG] Config created at $CONFIG_FILE"
+
+    # auto attach config if missing
+    if ! echo "$EXEC_START" | grep -q "\.yml"; then
+        EXEC_START="$EXEC_START --config.file=$CONFIG_FILE"
+        echo "[DEBUG] Auto-added config to ExecStart"
+    fi
+fi
+
+# ================= SYSTEMD =================
+echo "[DEBUG] Creating systemd service..."
+
+cat <<EOF > "$SERVICE_FILE"
+[Unit]
+Description=${EXPORTER_NAME}
+After=network.target
+
+[Service]
+User=root
+WorkingDirectory=${INSTALL_DIR}
+ExecStart=${EXEC_START}
+Restart=always
+RestartSec=5
+
+[Install]
+WantedBy=multi-user.target
+EOF
+
+# ================= START SERVICE =================
+echo "[DEBUG] Reloading systemd..."
+
+systemctl daemon-reload
+systemctl enable "$EXPORTER_NAME"
+systemctl restart "$EXPORTER_NAME"
+
+echo "=============================="
+echo " DONE ✔ ${EXPORTER_NAME} installed"
+echo "=============================="
+
+echo "[+] STATUS:"
+systemctl status "$EXPORTER_NAME" --no-pager || true

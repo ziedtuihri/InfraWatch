@@ -584,64 +584,7 @@ class ExternalAPIClient:
             logger.error(f"Unexpected error: {str(e)}", exc_info=True)
             raise HTTPException(status_code=502, detail=f"Unexpected error: {str(e)}")
 
-
-    async def get_specific_ip(
-        self,
-        id: str,
-    ) -> Dict[str, Any]:
-        """
-        Get a specific floating IP by ID
-        """
-
-        if not self.client:
-            raise RuntimeError("Client not initialized. Use 'async with' context manager.")
-
-        try:
-            logger.debug(
-                "Requesting GET %s/api/networks/floating-ips/%s",
-                self.base_url,
-                id,
-            )
-
-            response = await self.client.get(
-                f"/api/networks/floating-ips/{id}",
-                headers={
-                    **self._get_headers(),
-                    "Accept": "application/json",
-                },
-            )
-
-            response.raise_for_status()
-            logger.debug("Received response: %s", response.status_code)
-
-            return response.json()
-
-        except httpx.RequestError as e:
-            logger.error(f"API request error: {str(e)}")
-            raise HTTPException(
-                status_code=502,
-                detail=f"Failed to reach external API: {str(e)}"
-            )
-
-        except httpx.HTTPStatusError as e:
-            logger.error(
-                f"API HTTP error: {e.response.status_code} - {e.response.text}"
-            )
-            raise HTTPException(
-                status_code=502,
-                detail=f"External API error: {e.response.status_code}"
-            )
-
-        except Exception as e:
-            logger.error(f"Unexpected error: {str(e)}", exc_info=True)
-            raise HTTPException(
-                status_code=502,
-                detail=f"Unexpected error: {str(e)}"
-            )
-
-
-## *********************************************************************************************************************************
-# **********************************************************************************************************************************
+## ********************************************************
 
 async def get_All_Images(
     max_items: int = 25,
@@ -1039,33 +982,4 @@ async def make_managed(
         logger.error(f"Unexpected error in make_managed: {str(e)}", exc_info=True)
         raise HTTPException(status_code=502, detail=f"Service unavailable: {str(e)}")
 
-async def get_specific_ip(
-    ip_id: str,
-) -> Dict[str, Any]:
-    """
-    Get a specific floating IP via external API.
-
-    Args:
-        ip_id: ID of the floating IP
-
-    Returns:
-        Floating IP details
-    """
-    try:
-        async with ExternalAPIClient(
-            base_url=settings.external_api_url,
-            bearer_token=settings.external_api_token,
-            verify_ssl=settings.external_api_verify_ssl,
-        ) as client:
-            return await client.get_specific_ip(id=ip_id)
-
-    except HTTPException:
-        raise
-
-    except Exception as e:
-        logger.error(f"Unexpected error in get_specific_ip: {str(e)}", exc_info=True)
-        raise HTTPException(
-            status_code=502,
-            detail=f"Service unavailable: {str(e)}"
-        )
 

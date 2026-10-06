@@ -1,0 +1,26 @@
+#!/bin/bash
+
+TEMPLATE_ID="<%= customOptions.TEMPLATE_ID %>"
+GRAFANA_URL="http://localhost:3000"
+USER="admin"
+PASS="admin"
+
+echo "Downloading dashboard ID: ${TEMPLATE_ID}"
+
+curl -L \
+  "https://grafana.com/api/dashboards/${TEMPLATE_ID}/revisions/latest/download" \
+  -o dashboard.json
+
+echo '{"dashboard":' > import.json
+cat dashboard.json >> import.json
+echo ',"overwrite":true}' >> import.json
+
+echo "Importing into Grafana..."
+
+curl -s -u "${USER}:${PASS}" \
+  -H "Content-Type: application/json" \
+  -X POST \
+  --data-binary @import.json \
+  "${GRAFANA_URL}/api/dashboards/db"
+
+echo "Done"

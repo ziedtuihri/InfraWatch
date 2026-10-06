@@ -1,0 +1,32 @@
+MYIP="<%=customOptions.MYIP%>"
+echo "DEBUG IP_HOST='${MYIP}'"
+
+if [ -z "$MYIP" ] || [ "$MYIP" = "null" ]; then
+  echo "ERROR: IP_HOST not passed from customOptions"
+  exit 1
+fi
+
+FILE=/etc/grafana/provisioning/datasources/prometheus.yml
+
+touch "$FILE"
+
+grep -q "apiVersion: 1" "$FILE" || cat >> "$FILE" <<BASE
+apiVersion: 1
+
+datasources:
+BASE
+
+grep -q "Prometheus-${MYIP}" "$FILE" && exit 0
+
+cat >> "$FILE" <<EOD
+
+  - name: Prometheus-${MYIP}
+    type: prometheus
+    access: proxy
+    url: http://${MYIP}:9090
+    isDefault: false
+    editable: false
+
+EOD
+
+systemctl restart grafana-server.service

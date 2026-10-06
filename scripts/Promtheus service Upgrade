@@ -1,0 +1,97 @@
+#!/bin/bash
+ 
+set -e
+ 
+# --- CONFIG ---
+INSTALL_DIR="/opt/prometheus"
+DATA_DIR="/opt/prometheus/data"
+ 
+echo "=============================="
+echo " Prometheus Installer (FIXED)"
+echo "=============================="
+ 
+ 
+# 2. Create prometheus user (safe if exists)
+id prometheus &>/dev/null || sudo useradd --no-create-home --shell /bin/false prometheus
+ 
+# 3. Create directories
+sudo mkdir -p "$INSTALL_DIR"
+sudo mkdir -p "$DATA_DIR"
+ 
+# 4. Find Prometheus binary
+PROM_PATH=$(find /tmp/prom_test -name "prometheus" -type f | head -n 1)
+ 
+if [ -z "$PROM_PATH" ]; then
+    echo "ERROR: Prometheus not found in /tmp/prom_test"
+    exit 1
+fi
+ 
+echo "[+] Installing from: $PROM_PATH"
+ 
+# 5. Install files
+sudo cp -r "$(dirname "$PROM_PATH")/"* "$INSTALL_DIR/"
+ 
+sudo chmod +x "$INSTALL_DIR/prometheus"
+sudo chown -R prometheus:prometheus "$INSTALL_DIR"
+sudo chown -R prometheus:prometheus "$DATA_DIR"
+ 
+# 6. Create systemd service (FIXED)
+echo "[+] Creating systemd service..."
+ 
+sudo tee /etc/systemd/system/prometheus.service > /dev/null <<EOF
+[Unit]
+Description=Prometheus Monitoring
+Wants=network-online.target
+After=network-online.target
+ 
+[Service]
+User=prometheus
+Group=prometheus
+Type=simple
+ 
+ExecStart=$INSTALL_DIR/prometheus --config.file=$INSTALL_DIR/prometheus.yml --storage.tsdb.path=$DATA_DIR --web.enable-lifecycle --web.listen-address=0.0.0.0:9090
+ 
+Restart=always
+RestartSec=5
+ 
+[Install]
+WantedBy=multi-user.target
+EOF
+ 
+# 7. Reload systemd + restart cleanly
+sudo systemctl daemon-reload
+sudo systemctl enable prometheus
+sudo systemctl restart prometheus
+ 
+# 8. Configure firewall automatically
+echo "[+] Configuring firewall for port 9090..."
+ 
+if command -v ufw >/dev/null 2>&1; then
+    echo "[+] Detected UFW"
+    sudo ufw allow 9090/tcp || true
+ 
+elif command -v firewall-cmd >/dev/null 2>&1; then
+    echo "[+] Detected firewalld"
+    sudo firewall-cmd --permanent --add-port=9090/tcp || true
+    sudo firewall-cmd --reload || true
+ 
+elif command -v nft >/dev/null 2>&1; then
+    echo "[+] Detected nftables"
+    sudo nft list ruleset | grep 'tcp dport 9090' >/dev/null 2>&1 || \
+    sudo nft add rule inet filter input tcp dport 9090 accept
+ 
+elif command -v iptables >/dev/null 2>&1; then
+    echo "[+] Detected iptables"
+    sudo iptables -C INPUT -p tcp --dport 9090 -j ACCEPT 2>/dev/null || \
+    sudo iptables -A INPUT -p tcp --dport 9090 -j ACCEPT
+ 
+else
+    echo "[!] No supported firewall manager detected"
+fi
+ 
+echo "=============================="
+echo " INSTALL COMPLETE ✔"
+echo "=============================="
+ 
+sleep 2
+sudo systemctl status prometheus --no-pager
