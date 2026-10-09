@@ -1,6 +1,6 @@
 export const MORPHEUS_RESOURCES = [
   { id:'r01', type:'vcenter',  icon:'⚙', name:'vme-cluster-01',   cloud:'HPE-VME',  env:'Production', hosts:4, vms:18, cpu:2,  mem:30, disk:5,  status:'ok',   lastSync:'11/12/2024 08:16 AM' },
-  { id:'r02', type:'vcenter',  icon:'⚙', name:'vme-cluster-02',   cloud:'HPE-VME',  env:'Production', hosts:2, vms:9,  cpu:45, mem:72, disk:61, status:'warn', lastSync:'11/12/2024 08:16 AM' },
+  { id:'r02', type:'vcenter',  icon:'⚙', name:'VMware-cluster-01',   cloud:'VMware Vcenter',  env:'Production', hosts:2, vms:9,  cpu:45, mem:72, disk:61, status:'warn', lastSync:'11/12/2024 08:16 AM' },
   { id:'r06', type:'physical', icon:'▣', name:'bare-metal-rack-A', cloud:'On-Prem',  env:'Production', hosts:6, vms:0,  cpu:55, mem:62, disk:48, status:'ok',   lastSync:'11/12/2024 07:55 AM' },
 ]
 

@@ -9,7 +9,7 @@ const TYPE_ORDER = ['vcenter', 'aws', 'azure', 'physical', 'private', 'network']
 export default function StepResources({ selResources = [], act }) {
 
   const [search, setSearch] = useState('')
-  const { resources = [], loading, error } = useResources()
+  const {   resources = [], loading, error } = useResources()
 
   /* ✅ Keep store synced */
   useEffect(() => {
