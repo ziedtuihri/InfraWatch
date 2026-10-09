@@ -14,19 +14,19 @@ fi
 echo "=============================="
 echo " Prometheus CONFIG INJECTOR"
 echo "=============================="
-
+ 
 # ---------------- VALIDATION ----------------
 if [ -z "$TARGET" ]; then
   echo "ERROR: TARGET is required"
   exit 1
 fi
-
+ 
 # ---------------- CHECK CONFIG ----------------
 if [ ! -f "$PROM_CONFIG" ]; then
   echo "ERROR: Prometheus config not found: $PROM_CONFIG"
   exit 1
 fi
-
+ 
 # ---------------- AVOID DUPLICATES ----------------
 if grep -q "$TARGET" "$PROM_CONFIG"; then
   echo "[+] Target already exists, skipping"
