@@ -15,6 +15,8 @@ import { newRunId, createTaskRun, updateTaskRun } from '../../api/taskRuns'
 
 const TOTAL_STEPS = 5
 
+const DEMO_MODE = true
+
 // Backend API base — same env var the rest of the app uses.
 const IP_BASE = import.meta.env.VITE_GLOBAL_VM_ADRESS || ''
 const API_BASE = `${IP_BASE}:8001/api/v1`
@@ -41,6 +43,45 @@ const STEP_TITLES = [
   'Choose Dashboards',
   'Review & Launch',
 ]
+
+if (DEMO_MODE) {
+  try {
+    for (const task of initialProgress) {
+      if (cancelRef.current) {
+        setLaunchProgress(prev =>
+          prev.map(p =>
+            p.status === 'pending' || p.status === 'running'
+              ? { ...p, status: 'cancelled' }
+              : p
+          )
+        )
+        break
+      }
+
+      setTaskStatusBySeq(task.seq, 'running')
+
+      // Simulate a realistic provisioning delay.
+      await delay(500)
+
+      if (cancelRef.current) {
+        setTaskStatusBySeq(task.seq, 'cancelled')
+        continue
+      }
+
+      setTaskStatusBySeq(
+        task.seq,
+        'success',
+        'Completed successfully (demo)'
+      )
+
+      await delay(250)
+    }
+  } finally {
+    setLaunching(false)
+  }
+
+  return // Never execute the real backend pipeline.
+}
 
 /**
  * Build the Prometheus/Node-exporter/Grafana provisioning pipeline for one
@@ -788,7 +829,7 @@ export default function SetupWizard({ state, act }) {
 
           </div>
 
-          {state.step === 5 && launchProgress.length > 0 && (launching || launchError) && (
+          {state.step === 5 && launchProgress.length > 0 && (launching || launchError || DEMO_MODE) && (
             <div style={{
               margin: '0 20px 12px',
               padding: '12px 14px',
