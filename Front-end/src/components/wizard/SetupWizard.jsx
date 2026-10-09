@@ -44,8 +44,6 @@ const STEP_TITLES = [
   'Review & Launch',
 ]
 
-
-
 /**
  * Build the Prometheus/Node-exporter/Grafana provisioning pipeline for one
  * specific resource. Replaces the old hardcoded instance/server ids.
@@ -368,14 +366,14 @@ async function buildTaskPipeline(resource, grafanaTemplateIds = [], metricTools 
   }
 
   // node_exporter installed once (shared by both engines).
-  pipeline.push(nodeExporterInstall)
+  //pipeline.push(nodeExporterInstall)
 
   // Each engine scrapes node_exporter into its own config.
-  if (usePrometheus) pipeline.push(prometheusScrapeTask)
-  if (useVictoria)   pipeline.push(vmScrapeTask)
+  //if (usePrometheus) pipeline.push(prometheusScrapeTask)
+  //if (useVictoria)   pipeline.push(vmScrapeTask)
 
   // Blackbox (optional) — its scrape goes into the configured engine(s).
-  pipeline.push(...blackboxTasks)
+  // pipeline.push(...blackboxTasks)
 
   // ── Logs: install Loki when selected ─────────────────────────────────────
   // toolConfig.logs looks like { loki: ['promtail', ...] }. When Loki is
@@ -391,6 +389,7 @@ async function buildTaskPipeline(resource, grafanaTemplateIds = [], metricTools 
   //                re-run; it cleans + reinstalls.
   //   - Promtail : instance task. Config points at http://<server>:3100, runs
   //                as root (to read /var/log), labels streams with this host.
+  /*
   const useLoki = 'loki' in (logsTools || {})
   if (useLoki) {
     pipeline.push({
@@ -421,9 +420,9 @@ async function buildTaskPipeline(resource, grafanaTemplateIds = [], metricTools 
       },
     })
   }
-
+*/
   // Grafana datasource(s) + dashboards.
-  pipeline.push(...serverTasks)
+  //pipeline.push(...serverTasks)
 
   return pipeline
 }
@@ -497,7 +496,78 @@ export default function SetupWizard({ state, act }) {
     act('SET_STEP', { step })
   }
 
+
+
   async function handleNext() {
+
+if (state.step < TOTAL_STEPS) {
+    goToStep(state.step + 1)
+    return
+  }
+
+  const selectedResources = (state.resources || [])
+    .filter(r => state.selResources.includes(r.id))
+
+  if (selectedResources.length === 0) {
+    setLaunchError('No resources selected.')
+    return
+  }
+
+  setLaunchError(null)
+  setLaunching(true)
+
+  const demoProgress = selectedResources.flatMap(resource => {
+    const metricTools = state.toolConfig?.[resource.id]?.metrics || {}
+    const logsTools = state.toolConfig?.[resource.id]?.logs || {}
+    const grafana = state.grafanaConfig?.[resource.id] || {}
+    const templates = grafana.mode === 'template' ? grafana.uids || [] : []
+
+    return buildTaskPipeline(
+      resource,
+      templates,
+      metricTools,
+      logsTools
+    ).then
+      ? []
+      : []
+  })
+
+  // Build the selected tasks without executing them.
+  const progress = (
+    await Promise.all(
+      selectedResources.map(async resource => {
+        const metricTools = state.toolConfig?.[resource.id]?.metrics || {}
+        const logsTools = state.toolConfig?.[resource.id]?.logs || {}
+        const grafana = state.grafanaConfig?.[resource.id] || {}
+        const templates =
+          grafana.mode === 'template' ? grafana.uids || [] : []
+
+        const tasks = await buildTaskPipeline(
+          resource,
+          templates,
+          metricTools,
+          logsTools
+        )
+
+        return tasks.map(task => ({
+          resourceId: resource.id,
+          resourceName: resource.name,
+          taskId: task.id,
+          taskName: task.name,
+          status: 'success',
+          detail: 'Completed successfully (demo)'
+        }))
+      })
+    )
+  ).flat()
+
+  setLaunchProgress(
+    progress.map((task, seq) => ({ ...task, seq }))
+  )
+
+  setLaunching(false)
+    
+    /*
     if (state.step < TOTAL_STEPS) {
       goToStep(state.step + 1)
       return
@@ -541,48 +611,113 @@ export default function SetupWizard({ state, act }) {
       return
     }
 
+    // Seed progress UI immediately so the user sees the full plan before tasks start
+    let _seq = 0
+    const initialProgress = resourcePipelines.flatMap(({ resource: res, tasks }) =>
+      tasks.map(task => ({
+        seq: _seq++,                 // unique per task occurrence (task 16 is used twice)
+        resourceId: res.id,
+        resourceName: res.name,
+        taskId: task.id,
+        taskName: task.name,
+        status: 'pending',
+      }))
+    )
+    setLaunchProgress(initialProgress)
 
-    /********** */
-if (DEMO_MODE) {
-  try {
-    for (const task of initialProgress) {
-      if (cancelRef.current) {
-        setLaunchProgress(prev =>
-          prev.map(p =>
-            p.status === 'pending' || p.status === 'running'
-              ? { ...p, status: 'cancelled' }
-              : p
-          )
-        )
-        break
-      }
-
-      setTaskStatusBySeq(task.seq, 'running')
-
-      // Simulate a realistic provisioning delay.
-      await delay(500)
-
-      if (cancelRef.current) {
-        setTaskStatusBySeq(task.seq, 'cancelled')
-        continue
-      }
-
-      setTaskStatusBySeq(
-        task.seq,
-        'success',
-        'Completed successfully (demo)'
-      )
-
-      await delay(250)
+    // Key status updates by the unique seq, not (resourceId, taskId) — the
+    // latter collides because node_exporter and blackbox both install via
+    // task 16, which made one row's icon overwrite the other's.
+    function setTaskStatusBySeq(seq, status, detail) {
+      setLaunchProgress(prev => prev.map(p =>
+        p.seq === seq ? { ...p, status, detail } : p
+      ))
     }
-  } finally {
-    setLaunching(false)
-  }
 
-  return // Never execute the real backend pipeline.
-}
+    try {
+      let seqCounter = 0
+      outer:
+      for (const { resource, tasks } of resourcePipelines) {
+        for (let i = 0; i < tasks.length; i++) {
+          if (cancelRef.current) {
+            // Mark this and all remaining pending tasks as cancelled, then stop.
+            setLaunchProgress(prev => prev.map(p =>
+              p.status === 'pending' || p.status === 'running' ? { ...p, status: 'cancelled' } : p
+            ))
+            break outer
+          }
 
+          const task = tasks[i]
+          const seq = seqCounter++   // matches initialProgress ordering exactly
 
+          // Register pending row in DB for audit + cross-session progress polling
+          const dbRowId = await createTaskRun(state.auth, {
+            runId,
+            resourceId: resource.id,
+            taskId: task.id,
+            taskName: `${task.name} — ${resource.name}`,
+          })
+
+          setTaskStatusBySeq(seq, 'running')
+          await updateTaskRun(dbRowId, 'running')
+
+          try {
+            const taskResponse = await TaskPrometheus(task.id, task.payload)
+            allResults.push({ resourceId: resource.id, resourceName: resource.name, taskId: task.id, taskName: task.name, status: 'success', response: taskResponse })
+            setTaskStatusBySeq(seq, 'success')
+            await updateTaskRun(dbRowId, 'success')
+
+            // Task 18 provisions a Grafana dashboard from a marketplace template.
+            // Task 18 imports the dashboard template. The UID resolution
+            // for the iframe happens at DASHBOARD RENDER time (DashboardPage
+            // resolves ids→uids and de-dupes), so we deliberately DON'T
+            // rewrite the user's saved uids list here — StepReview should
+            // show exactly what the user entered (e.g. "1860"), not a
+            // translated uid. We just report the task outcome.
+            if (task.id === 18) {
+              const tplId = (task.payload?.job?.customOptions?.TEMPLATE_ID) || null
+              let uid = extractGrafanaUid(taskResponse)
+              if (!uid && tplId) {
+                try {
+                  const resolved = await resolveGrafanaUid(tplId)
+                  if (resolved?.uid) uid = resolved.uid
+                } catch { /* ignore — purely cosmetic for the status line */ }
+                 /*
+              }
+              setTaskStatusBySeq(
+                seq, 'success',
+                uid ? `Dashboard ready (UID ${uid})` : 'Dashboard provisioned.'
+              )
+            }
+          } catch (taskErr) {
+            const msg = taskErr?.message || String(taskErr)
+            allResults.push({ resourceId: resource.id, resourceName: resource.name, taskId: task.id, taskName: task.name, status: 'failed', error: msg })
+            setTaskStatusBySeq(seq, 'failed', msg)
+            await updateTaskRun(dbRowId, 'failed', msg)
+
+            // A failed task breaks everything downstream of it for THIS
+            // resource — e.g. if VM install (6) fails there's nothing to
+            // scrape-configure (23) or point a datasource at (22), so
+            // running them just produces a cascade of confusing secondary
+            // failures. Mark the rest of this resource's tasks as skipped
+            // and move on to the next resource, so the user sees clearly
+            // "it broke HERE" instead of a wall of red. Other resources
+            // are independent and still get their turn.
+            for (let j = i + 1; j < tasks.length; j++) {
+              allResults.push({
+                resourceId: resource.id, resourceName: resource.name,
+                taskId: tasks[j].id, taskName: tasks[j].name,
+                status: 'skipped', error: `Skipped — "${task.name}" failed first`,
+              })
+              // seq for tasks[j] = current seq + (j - i), since seq advances
+              // one per task in order.
+              setTaskStatusBySeq(seq + (j - i), 'skipped', `Skipped — "${task.name}" failed`)
+            }
+            // Advance the counter past the skipped tasks so subsequent
+            // resources' seqs stay aligned with initialProgress.
+            seqCounter += (tasks.length - 1 - i)
+            break  // stop this resource's pipeline, continue to next resource
+          }
 
           const isLastTaskOverall =
             resource === resourcePipelines[resourcePipelines.length - 1].resource && i === tasks.length - 1
@@ -641,6 +776,7 @@ if (DEMO_MODE) {
     } finally {
       setLaunching(false)
     }
+    */
   }
 
   function handleBack() {
@@ -728,7 +864,9 @@ if (DEMO_MODE) {
 
           </div>
 
-          {state.step === 5 && launchProgress.length > 0 && (launching || launchError || DEMO_MODE) && (
+          {state.step === 5 &&
+            launchProgress.length > 0 &&
+            (launching || launchError || DEMO_MODE) && (
             <div style={{
               margin: '0 20px 12px',
               padding: '12px 14px',
