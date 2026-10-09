@@ -15,8 +15,6 @@ import { newRunId, createTaskRun, updateTaskRun } from '../../api/taskRuns'
 
 const TOTAL_STEPS = 5
 
-const DEMO_MODE = true
-
 // Backend API base — same env var the rest of the app uses.
 const IP_BASE = import.meta.env.VITE_GLOBAL_VM_ADRESS || ''
 const API_BASE = `${IP_BASE}:8001/api/v1`
@@ -366,14 +364,14 @@ async function buildTaskPipeline(resource, grafanaTemplateIds = [], metricTools 
   }
 
   // node_exporter installed once (shared by both engines).
-  //pipeline.push(nodeExporterInstall)
+  pipeline.push(nodeExporterInstall)
 
   // Each engine scrapes node_exporter into its own config.
-  //if (usePrometheus) pipeline.push(prometheusScrapeTask)
-  //if (useVictoria)   pipeline.push(vmScrapeTask)
+  if (usePrometheus) pipeline.push(prometheusScrapeTask)
+  if (useVictoria)   pipeline.push(vmScrapeTask)
 
   // Blackbox (optional) — its scrape goes into the configured engine(s).
-  // pipeline.push(...blackboxTasks)
+  pipeline.push(...blackboxTasks)
 
   // ── Logs: install Loki when selected ─────────────────────────────────────
   // toolConfig.logs looks like { loki: ['promtail', ...] }. When Loki is
@@ -389,7 +387,6 @@ async function buildTaskPipeline(resource, grafanaTemplateIds = [], metricTools 
   //                re-run; it cleans + reinstalls.
   //   - Promtail : instance task. Config points at http://<server>:3100, runs
   //                as root (to read /var/log), labels streams with this host.
-  /*
   const useLoki = 'loki' in (logsTools || {})
   if (useLoki) {
     pipeline.push({
@@ -420,9 +417,9 @@ async function buildTaskPipeline(resource, grafanaTemplateIds = [], metricTools 
       },
     })
   }
-*/
+
   // Grafana datasource(s) + dashboards.
-  //pipeline.push(...serverTasks)
+  pipeline.push(...serverTasks)
 
   return pipeline
 }
@@ -496,78 +493,7 @@ export default function SetupWizard({ state, act }) {
     act('SET_STEP', { step })
   }
 
-
-
   async function handleNext() {
-
-if (state.step < TOTAL_STEPS) {
-    goToStep(state.step + 1)
-    return
-  }
-
-  const selectedResources = (state.resources || [])
-    .filter(r => state.selResources.includes(r.id))
-
-  if (selectedResources.length === 0) {
-    setLaunchError('No resources selected.')
-    return
-  }
-
-  setLaunchError(null)
-  setLaunching(true)
-
-  const demoProgress = selectedResources.flatMap(resource => {
-    const metricTools = state.toolConfig?.[resource.id]?.metrics || {}
-    const logsTools = state.toolConfig?.[resource.id]?.logs || {}
-    const grafana = state.grafanaConfig?.[resource.id] || {}
-    const templates = grafana.mode === 'template' ? grafana.uids || [] : []
-
-    return buildTaskPipeline(
-      resource,
-      templates,
-      metricTools,
-      logsTools
-    ).then
-      ? []
-      : []
-  })
-
-  // Build the selected tasks without executing them.
-  const progress = (
-    await Promise.all(
-      selectedResources.map(async resource => {
-        const metricTools = state.toolConfig?.[resource.id]?.metrics || {}
-        const logsTools = state.toolConfig?.[resource.id]?.logs || {}
-        const grafana = state.grafanaConfig?.[resource.id] || {}
-        const templates =
-          grafana.mode === 'template' ? grafana.uids || [] : []
-
-        const tasks = await buildTaskPipeline(
-          resource,
-          templates,
-          metricTools,
-          logsTools
-        )
-
-        return tasks.map(task => ({
-          resourceId: resource.id,
-          resourceName: resource.name,
-          taskId: task.id,
-          taskName: task.name,
-          status: 'success',
-          detail: 'Completed successfully (demo)'
-        }))
-      })
-    )
-  ).flat()
-
-  setLaunchProgress(
-    progress.map((task, seq) => ({ ...task, seq }))
-  )
-
-  setLaunching(false)
-    
-    /*
     if (state.step < TOTAL_STEPS) {
       goToStep(state.step + 1)
       return
@@ -682,7 +608,6 @@ if (state.step < TOTAL_STEPS) {
                   const resolved = await resolveGrafanaUid(tplId)
                   if (resolved?.uid) uid = resolved.uid
                 } catch { /* ignore — purely cosmetic for the status line */ }
-                 /*
               }
               setTaskStatusBySeq(
                 seq, 'success',
@@ -776,7 +701,6 @@ if (state.step < TOTAL_STEPS) {
     } finally {
       setLaunching(false)
     }
-    */
   }
 
   function handleBack() {
@@ -864,9 +788,7 @@ if (state.step < TOTAL_STEPS) {
 
           </div>
 
-          {state.step === 5 &&
-            launchProgress.length > 0 &&
-            (launching || launchError || DEMO_MODE) && (
+          {state.step === 5 && launchProgress.length > 0 && (launching || launchError) && (
             <div style={{
               margin: '0 20px 12px',
               padding: '12px 14px',
