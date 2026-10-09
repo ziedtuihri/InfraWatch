@@ -1,17 +1,12 @@
 export const MORPHEUS_RESOURCES = [
   { id:'r01', type:'vcenter',  icon:'⚙', name:'vme-cluster-01',   cloud:'HPE-VME',  env:'Production', hosts:4, vms:18, cpu:2,  mem:30, disk:5,  status:'ok',   lastSync:'11/12/2024 08:16 AM' },
   { id:'r02', type:'vcenter',  icon:'⚙', name:'vme-cluster-02',   cloud:'HPE-VME',  env:'Production', hosts:2, vms:9,  cpu:45, mem:72, disk:61, status:'warn', lastSync:'11/12/2024 08:16 AM' },
-  { id:'r03', type:'aws',      icon:'☁', name:'aws-prod-eu-west',  cloud:'AWS',      env:'Production', hosts:0, vms:12, cpu:58, mem:51, disk:44, status:'ok',   lastSync:'11/12/2024 08:10 AM' },
-  { id:'r04', type:'aws',      icon:'☁', name:'aws-dev-eu-west',   cloud:'AWS',      env:'Dev',        hosts:0, vms:6,  cpu:22, mem:33, disk:28, status:'ok',   lastSync:'11/12/2024 08:10 AM' },
-  { id:'r05', type:'azure',    icon:'◈', name:'azure-westeu',      cloud:'Azure',    env:'Production', hosts:0, vms:8,  cpu:61, mem:80, disk:71, status:'ok',   lastSync:'11/12/2024 08:08 AM' },
   { id:'r06', type:'physical', icon:'▣', name:'bare-metal-rack-A', cloud:'On-Prem',  env:'Production', hosts:6, vms:0,  cpu:55, mem:62, disk:48, status:'ok',   lastSync:'11/12/2024 07:55 AM' },
-  { id:'r07', type:'network',  icon:'⋈', name:'core-network-infra',cloud:'On-Prem',  env:'Core',       hosts:0, vms:0,  cpu:22, mem:18, disk:11, status:'ok',   lastSync:'11/12/2024 08:00 AM' },
-  { id:'r08', type:'private',  icon:'⊕', name:'prv-hosted-01',     cloud:'Private',  env:'Staging',    hosts:2, vms:5,  cpu:38, mem:50, disk:33, status:'ok',   lastSync:'11/12/2024 07:48 AM' },
 ]
 
 export const TYPE_LABELS = {
-  vcenter:'vCenter / HPE VM', aws:'Amazon Web Services', azure:'Microsoft Azure',
-  physical:'Physical Servers', network:'Network Devices', private:'Private Cloud',
+  vcenter:'vCenter / HPE VM',
+  physical:'Physical Servers', 
 }
 
 export const TOOLS = {
