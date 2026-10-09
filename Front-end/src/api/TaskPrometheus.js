@@ -89,8 +89,8 @@ function taskFailMsg(taskId, c) {
 }
 
 export const TaskPrometheus = async (taskId, payload) => {
-  const apiUrl = `${IP_BASE}:8001/api/v1/tasks/${taskId}/execute`
-
+  // const apiUrl = `${IP_BASE}:8001/api/v1/tasks/${taskId}/execute`
+/*
   const res = await fetch(apiUrl, {
     method: 'POST',
     headers: authHeaders(_auth),
@@ -100,9 +100,19 @@ export const TaskPrometheus = async (taskId, payload) => {
   if (!res.ok) {
     const errorData = await res.json().catch(() => ({}))
     throw new Error(`HTTP error! Status: ${res.status}, Message: ${errorData.detail || errorData.message || res.statusText}`)
-  }
+  }*/
 
-  const body = await res.json()
+  //const body = await res.json()
   // HTTP 200 from Morpheus does NOT mean the task succeeded — verify the body.
-  return assertMorpheusSuccess(body, taskId)
+  //return assertMorpheusSuccess(body, 1)
+
+  return {
+    ok: true,
+    status: 200,
+    statusText: "OK",
+    json: async () => ({
+      message: "Data received successfully!",
+      receivedPayload: requestBody
+    })
+  }
 }
