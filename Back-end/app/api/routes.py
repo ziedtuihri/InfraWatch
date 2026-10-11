@@ -856,27 +856,14 @@ def calculate_cpu_percent(stats: dict) -> float:
     return 0.0
 
 
-def get_container_metrics(container_name: str, client: docker.DockerClient) -> Dict[str, Any]:
-    """Inspects container status and retrieves live CPU and memory metrics."""
-    try:
-        container = client.containers.get(container_name)
-    except docker.errors.NotFound:
-        return {
-            "name": container_name,
-            "status": "not_found",
-            "cpu_percent": 0.0,
-            "memory_usage_mb": 0.0,
-            "memory_limit_mb": 0.0,
-            "memory_percent": 0.0
-        }
-    except Exception as e:
-        raise HTTPException(status_code=500, detail=str(e))
+def extract_container_metrics(container: docker.models.containers.Container) -> Dict[str, Any]:
+    """Retrieves status, CPU %, and Memory metrics for a container object."""
+    state = container.status  # 'running', 'exited', 'paused'
+    name = container.name
 
-    # Basic state check
-    state = container.status  # 'running', 'exited', 'paused', etc.
     if state != "running":
         return {
-            "name": container_name,
+            "name": name,
             "status": state,
             "cpu_percent": 0.0,
             "memory_usage_mb": 0.0,
@@ -890,9 +877,8 @@ def get_container_metrics(container_name: str, client: docker.DockerClient) -> D
     # CPU Calculation
     cpu_percent = calculate_cpu_percent(raw_stats)
 
-    # Memory Calculation (convert bytes to MB)
+    # Memory Calculation
     mem_usage_bytes = raw_stats["memory_stats"].get("usage", 0)
-    # Deduct page cache if available for accurate RSS memory
     stats_detail = raw_stats["memory_stats"].get("stats", {})
     cache = stats_detail.get("inactive_file", stats_detail.get("cache", 0))
     usage_bytes = max(0, mem_usage_bytes - cache)
@@ -904,7 +890,7 @@ def get_container_metrics(container_name: str, client: docker.DockerClient) -> D
     mem_percent = round((usage_bytes / mem_limit_bytes) * 100.0, 2) if mem_limit_bytes else 0.0
 
     return {
-        "name": container_name,
+        "name": name,
         "status": state,
         "cpu_percent": cpu_percent,
         "memory_usage_mb": mem_usage_mb,
@@ -912,12 +898,12 @@ def get_container_metrics(container_name: str, client: docker.DockerClient) -> D
         "memory_percent": mem_percent
     }
 
-
 @router.get("/vms/metrics", response_model=List[Dict[str, Any]])
-async def get_vm_metrics(target_vms: str = "VM1,VM2"):
+async def get_all_vms_metrics(all_containers: bool = False):
     """
-    Returns real-time status, CPU %, and RAM usage for target VM containers.
-    Query parameter target_vms defaults to 'VM1,VM2'.
+    Dynamically fetches CPU, Memory, and status for ALL Docker containers.
+    - default: lists all RUNNING containers (`docker ps`)
+    - all_containers=True: lists ALL containers including stopped ones (`docker ps -a`)
     """
     try:
         client = docker.from_env()
@@ -927,11 +913,12 @@ async def get_vm_metrics(target_vms: str = "VM1,VM2"):
             detail=f"Failed to connect to Docker daemon: {str(e)}"
         )
 
-    vm_names = [name.strip() for name in target_vms.split(",")]
+    # Equivalent to `docker ps` (or `docker ps -a` if all_containers=True)
+    containers = client.containers.list(all=all_containers)
+    
     metrics_list = []
-
-    for name in vm_names:
-        metrics = get_container_metrics(name, client)
+    for container in containers:
+        metrics = extract_container_metrics(container)
         metrics_list.append(metrics)
 
     return metrics_list
