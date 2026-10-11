@@ -9,7 +9,10 @@ import { useInstanceStats } from '../api/useInstanceStats'
 // ── Constants ─────────────────────────────────────────────────────────────────
 // VITE_GLOBAL_VM_ADRESS is already set in .env.local: http://10.202.52.94
 const IP_BASE       = import.meta.env.VITE_GLOBAL_VM_ADRESS || ''
-const GRAFANA_BASE  = `192.168.100.77:3000/`
+
+// Must match the Grafana instance the backend uses (GRAFANA_URL). Browser loads this in an iframe.
+const GRAFANA_BASE = (import.meta.env.VITE_GRAFANA_URL || 'http://192.168.100.77:3000').replace(/\/$/, '')
+
 // All FastAPI calls go via the Vite proxy /api/v1 → FastAPI :8001
 // Never call FastAPI directly — that causes CORS errors
 const API           = '/api/v1'
@@ -328,10 +331,6 @@ function GrafanaView({ session, activeRes }) {
     )
   }
 
-  const grafanaUrl = `http://192.168.100.77:3000/public-dashboards/3bdbabe244294304a03488921a994d0e`;
-
-  console.log("Page:  DashboardPage ...")
-
   return (
     <div>
       {/* Template not yet imported */}
@@ -460,17 +459,15 @@ function GrafanaView({ session, activeRes }) {
 
       {/* The iframe */}
       {activeSrc && (
-        
         <div style={{ width: '100%', height: '800px', borderRadius: '8px', overflow: 'hidden' }}>
-          <h2>kkkkkkkkkkk</h2>
-              <iframe
-                src={grafanaUrl}
-                width="100%"
-                height="100%"
-                frameBorder="0"
-                title="Grafana Dashboard"
-              />
-            </div>
+          <iframe
+            src={activeSrc}
+            width="100%"
+            height="100%"
+            frameBorder="0"
+            title="Grafana Dashboard"
+          />
+        </div>
       )}
 
       {!activeSrc && !resolving && pendingIds.length > 0 && (
