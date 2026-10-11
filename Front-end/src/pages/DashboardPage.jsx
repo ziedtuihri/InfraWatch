@@ -519,29 +519,30 @@ function GrafanaView22({ session, activeRes }) {
 
 /* ===================== GRAFANA EMBED VIEW (IFRAME) ===================== */
 function GrafanaView({ activeRes }) {
-  // Pointing to your Grafana Node Exporter metrics engine
-  const src = `http://192.168.100.77:3000/public-dashboards/3bdbabe244294304a03488921a994d0e`
+  const src = `http://192.168.100.77:3000/public-dashboards/3bdbabe244294304a03488921a994d0e?theme=dark`
 
   return (
     <div className="fade-up">
-      <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 14 }}>
+      <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 10 }}>
         <Badge v="warn">Grafana</Badge>
         <span style={{ fontSize: 12, color: 'var(--tx-muted)' }}>
           Live Node Exporter Metrics for {activeRes?.name || 'Selected Instance'}
         </span>
       </div>
-      <Card>
-        <div style={{ width: '100%', height: '800px', borderRadius: '8px', overflow: 'hidden' }}>
-          <iframe
-            title="Grafana Dashboard Instance"
-            src={src}
-            width="100%"
-            height="100%"
-            frameBorder="0"
-            style={{ display: "block", borderRadius: '4px' }}
-          />
-        </div>
-      </Card>
+
+      {/* Break out of page-inner's max-width/padding and fill the screen */}
+      <div style={{
+        width: '100vw',
+        marginLeft: 'calc(50% - 50vw)',
+        height: 'calc(100vh - 190px)',   // adjust 190px to your topbar + tabs height
+        minHeight: 600,
+      }}>
+        <iframe
+          title="Grafana Dashboard Instance"
+          src={src}
+          style={{ width: '100%', height: '100%', border: 0, display: 'block' }}
+        />
+      </div>
     </div>
   )
 }

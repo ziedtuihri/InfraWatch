@@ -160,7 +160,7 @@ function SessionPanel({ session, resources, auth, initialTab }) {
       </div>
 
       <div className="page-wrap">
-        <div className="page-inner">
+          <div className="page-inner" style={activeTab === 'dash' ? { maxWidth: 'none', padding: 0 } : undefined}>
           {activeTab === 'dash'   && <DashboardPage session={session} activeRes={activeRes} activeDash={activeDash} onDashChange={setActiveDash} />}
           {activeTab === 'alerts' && <AlertsPage activeRes={activeRes} auth={auth} />}
           {activeTab === 'logs'   && <LogsPage session={session} activeRes={activeRes} />}
