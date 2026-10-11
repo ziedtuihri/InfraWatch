@@ -17,6 +17,8 @@ from app.services.external_api import (
 import logging
 from typing import Optional, Dict, Any
 
+import docker
+
 logger = logging.getLogger(__name__)
 
 router = APIRouter(prefix="/api/v1", tags=["items"])
@@ -833,3 +835,104 @@ async def query_loki_logs(
     })
 
     return {"logs": rows, "sources": sources, "count": len(rows), "expr": expr}
+
+# ************************************************************************************************************************************************************************************************
+
+
+def calculate_cpu_percent(stats: dict) -> float:
+    """Calculates CPU usage percentage from raw Docker stats dict."""
+    cpu_count = stats["cpu_stats"].get("online_cpus", 1)
+    
+    cpu_delta = stats["cpu_stats"]["cpu_usage"]["total_usage"] - \
+                stats["precpu_stats"]["cpu_usage"]["total_usage"]
+    
+    system_delta = stats["cpu_stats"].get("system_cpu_usage", 0) - \
+                   stats["precpu_stats"].get("system_cpu_usage", 0)
+    
+    if system_delta > 0 and cpu_delta > 0:
+        cpu_percent = (cpu_delta / system_delta) * cpu_count * 100.0
+        return round(cpu_percent, 2)
+    return 0.0
+
+
+def get_container_metrics(container_name: str, client: docker.DockerClient) -> Dict[str, Any]:
+    """Inspects container status and retrieves live CPU and memory metrics."""
+    try:
+        container = client.containers.get(container_name)
+    except docker.errors.NotFound:
+        return {
+            "name": container_name,
+            "status": "not_found",
+            "cpu_percent": 0.0,
+            "memory_usage_mb": 0.0,
+            "memory_limit_mb": 0.0,
+            "memory_percent": 0.0
+        }
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+
+    # Basic state check
+    state = container.status  # 'running', 'exited', 'paused', etc.
+    if state != "running":
+        return {
+            "name": container_name,
+            "status": state,
+            "cpu_percent": 0.0,
+            "memory_usage_mb": 0.0,
+            "memory_limit_mb": 0.0,
+            "memory_percent": 0.0
+        }
+
+    # Fetch 1-shot live stats
+    raw_stats = container.stats(stream=False)
+
+    # CPU Calculation
+    cpu_percent = calculate_cpu_percent(raw_stats)
+
+    # Memory Calculation (convert bytes to MB)
+    mem_usage_bytes = raw_stats["memory_stats"].get("usage", 0)
+    # Deduct page cache if available for accurate RSS memory
+    stats_detail = raw_stats["memory_stats"].get("stats", {})
+    cache = stats_detail.get("inactive_file", stats_detail.get("cache", 0))
+    usage_bytes = max(0, mem_usage_bytes - cache)
+
+    mem_limit_bytes = raw_stats["memory_stats"].get("limit", 1)
+    
+    mem_usage_mb = round(usage_bytes / (1024 * 1024), 2)
+    mem_limit_mb = round(mem_limit_bytes / (1024 * 1024), 2)
+    mem_percent = round((usage_bytes / mem_limit_bytes) * 100.0, 2) if mem_limit_bytes else 0.0
+
+    return {
+        "name": container_name,
+        "status": state,
+        "cpu_percent": cpu_percent,
+        "memory_usage_mb": mem_usage_mb,
+        "memory_limit_mb": mem_limit_mb,
+        "memory_percent": mem_percent
+    }
+
+
+@app.get("/api/v1/vms/metrics", response_model=List[Dict[str, Any]])
+async def get_vm_metrics(target_vms: str = "VM1,VM2"):
+    """
+    Returns real-time status, CPU %, and RAM usage for target VM containers.
+    Query parameter target_vms defaults to 'VM1,VM2'.
+    """
+    try:
+        client = docker.from_env()
+    except Exception as e:
+        raise HTTPException(
+            status_code=500, 
+            detail=f"Failed to connect to Docker daemon: {str(e)}"
+        )
+
+    vm_names = [name.strip() for name in target_vms.split(",")]
+    metrics_list = []
+
+    for name in vm_names:
+        metrics = get_container_metrics(name, client)
+        metrics_list.append(metrics)
+
+    return metrics_list
+
+
