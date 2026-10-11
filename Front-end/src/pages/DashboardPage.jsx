@@ -328,7 +328,9 @@ function GrafanaView({ session, activeRes }) {
     )
   }
 
-  const grafanaUrl = `http://192.168.100.77:3000/d/rYdddlPWk/node-exporter-full?from=now-24h&to=now&timezone=browser&var-ds_prometheus=&var-job=&var-nodename=&var-node=&refresh=1m`;
+  const grafanaUrl = `http://192.168.100.77:3000/public-dashboards/3bdbabe244294304a03488921a994d0e`;
+
+  console.log("Page:  DashboardPage ...")
 
   return (
     <div>
@@ -458,7 +460,9 @@ function GrafanaView({ session, activeRes }) {
 
       {/* The iframe */}
       {activeSrc && (
+        
         <div style={{ width: '100%', height: '800px', borderRadius: '8px', overflow: 'hidden' }}>
+          <h2>kkkkkkkkkkk</h2>
               <iframe
                 src={grafanaUrl}
                 width="100%"
