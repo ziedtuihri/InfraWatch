@@ -31,7 +31,7 @@ async function resolveGrafanaUid(entry) {
     return { uid: str, title: str }
   }
   try {
-    const res = await fetch(`${API}/grafana/dashboard/${str}`)
+    const res = await fetch('http://192.168.100.77:3000/public-dashboards/3bdbabe244294304a03488921a994d0e')
     if (!res.ok) return null
     const data = await res.json()
     if (data?.found) return { uid: data.uid, title: data.title || str }
@@ -355,6 +355,8 @@ function GrafanaView({ session, activeRes }) {
         dashTitle:  activeCombo.dashTitle,
       })
     : null
+
+
   // Prefer public sharing when configured — /d/… URLs require login inside iframes.
   const activeSrc = publicSrc || scopedSrc
 
