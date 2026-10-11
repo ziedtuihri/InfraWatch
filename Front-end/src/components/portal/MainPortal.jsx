@@ -9,7 +9,6 @@ import { useActiveAlertCount } from '../../api/useActiveAlertCount'
 import { fetchResources, USE_LIVE } from '../../api/morpheus'
 import { getMorpheusConfig } from '../../api/morpheusConfig'
 
-import VMMetricsPanel from '../ui/VMMetricsPanel'
 
 const FEAT_TABS = [
   { id: 'dash',   label: 'Dashboard' },
