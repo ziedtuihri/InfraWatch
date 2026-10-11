@@ -15,7 +15,7 @@ from app.services.external_api import (
     make_managed,
 )
 import logging
-from typing import Optional, Dict, Any
+from typing import Optional, Dict, Any, List
 
 import docker
 
