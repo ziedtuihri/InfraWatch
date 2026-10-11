@@ -328,6 +328,8 @@ function GrafanaView({ session, activeRes }) {
     )
   }
 
+  const grafanaUrl = `http://192.168.100.77:3000/d/rYdddlPWk/node-exporter-full?from=now-24h&to=now&timezone=browser&var-ds_prometheus=&var-job=&var-nodename=&var-node=&refresh=1m`;
+
   return (
     <div>
       {/* Template not yet imported */}
@@ -450,16 +452,21 @@ function GrafanaView({ session, activeRes }) {
         )
       })()}
 
+
+      
+
+
       {/* The iframe */}
       {activeSrc && (
-        <iframe
-          key={activeSrc}
-          src={activeSrc}
-          width="100%"
-          frameBorder="0"
-          style={{ display: 'block', minHeight: '1200px', border: 'none' }}
-          allow="fullscreen"
-        />
+        <div style={{ width: '100%', height: '800px', borderRadius: '8px', overflow: 'hidden' }}>
+              <iframe
+                src={grafanaUrl}
+                width="100%"
+                height="100%"
+                frameBorder="0"
+                title="Grafana Dashboard"
+              />
+            </div>
       )}
 
       {!activeSrc && !resolving && pendingIds.length > 0 && (
