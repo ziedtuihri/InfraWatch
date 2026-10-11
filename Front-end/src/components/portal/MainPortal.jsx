@@ -275,8 +275,7 @@ export default function MainPortal({ state, act }) {
         })}
         <div className="res-tab-add" onClick={handleAddResource}>+ Add resource</div>
       </div>
-      <h2>kkkkkkkkkkk</h2>
-      <VMMetricsPanel />
+
 
 
       {activeSession ? (

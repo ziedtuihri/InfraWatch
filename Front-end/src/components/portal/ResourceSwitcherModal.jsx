@@ -1,6 +1,9 @@
 import React, { useState } from 'react'
 import { MBtn } from '../ui/Primitives'
 
+
+import VMMetricsPanel from '../ui/VMMetricsPanel'
+
 function valColor(v) {
   return v > 80
     ? 'var(--status-crit)'
@@ -73,6 +76,7 @@ export default function ResourceSwitcherModal({
             overflowY: 'auto'
           }}
         >
+      <VMMetricsPanel />
 
           {filtered.map(r => {
             const isActive = r.id === activeResourceId
@@ -145,6 +149,8 @@ export default function ResourceSwitcherModal({
               </div>
             )
           })}
+                <VMMetricsPanel />
+<h2>kkkkkkkkkkkkkk</h2>
 
           {/* ✅ EMPTY */}
           {filtered.length === 0 && (
