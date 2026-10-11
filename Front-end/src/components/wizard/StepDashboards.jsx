@@ -362,15 +362,24 @@ export default function StepDashboards({
 
                   {/* ✅ CUSTOM (2 LINES FIXED) */}
                   {gConfig.mode === 'custom' && (
-                    <div style={{
-                      fontSize: 12,
-                      color: 'var(--tx-muted)',
-                      padding: '4px 2px',
-                      lineHeight: 1.5,
-                      maxWidth: 260
-                    }}>
-                      You can customize your dashboards later<br />
-                      from the Dashboards page.
+                    <div style={{ fontSize: 12, color: 'var(--tx-muted)', lineHeight: 1.5 }}>
+                      <div style={{ marginBottom: 8 }}>
+                        Public dashboard access token (from Grafana → Share → Public dashboard):
+                      </div>
+                      <input
+                        placeholder="e.g. 3bdbabe244294304a03488921a994d0e"
+                        value={gConfig.publicToken || ''}
+                        onChange={(e) =>
+                          act('SET_GRAFANA_CONFIG', {
+                            resourceId: safeId,
+                            config: { publicToken: e.target.value.trim() }
+                          })
+                        }
+                        style={{ width: '100%', padding: '8px 12px', boxSizing: 'border-box' }}
+                      />
+                      <div style={{ fontSize: 11, marginTop: 6 }}>
+                        Required for iframe embed unless anonymous viewer is enabled on Grafana.
+                      </div>
                     </div>
                   )}
 

@@ -122,12 +122,25 @@ function buildGrafanaUrl({ uid, dsUid, nodeTarget, nodename, vmName, dashTitle }
   return `${GRAFANA_BASE}/d/${uid}?${p.toString()}`
 }
 
+/** Public sharing URL — works in iframes without a Grafana login session. */
+function buildPublicGrafanaUrl(accessToken) {
+  const token = String(accessToken || '').trim()
+  if (!token) return null
+  return `${GRAFANA_BASE}/public-dashboards/${token}`
+}
+
 /* ══════════════════════════════════════════════════════════════════════════════
    GRAFANA VIEW
 ══════════════════════════════════════════════════════════════════════════════ */
 function GrafanaView({ session, activeRes }) {
   const gConfig     = session?.grafanaConfig?.[activeRes?.id] || {}
   const templateIds = gConfig.mode === 'template' ? (gConfig.uids || []) : []
+  const publicToken = (
+    (gConfig.mode === 'custom' && gConfig.publicToken) ||
+    import.meta.env.VITE_GRAFANA_PUBLIC_TOKEN ||
+    ''
+  ).trim()
+  const publicSrc   = publicToken ? buildPublicGrafanaUrl(publicToken) : null
 
   const vmIp   = activeRes?.ip   || null
   const vmName = activeRes?.name || null
@@ -300,6 +313,26 @@ function GrafanaView({ session, activeRes }) {
       }
     }
   }
+
+  // No scrape targets yet (backend down, datasource not provisioned, etc.) —
+  // still embed the dashboard; panels may be empty until targets exist.
+  if (comboMap.size === 0 && uniqueDashboards.length > 0 && !publicSrc) {
+    for (const dash of uniqueDashboards) {
+      const comboKey = `${dash.uid}::fallback`
+      comboMap.set(comboKey, {
+        comboKey,
+        uid:         dash.uid,
+        dashTitle:   dash.title || dash.uid,
+        engineKey:   'prometheus',
+        engineLabel: 'Prometheus',
+        dsUid:       null,
+        nodeTarget:  null,
+        nodename:    null,
+        isBlackbox:  /blackbox/i.test(dash.title || ''),
+      })
+    }
+  }
+
   const combos = Array.from(comboMap.values())
 
   // Default active combo = first available.
@@ -312,7 +345,7 @@ function GrafanaView({ session, activeRes }) {
   const activeCombo = combos.find(c => c.comboKey === activeKey) || combos[0] || null
 
   // ── Step 4: Build iframe src for the active combo ─────────────────────────
-  const activeSrc = activeCombo
+  const scopedSrc = activeCombo
     ? buildGrafanaUrl({
         uid:        activeCombo.uid,
         dsUid:      activeCombo.dsUid,
@@ -322,8 +355,10 @@ function GrafanaView({ session, activeRes }) {
         dashTitle:  activeCombo.dashTitle,
       })
     : null
+  // Prefer public sharing when configured — /d/… URLs require login inside iframes.
+  const activeSrc = publicSrc || scopedSrc
 
-  if (resolving || targeting) {
+  if ((resolving || targeting) && !publicSrc) {
     return (
       <div style={{ padding: 40, textAlign: 'center', color: 'var(--tx-muted)', fontSize: 13 }}>
         {targeting ? `Resolving metrics target for ${vmName}…` : 'Resolving Grafana dashboards…'}
@@ -342,7 +377,24 @@ function GrafanaView({ session, activeRes }) {
       )}
 
       {/* No node target found — dashboard won't filter to this VM */}
-      {noIpWarn && uniqueDashboards.length > 0 && (
+      {publicSrc && (
+        <div style={{ ...warnBanner, borderColor: 'var(--accent)', color: 'var(--tx-second)' }}>
+          Using Grafana <strong>public dashboard</strong> embed
+          {publicToken.length > 8 ? ` (${publicToken.slice(0, 8)}…)` : ''}.
+          Per-VM variables apply only to private <code>/d/</code> URLs (requires anonymous viewer or login).
+        </div>
+      )}
+
+      {!publicSrc && scopedSrc && uniqueDashboards.length > 0 && (
+        <div style={{ ...warnBanner, fontSize: 12 }}>
+          If the panel below is blank or shows a login form, enable{' '}
+          <strong>Share → Public dashboard</strong> in Grafana and set the access token in{' '}
+          <em>Custom</em> mode (wizard) or <code>VITE_GRAFANA_PUBLIC_TOKEN</code>, or enable{' '}
+          <code>[auth.anonymous]</code> on Grafana.
+        </div>
+      )}
+
+      {noIpWarn && uniqueDashboards.length > 0 && !publicSrc && (
         <div style={warnBanner}>
           ⚠ Could not resolve a metrics scrape target for <strong>{vmName}</strong>.
           {vmIp === '0.0.0.0' || !vmIp
@@ -473,6 +525,12 @@ function GrafanaView({ session, activeRes }) {
       {!activeSrc && !resolving && pendingIds.length > 0 && (
         <div style={{ textAlign: 'center', padding: 40, color: 'var(--tx-muted)', fontSize: 13 }}>
           Waiting for Grafana templates to be imported…
+        </div>
+      )}
+
+      {!activeSrc && !resolving && !targeting && pendingIds.length === 0 && (
+        <div style={{ textAlign: 'center', padding: 40, color: 'var(--tx-muted)', fontSize: 13 }}>
+          No Grafana dashboard to display. Add a template in Setup or set a public access token.
         </div>
       )}
     </div>
