@@ -121,7 +121,7 @@ function initStoreState(base) {
     // Fresh load on '/' with saved sessions — go straight to portal
     screen = 'portal'
     window.history.replaceState({}, '', '/portal')
-  }
+  } else if (path.startsWith('/ai-assist')) screen = 'ai'
 
   // Only superadmin manages the shared Morpheus connection — admin and
   // viewer must never land on step 1, even if the URL itself says

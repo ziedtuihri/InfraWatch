@@ -5,6 +5,8 @@ import MainPortal from './components/portal/MainPortal'
 import LoginPage from './pages/LoginPage'
 import SignupPage from './pages/SignupPage'
 
+import AIAssistPage from './pages/AIAssistPage'
+
 export default function App() {
   const { state, act } = useStore()
 
@@ -24,6 +26,8 @@ export default function App() {
       window.history.replaceState({}, '', `/setup/${state.step}`)
     } else if (state.screen === 'portal' && !path.startsWith('/portal')) {
       window.history.replaceState({}, '', '/portal')
+    }  else if (state.screen === 'ai' && !path.startsWith('/ai-assist')) {
+      window.history.replaceState({}, '', '/ai-assist')
     }
   }, [state.screen])
 
@@ -44,6 +48,8 @@ export default function App() {
         // Only switch screen if we're not already on portal
         // (tab/resource back/forward is handled inside SessionPanel's popstate)
         if (state.screen !== 'portal') act('SET_SCREEN', { screen: 'portal' })
+      }  else if (path.startsWith('/ai-assist')) {
+        if (state.screen !== 'ai') act('SET_SCREEN', { screen: 'ai' })
       }
     }
     window.addEventListener('popstate', onPopState)
@@ -53,5 +59,7 @@ export default function App() {
   if (state.screen === 'login')  return <LoginPage  state={state} act={act} />
   if (state.screen === 'signup') return <SignupPage state={state} act={act} />
   if (state.screen === 'setup')  return <SetupWizard state={state} act={act} />
+    if (state.screen === 'ai')     return <AIAssistPage state={state} act={act} />
+
   return <MainPortal state={state} act={act} />
 }
