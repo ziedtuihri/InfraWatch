@@ -4,12 +4,18 @@ import { MBtn } from '../ui/Primitives'
 import { LoadingRow, ErrorBanner } from '../ui/LoadingSpinner'
 import { useResources } from '../../api/useResources'
 
+import VMMetricsPanel from '../ui/VMMetricsPanel'
+import { useVMMetrics } from '../../api/useVMMetrics'
+
 const TYPE_ORDER = ['vcenter', 'aws', 'azure', 'physical', 'private', 'network']
 
 export default function StepResources({ selResources = [], act }) {
 
   const [search, setSearch] = useState('')
   const {   resources = [], loading, error } = useResources()
+
+const { vms } = useVMMetrics()
+const metricsByName = Object.fromEntries(vms.map(v => [v.name, v]))
 
   /* ✅ Keep store synced */
   useEffect(() => {
@@ -43,14 +49,17 @@ export default function StepResources({ selResources = [], act }) {
     s === 'warn' ? 'var(--status-warn)' :
                    'var(--status-crit)'
 
+console.log("StepResources page")
+
   return (
+       
     <div>
 
       {/* HEADER TEXT */}
       <p style={{ fontSize: 13, color: 'var(--tx-muted)', marginBottom: 14 }}>
         Select the Morpheus-managed resources you want to monitor.
       </p>
-
+      <VMMetricsPanel />
       {/* ERROR */}
       {error && (
         <ErrorBanner error={`Could not reach Morpheus: ${error}`} />
@@ -101,7 +110,9 @@ export default function StepResources({ selResources = [], act }) {
                   {grouped[type].map(r => {
 
                     const selected = selResources.includes(r.id)
-
+                    const m   = metricsByName[r.name]
+                    const cpu = m?.cpu_percent    ?? r.cpu ?? 0
+                    const mem = m?.memory_percent ?? r.mem ?? 0
                     return (
                       <div
                         key={r.id}
@@ -158,6 +169,9 @@ export default function StepResources({ selResources = [], act }) {
                             }}>
                               CPU
                             </div>
+                            <div style={{ fontSize: 13, fontWeight: 600, color: valColor(cpu) }}>
+                              {cpu}%
+                            </div>
                           </div>
 
                           {/* MEM */}
@@ -174,6 +188,9 @@ export default function StepResources({ selResources = [], act }) {
                               color: 'var(--tx-muted)'
                             }}>
                               Mem
+                            </div>
+                            <div style={{ fontSize: 13, fontWeight: 600, color: valColor(mem) }}>
+                              {mem}%
                             </div>
                           </div>
 

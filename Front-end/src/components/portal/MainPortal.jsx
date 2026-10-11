@@ -278,6 +278,7 @@ export default function MainPortal({ state, act }) {
 
 
 
+
       {activeSession ? (
         <SessionPanel
           key={activeSession.id}

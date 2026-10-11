@@ -76,7 +76,6 @@ export default function ResourceSwitcherModal({
             overflowY: 'auto'
           }}
         >
-      <VMMetricsPanel />
 
           {filtered.map(r => {
             const isActive = r.id === activeResourceId
@@ -149,8 +148,6 @@ export default function ResourceSwitcherModal({
               </div>
             )
           })}
-                <VMMetricsPanel />
-<h2>kkkkkkkkkkkkkk</h2>
 
           {/* ✅ EMPTY */}
           {filtered.length === 0 && (
