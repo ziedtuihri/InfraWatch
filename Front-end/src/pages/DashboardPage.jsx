@@ -506,7 +506,7 @@ function GrafanaView({ session, activeRes }) {
       })()}
 
 
-      
+
 
 
       {/* The iframe */}
@@ -519,6 +519,7 @@ function GrafanaView({ session, activeRes }) {
             frameBorder="0"
             title="Grafana Dashboard"
           />
+          <h2>kkkkkkkkkkkkkkkkkk</h2>
         </div>
       )}
 
