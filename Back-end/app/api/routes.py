@@ -838,6 +838,7 @@ async def query_loki_logs(
 
 # ************************************************************************************************************************************************************************************************
 
+app = FastAPI(title="InfraWatch VM Monitor")
 
 def calculate_cpu_percent(stats: dict) -> float:
     """Calculates CPU usage percentage from raw Docker stats dict."""
