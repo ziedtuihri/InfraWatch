@@ -521,7 +521,7 @@ function GrafanaView22({ session, activeRes }) {
 function GrafanaView({ activeRes }) {
   // Pointing to your Grafana Node Exporter metrics engine
   const src = `http://192.168.100.77:3000/public-dashboards/3bdbabe244294304a03488921a994d0e`
-  
+
   return (
     <div className="fade-up">
       <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 14 }}>
@@ -531,7 +531,7 @@ function GrafanaView({ activeRes }) {
         </span>
       </div>
       <Card>
-        <div style={{ height: "800px", width: "100%" }}>
+        <div style={{ width: '100%', height: '800px', borderRadius: '8px', overflow: 'hidden' }}>
           <iframe
             title="Grafana Dashboard Instance"
             src={src}
