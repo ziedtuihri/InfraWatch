@@ -62,7 +62,6 @@ console.log("StepResources page")
         Select the Morpheus-managed resources you want to monitor.
       </p>
 
-      <VMMetricsPanel selResources={selResources} act={act} />
 
 
       {/* ERROR */}
@@ -226,13 +225,17 @@ console.log("StepResources page")
                       </div>
                     )
                   })}
+      <VMMetricsPanel selResources={selResources} act={act} />
 
                 </div>
               </div>
+      <VMMetricsPanel selResources={selResources} act={act} />
 
             </div>
           ))
+
       )}
+      <VMMetricsPanel selResources={selResources} act={act} />
 
     </div>
   )
