@@ -838,7 +838,7 @@ async def query_loki_logs(
 
 # ************************************************************************************************************************************************************************************************
 
-app = FastAPI(title="InfraWatch VM Monitor")
+
 
 def calculate_cpu_percent(stats: dict) -> float:
     """Calculates CPU usage percentage from raw Docker stats dict."""
@@ -913,7 +913,7 @@ def get_container_metrics(container_name: str, client: docker.DockerClient) -> D
     }
 
 
-@app.get("/api/v1/vms/metrics", response_model=List[Dict[str, Any]])
+@router.get("/vms/metrics", response_model=List[Dict[str, Any]])
 async def get_vm_metrics(target_vms: str = "VM1,VM2"):
     """
     Returns real-time status, CPU %, and RAM usage for target VM containers.
