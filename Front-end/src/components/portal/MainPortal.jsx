@@ -124,6 +124,56 @@ function SessionPanel({ session, resources, auth, initialTab }) {
   }, [sessionRes])
 
 
+      /// **************************************
+
+const [vmMetrics, setVmMetrics] = useState([])
+const [metricsLoading, setMetricsLoading] = useState(false)
+const [metricsError, setMetricsError] = useState(null)
+
+  useEffect(() => {
+    if (!activeRes || !USE_LIVE) return
+  
+    const fetchMetrics = async () => {
+      setMetricsLoading(true)
+      setMetricsError(null)
+      try {
+        const metrics = await fetchVMMetrics(false)
+        setVmMetrics(metrics)
+      } catch (error) {
+        setMetricsError(error.message)
+      } finally {
+        setMetricsLoading(false)
+      }
+    }
+  
+    fetchMetrics()
+    const interval = setInterval(fetchMetrics, 30000)
+  
+    return () => clearInterval(interval)
+  }, [activeRes, USE_LIVE])
+
+  {sessionRes.map(r => {
+    const resourceMetrics = vmMetrics.find(m => m.name === r.name)
+    const cpu = resourceMetrics?.cpu_percent || r.cpu || 0
+    const memory = resourceMetrics?.memory_percent || r.memory || 0
+  
+    return (
+      <div className={`m-tab${activeResourceId === r.id ? ' active' : ''}`}>
+        <span style={{ background: valColor(Math.max(cpu, memory)) }} />
+        {r.name}
+        {resourceMetrics && (
+          <span style={{ marginLeft: 8, fontSize: 10, color: 'var(--tx-muted)' }}>
+            CPU: {cpu}% | MEM: {memory}%
+          </span>
+        )}
+      </div>
+    )
+  })}
+
+
+  //******************** */
+
+  
 
   return (
     <div style={{ display: 'flex', flexDirection: 'column', flex: 1 }}>
@@ -250,54 +300,7 @@ export default function MainPortal({ state, act }) {
   }
 
 
-    /// **************************************
 
-const [vmMetrics, setVmMetrics] = useState([])
-const [metricsLoading, setMetricsLoading] = useState(false)
-const [metricsError, setMetricsError] = useState(null)
-
-  useEffect(() => {
-    if (!activeRes || !USE_LIVE) return
-  
-    const fetchMetrics = async () => {
-      setMetricsLoading(true)
-      setMetricsError(null)
-      try {
-        const metrics = await fetchVMMetrics(false)
-        setVmMetrics(metrics)
-      } catch (error) {
-        setMetricsError(error.message)
-      } finally {
-        setMetricsLoading(false)
-      }
-    }
-  
-    fetchMetrics()
-    const interval = setInterval(fetchMetrics, 30000)
-  
-    return () => clearInterval(interval)
-  }, [activeRes, USE_LIVE])
-
-  {sessionRes.map(r => {
-    const resourceMetrics = vmMetrics.find(m => m.name === r.name)
-    const cpu = resourceMetrics?.cpu_percent || r.cpu || 0
-    const memory = resourceMetrics?.memory_percent || r.memory || 0
-  
-    return (
-      <div className={`m-tab${activeResourceId === r.id ? ' active' : ''}`}>
-        <span style={{ background: valColor(Math.max(cpu, memory)) }} />
-        {r.name}
-        {resourceMetrics && (
-          <span style={{ marginLeft: 8, fontSize: 10, color: 'var(--tx-muted)' }}>
-            CPU: {cpu}% | MEM: {memory}%
-          </span>
-        )}
-      </div>
-    )
-  })}
-
-
-  //******************** */
 
   return (
     <div className="app-shell">
