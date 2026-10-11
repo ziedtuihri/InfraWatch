@@ -7,6 +7,8 @@ import { useResources } from '../../api/useResources'
 import VMMetricsPanel from '../ui/VMMetricsPanel'
 import { useVMMetrics } from '../../api/useVMMetrics'
 
+
+
 const TYPE_ORDER = ['vcenter', 'aws', 'azure', 'physical', 'private', 'network']
 
 export default function StepResources({ selResources = [], act }) {
@@ -59,7 +61,10 @@ console.log("StepResources page")
       <p style={{ fontSize: 13, color: 'var(--tx-muted)', marginBottom: 14 }}>
         Select the Morpheus-managed resources you want to monitor.
       </p>
+
       <VMMetricsPanel />
+
+
       {/* ERROR */}
       {error && (
         <ErrorBanner error={`Could not reach Morpheus: ${error}`} />
@@ -110,9 +115,7 @@ console.log("StepResources page")
                   {grouped[type].map(r => {
 
                     const selected = selResources.includes(r.id)
-                    const m   = metricsByName[r.name]
-                    const cpu = m?.cpu_percent    ?? r.cpu ?? 0
-                    const mem = m?.memory_percent ?? r.mem ?? 0
+
                     return (
                       <div
                         key={r.id}
@@ -169,9 +172,7 @@ console.log("StepResources page")
                             }}>
                               CPU
                             </div>
-                            <div style={{ fontSize: 13, fontWeight: 600, color: valColor(cpu) }}>
-                              {cpu}%
-                            </div>
+
                           </div>
 
                           {/* MEM */}
@@ -189,9 +190,7 @@ console.log("StepResources page")
                             }}>
                               Mem
                             </div>
-                            <div style={{ fontSize: 13, fontWeight: 600, color: valColor(mem) }}>
-                              {mem}%
-                            </div>
+
                           </div>
 
                           {/* STATUS */}

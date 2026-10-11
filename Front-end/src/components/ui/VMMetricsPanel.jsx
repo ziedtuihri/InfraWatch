@@ -33,25 +33,135 @@ export default function VMMetricsPanel() {
       display: 'flex', gap: 12, flexWrap: 'wrap', padding: '12px 16px',
     }}>
       {vms.map(vm => (
-        <div key={vm.name} style={{
-          minWidth: 220, padding: 12, borderRadius: 8,
-          border: '1px solid var(--border, rgba(128,128,128,.25))',
-        }}>
-          <div style={{ display: 'flex', justifyContent: 'space-between', fontWeight: 600 }}>
-            <span>{vm.name}</span>
-            <span style={{
-              fontSize: 11,
-              color: vm.status === 'running' ? 'var(--status-ok)' : 'var(--status-crit)',
-            }}>
-              ● {vm.status}
-            </span>
-          </div>
-          <Bar label="CPU" value={vm.cpu_percent} />
-          <Bar label="Memory" value={vm.memory_percent} />
-          <div style={{ fontSize: 11, marginTop: 4, opacity: 0.7 }}>
-            {vm.memory_usage_mb} / {vm.memory_limit_mb} MB
-          </div>
-        </div>
+            <div key={type} style={{ marginBottom: 16 }}>
+
+              {/* SECTION LABEL */}
+              <div className="sec-label">
+                {TYPE_LABELS[type] || type}
+              </div>
+
+              <div className="m-card" style={{ overflow: 'hidden' }}>
+                <div className="resource-list">
+
+                  {grouped[type].map(r => {
+
+                    const selected = selResources.includes(r.id)
+
+                    return (
+                      <div
+                        key={r.id}
+                        className={`resource-item${selected ? ' selected' : ''}`}
+                        onClick={() => act('TOGGLE_RESOURCE', { id: r.id })}
+                      >
+
+                        {/* ICON */}
+                        <div className="resource-icon">
+                          {r.icon || '🖥'}
+                        </div>
+
+                        {/* INFO */}
+                        <div style={{ flex: 1, minWidth: 0 }}>
+                          <div style={{
+                            fontSize: 13,
+                            fontWeight: 500,
+                            color: selected
+                              ? 'var(--accent)'
+                              : 'var(--tx-primary)'
+                          }}>
+                            {r.name}
+                          </div>
+
+                          <div style={{
+                            fontSize: 11,
+                            color: 'var(--tx-muted)',
+                            marginTop: 2
+                          }}>
+                            {r.cloud} · {r.env}
+                          </div>
+                        </div>
+
+                        {/* ✅ METRICS BLOCK */}
+                        <div style={{
+                          display: 'flex',
+                          alignItems: 'center',
+                          gap: 16,
+                          flexShrink: 0
+                        }}>
+
+                          {/* CPU */}
+                          <div style={{ textAlign: 'center' }}>
+                            <div style={{
+                              fontSize: 13,
+                              fontWeight: 600,
+                              color: valColor(r.cpu || 0)
+                            }}>
+                              {r.cpu ?? 0}%
+                            </div>
+                            <div style={{
+                              fontSize: 10,
+                              color: 'var(--tx-muted)'
+                            }}>
+                              CPU
+                            </div>
+
+                          </div>
+
+                          {/* MEM */}
+                          <div style={{ textAlign: 'center' }}>
+                            <div style={{
+                              fontSize: 13,
+                              fontWeight: 600,
+                              color: valColor(r.mem || 0)
+                            }}>
+                              {r.mem ?? 0}%
+                            </div>
+                            <div style={{
+                              fontSize: 10,
+                              color: 'var(--tx-muted)'
+                            }}>
+                              Mem
+                            </div>
+
+                          </div>
+
+                          {/* STATUS */}
+                          <div style={{
+                            display: 'flex',
+                            alignItems: 'center',
+                            gap: 6
+                          }}>
+                            <span style={{
+                              width: 8,
+                              height: 8,
+                              borderRadius: '50%',
+                              background: statusColor(r.status),
+                              display: 'inline-block'
+                            }} />
+
+                            <span style={{
+                              fontSize: 11,
+                              color: statusColor(r.status),
+                              fontWeight: 600
+                            }}>
+                              {r.status?.toUpperCase()}
+                            </span>
+                          </div>
+
+                          {/* CHECK */}
+                          <div className="resource-check">
+                            {selected && '✓'}
+                          </div>
+
+                        </div>
+
+                      </div>
+                    )
+                  })}
+
+                </div>
+              </div>
+
+            </div>
       ))}
     </div>
   )
