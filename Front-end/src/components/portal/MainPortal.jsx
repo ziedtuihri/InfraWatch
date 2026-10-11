@@ -152,7 +152,30 @@ const [metricsError, setMetricsError] = useState(null)
     return () => clearInterval(interval)
   }, [activeRes, USE_LIVE])
 
-  {sessionRes.map(r => {
+
+
+
+  //******************** */
+
+        /*{sessionRes.map(r => (
+          <div
+            key={r.id}
+            className={`m-tab${activeResourceId === r.id ? ' active' : ''}`}
+            onClick={() => setActiveResourceId(r.id)}
+          >
+            <span style={{
+              width: 7, height: 7, borderRadius: '50%',
+              background: valColor(r.cpu || 0),
+              marginRight: 6, display: 'inline-block'
+            }} />
+            {r.name}
+          </div>
+        ))}*/
+
+  return (
+    <div style={{ display: 'flex', flexDirection: 'column', flex: 1 }}>
+      <div className="m-tabs" style={{ background: 'var(--table-head)' }}>
+      {sessionRes.map(r => {
     const resourceMetrics = vmMetrics.find(m => m.name === r.name)
     const cpu = resourceMetrics?.cpu_percent || r.cpu || 0
     const memory = resourceMetrics?.memory_percent || r.memory || 0
@@ -169,29 +192,6 @@ const [metricsError, setMetricsError] = useState(null)
       </div>
     )
   })}
-
-
-  //******************** */
-
-  
-
-  return (
-    <div style={{ display: 'flex', flexDirection: 'column', flex: 1 }}>
-      <div className="m-tabs" style={{ background: 'var(--table-head)' }}>
-        {sessionRes.map(r => (
-          <div
-            key={r.id}
-            className={`m-tab${activeResourceId === r.id ? ' active' : ''}`}
-            onClick={() => setActiveResourceId(r.id)}
-          >
-            <span style={{
-              width: 7, height: 7, borderRadius: '50%',
-              background: valColor(r.cpu || 0),
-              marginRight: 6, display: 'inline-block'
-            }} />
-            {r.name}
-          </div>
-        ))}
       </div>
 
       <div className="m-tabs">
