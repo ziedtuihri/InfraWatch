@@ -1,20 +1,14 @@
+const API_BASE = import.meta.env.VITE_API_URL || 'http://192.168.100.77:8000'
 
-export async function fetchVMMetrics(allContainers = false) {
-  const IP_BASE = import.meta.env.VITE_GLOBAL_VM_ADRESS || 'http://192.168.100.77'
-  const API_BASE = `${IP_BASE}:8000/api/v1`
-  
-  try {
-    const url = `${API_BASE}/vms/metrics?all_containers=${allContainers}`
-    const response = await fetch(url)
-    
-    if (!response.ok) {
-      throw new Error(`HTTP error! Status: ${response.status}, Message: ${response.statusText}`)
+export async function fetchVMMetrics({ allContainers = false, signal } = {}) {
+  const res = await fetch(
+    `${API_BASE}/api/v1/vms/metrics?all_containers=${allContainers}`,
+    {
+      signal,
+      // add your auth header here if the endpoint requires it, e.g.
+      // headers: { Authorization: `Bearer ${auth.token}` },
     }
-    
-    return await response.json()
-  } catch (error) {
-    console.error('Failed to fetch VM metrics:', error)
-    return []
-  }
+  )
+  if (!res.ok) throw new Error(`VM metrics request failed: ${res.status}`)
+  return res.json()
 }
-
