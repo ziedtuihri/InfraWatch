@@ -1,168 +1,104 @@
 import React from 'react'
 import { useVMMetrics } from '../../api/useVMMetrics'
+import { LoadingRow, ErrorBanner } from './LoadingSpinner'
 
-const pctColor = v =>
-  v > 80 ? 'var(--status-crit)' : v > 65 ? 'var(--status-warn)' : 'var(--status-ok)'
+const valColor = v =>
+  v > 80 ? 'var(--status-crit)' :
+  v > 65 ? 'var(--status-warn)' :
+           'var(--status-ok)'
 
-function Bar({ label, value, suffix = '%' }) {
-  return (
-    <div style={{ marginTop: 6 }}>
-      <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: 12 }}>
-        <span>{label}</span>
-        <span>{value}{suffix}</span>
-      </div>
-      <div style={{ height: 5, borderRadius: 3, background: 'var(--table-head)' }}>
-        <div style={{
-          width: `${Math.min(value, 100)}%`, height: '100%',
-          borderRadius: 3, background: pctColor(value),
-        }} />
-      </div>
-    </div>
-  )
-}
+const statusColor = s =>
+  s === 'ok'   ? 'var(--status-ok)' :
+  s === 'warn' ? 'var(--status-warn)' :
+                 'var(--status-crit)'
 
-export default function VMMetricsPanel() {
+export default function VMMetricsPanel({ selResources = [], act }) {
   const { vms, error, loading } = useVMMetrics()
 
-  if (loading) return <div style={{ padding: 12 }}>Loading VM metrics…</div>
-  if (error)   return <div style={{ padding: 12, color: 'var(--status-crit)' }}>VM metrics unavailable: {error}</div>
+  if (loading) return <LoadingRow message="Fetching VM metrics…" />
+  if (error)   return <ErrorBanner error={`VM metrics unavailable: ${error}`} />
   if (!vms.length) return null
 
   return (
-    <div style={{
-      display: 'flex', gap: 12, flexWrap: 'wrap', padding: '12px 16px',
-    }}>
-      {vms.map(vm => (
-            <div key={type} style={{ marginBottom: 16 }}>
+    <div style={{ marginBottom: 16 }}>
 
-              {/* SECTION LABEL */}
-              <div className="sec-label">
-                {TYPE_LABELS[type] || type}
-              </div>
+      {/* SECTION LABEL */}
+      <div className="sec-label">Virtual Machines</div>
 
-              <div className="m-card" style={{ overflow: 'hidden' }}>
-                <div className="resource-list">
+      <div className="m-card" style={{ overflow: 'hidden' }}>
+        <div className="resource-list">
 
-                  {grouped[type].map(r => {
+          {vms.map(vm => {
+            const id       = vm.name
+            const selected = selResources.includes(id)
+            const status   = vm.status === 'running' ? 'ok' : 'crit'
+            const cpu      = vm.cpu_percent ?? 0
+            const mem      = vm.memory_percent ?? 0
 
-                    const selected = selResources.includes(r.id)
+            return (
+              <div
+                key={id}
+                className={`resource-item${selected ? ' selected' : ''}`}
+                onClick={() => act && act('TOGGLE_RESOURCE', { id })}
+              >
 
-                    return (
-                      <div
-                        key={r.id}
-                        className={`resource-item${selected ? ' selected' : ''}`}
-                        onClick={() => act('TOGGLE_RESOURCE', { id: r.id })}
-                      >
+                {/* ICON */}
+                <div className="resource-icon">🖥</div>
 
-                        {/* ICON */}
-                        <div className="resource-icon">
-                          {r.icon || '🖥'}
-                        </div>
+                {/* INFO */}
+                <div style={{ flex: 1, minWidth: 0 }}>
+                  <div style={{
+                    fontSize: 13,
+                    fontWeight: 500,
+                    color: selected ? 'var(--accent)' : 'var(--tx-primary)'
+                  }}>
+                    {vm.name}
+                  </div>
+                  <div style={{ fontSize: 11, color: 'var(--tx-muted)', marginTop: 2 }}>
+                    {vm.memory_usage_mb} / {vm.memory_limit_mb} MB
+                  </div>
+                </div>
 
-                        {/* INFO */}
-                        <div style={{ flex: 1, minWidth: 0 }}>
-                          <div style={{
-                            fontSize: 13,
-                            fontWeight: 500,
-                            color: selected
-                              ? 'var(--accent)'
-                              : 'var(--tx-primary)'
-                          }}>
-                            {r.name}
-                          </div>
+                {/* METRICS BLOCK */}
+                <div style={{ display: 'flex', alignItems: 'center', gap: 16, flexShrink: 0 }}>
 
-                          <div style={{
-                            fontSize: 11,
-                            color: 'var(--tx-muted)',
-                            marginTop: 2
-                          }}>
-                            {r.cloud} · {r.env}
-                          </div>
-                        </div>
+                  {/* CPU */}
+                  <div style={{ textAlign: 'center' }}>
+                    <div style={{ fontSize: 13, fontWeight: 600, color: valColor(cpu) }}>
+                      {cpu}%
+                    </div>
+                    <div style={{ fontSize: 10, color: 'var(--tx-muted)' }}>CPU</div>
+                  </div>
 
-                        {/* ✅ METRICS BLOCK */}
-                        <div style={{
-                          display: 'flex',
-                          alignItems: 'center',
-                          gap: 16,
-                          flexShrink: 0
-                        }}>
+                  {/* MEM */}
+                  <div style={{ textAlign: 'center' }}>
+                    <div style={{ fontSize: 13, fontWeight: 600, color: valColor(mem) }}>
+                      {mem}%
+                    </div>
+                    <div style={{ fontSize: 10, color: 'var(--tx-muted)' }}>Mem</div>
+                  </div>
 
-                          {/* CPU */}
-                          <div style={{ textAlign: 'center' }}>
-                            <div style={{
-                              fontSize: 13,
-                              fontWeight: 600,
-                              color: valColor(r.cpu || 0)
-                            }}>
-                              {r.cpu ?? 0}%
-                            </div>
-                            <div style={{
-                              fontSize: 10,
-                              color: 'var(--tx-muted)'
-                            }}>
-                              CPU
-                            </div>
+                  {/* STATUS */}
+                  <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
+                    <span style={{
+                      width: 8, height: 8, borderRadius: '50%',
+                      background: statusColor(status), display: 'inline-block'
+                    }} />
+                    <span style={{ fontSize: 11, color: statusColor(status), fontWeight: 600 }}>
+                      {vm.status?.toUpperCase()}
+                    </span>
+                  </div>
 
-                          </div>
-
-                          {/* MEM */}
-                          <div style={{ textAlign: 'center' }}>
-                            <div style={{
-                              fontSize: 13,
-                              fontWeight: 600,
-                              color: valColor(r.mem || 0)
-                            }}>
-                              {r.mem ?? 0}%
-                            </div>
-                            <div style={{
-                              fontSize: 10,
-                              color: 'var(--tx-muted)'
-                            }}>
-                              Mem
-                            </div>
-
-                          </div>
-
-                          {/* STATUS */}
-                          <div style={{
-                            display: 'flex',
-                            alignItems: 'center',
-                            gap: 6
-                          }}>
-                            <span style={{
-                              width: 8,
-                              height: 8,
-                              borderRadius: '50%',
-                              background: statusColor(r.status),
-                              display: 'inline-block'
-                            }} />
-
-                            <span style={{
-                              fontSize: 11,
-                              color: statusColor(r.status),
-                              fontWeight: 600
-                            }}>
-                              {r.status?.toUpperCase()}
-                            </span>
-                          </div>
-
-                          {/* CHECK */}
-                          <div className="resource-check">
-                            {selected && '✓'}
-                          </div>
-
-                        </div>
-
-                      </div>
-                    )
-                  })}
+                  {/* CHECK */}
+                  <div className="resource-check">{selected && '✓'}</div>
 
                 </div>
               </div>
+            )
+          })}
 
-            </div>
-      ))}
+        </div>
+      </div>
     </div>
   )
 }
