@@ -38,6 +38,14 @@ function VMCreationPage({ state, act }) {
   )
 }
 
+function NotificationPage({ state, act }) {
+  return (
+    <div>
+      {/* Notification page for VMs */}
+    </div>
+  )
+}
+
 export default function AIAssistPage({ state, act }) {
   const [page, setPage] = useState(pageFromPath)
 
@@ -124,6 +132,8 @@ export default function AIAssistPage({ state, act }) {
 
           {page === 'analysis'    && <AnalysisPage   state={state} act={act} />}
           {page === 'vm-creation' && <VMCreationPage state={state} act={act} />}
+          {page === 'vm-notification' && <NotificationPage state={state} act={act} />}
+
         </main>
       </div>
     </div>
