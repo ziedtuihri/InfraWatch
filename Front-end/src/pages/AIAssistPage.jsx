@@ -2,9 +2,18 @@ import React, { useEffect, useState } from 'react'
 import Topbar from '../components/ui/Topbar'
 import { MBtn } from '../components/ui/Primitives'
 
+function NotificationIcon({ size = 16 }) {
+  return (
+    <svg width={size} height={size} viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+      <path d="M12 22c1.1 0 2-.9 2-2h-4c0 1.1.89 2 2 2zm6-6v-5c0-3.07-1.64-5.64-4.5-6.32V4c0-.83-.67-1.5-1.5-1.5s-1.5.67-1.5 1.5v.68C7.63 5.36 6 7.92 6 11v5l-2 2v1h16v-1l-2-2zm-6-7h2v2h-2v-2z" />
+    </svg>
+  )
+}
+
 const NAV = [
-  { id: 'analysis',    label: 'AI Analysis',        icon: '📊', desc: 'Ask about your resources, alerts and metrics.' },
-  { id: 'vm-creation', label: 'Advanced VM Creation', icon: '🖥', desc: 'Describe the VM you need and let AI prepare it.' },
+  { id: 'analysis',    label: 'AI analysis',        icon: '📊', desc: 'Ask about your resources, alerts and metrics.' },
+  { id: 'vm-creation', label: 'AI VM outage analysis', icon: '🖥', desc: 'Describe the VM you need and let AI prepare it.' },
+  { id: 'vm-notification', label: 'Notifications', icon: <NotificationIcon />, desc: 'Describe the VM you need and let AI prepare it.' },
 ]
 
 function pageFromPath() {
