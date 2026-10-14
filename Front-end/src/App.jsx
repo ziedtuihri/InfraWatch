@@ -28,7 +28,12 @@ export default function App() {
       window.history.replaceState({}, '', '/portal')
     }  else if (state.screen === 'ai' && !path.startsWith('/ai-assist')) {
       window.history.replaceState({}, '', '/ai-assist')
+    }  else if (state.screen === 'ai' && !path.startsWith('/ai-assist/vm-notification')) {
+      window.history.replaceState({}, '', '/ai-assist/vm-notification')
     }
+
+
+    
   }, [state.screen])
 
   // Handle browser back/forward at the screen level
@@ -50,7 +55,11 @@ export default function App() {
         if (state.screen !== 'portal') act('SET_SCREEN', { screen: 'portal' })
       }  else if (path.startsWith('/ai-assist')) {
         if (state.screen !== 'ai') act('SET_SCREEN', { screen: 'ai' })
+      }  else if (path.startsWith('/ai-assist/vm-notification')) {
+        if (state.screen !== 'ai') act('SET_SCREEN', { screen: 'ai' })
       }
+
+      
     }
     window.addEventListener('popstate', onPopState)
     return () => window.removeEventListener('popstate', onPopState)
