@@ -11,7 +11,7 @@ function NotificationIcon({ size = 16 }) {
 }
 
 const NAV = [
-  { id: 'analysis',    label: 'AI analysis',        icon: '📊', desc: 'Ask about your resources, alerts and metrics.' },
+  { id: 'analysis',    label: 'AI Malwer Detection',        icon: '📊', desc: 'Ask about your resources, alerts and metrics.' },
   { id: 'vm-creation', label: 'AI VM outage analysis', icon: '🖥', desc: 'Describe the VM you need and let AI prepare it.' },
   { id: 'vm-notification', label: 'Notifications', icon: <NotificationIcon />, desc: 'Describe the VM you need and let AI prepare it.' },
 ]

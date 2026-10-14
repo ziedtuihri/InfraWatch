@@ -27,6 +27,11 @@ export default function Topbar({ state, act, inPortal = false }) {
     act('SET_SCREEN', { screen: 'ai' })
   }
 
+    function openNotification() {
+    window.history.pushState({}, '', '/ai-assist/vm-notification')
+    act('SET_SCREEN', { screen: 'ai' })
+  }
+
   return (
     <>
       <div className="m-topnav">
