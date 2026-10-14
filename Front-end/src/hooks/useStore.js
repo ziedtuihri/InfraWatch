@@ -122,7 +122,7 @@ function initStoreState(base) {
     screen = 'portal'
     window.history.replaceState({}, '', '/portal')
   } else if (path.startsWith('/ai-assist')){ screen = 'ai'
-  } else if (path.startsWith('//ai-assist/vm-notificationai-assist')) screen = 'ai'
+  } else if (path.startsWith('//ai-assist/vm-notification')) screen = 'ai'
 
   // Only superadmin manages the shared Morpheus connection — admin and
   // viewer must never land on step 1, even if the URL itself says
