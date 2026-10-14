@@ -61,7 +61,7 @@ export default function Topbar({ state, act, inPortal = false }) {
 
               <button
                 className="m-theme-btn"
-                onClick={() => act('TOGGLE_NOTIFICATIONS')}
+                onClick={openNotification}
                 title="Notifications"
                 style={{ position: 'relative' }}
               >
