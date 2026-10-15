@@ -13,6 +13,8 @@ from app.services.external_api import (
     get_All_Images,
     execute_task,
     make_managed,
+    get_notifications
+    
 )
 import logging
 from typing import Optional, Dict, Any, List
@@ -923,4 +925,19 @@ async def get_all_vms_metrics(all_containers: bool = False):
 
     return metrics_list
 
+
+
+@router.get("/notifications")
+async def list_notifications(
+    x_user_id: Optional[str] = Header(None, alias="x-user-id"),
+):
+    """Return every notification for the authenticated user, newest first."""
+    user_id = _require_user_id(x_user_id)
+    try:
+        return {"notifications": await get_notifications(user_id)}
+    except HTTPException:
+        raise
+    except Exception as exc:
+        logger.error("Could not load notifications for user %s: %s", user_id, exc, exc_info=True)
+        raise HTTPException(status_code=503, detail="Notification service unavailable")
 
