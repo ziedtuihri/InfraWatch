@@ -3,7 +3,7 @@ set -e
 
 MORPH_URL="https://projet1-virtual-machine"
 AUTH_TOKEN="ea3c4b6b-4b64-47f5-9954-89e184ec3039"
-MODEL_FILE_ID="220"  # <-- Replace with your model's Morpheus file/image ID
+MODEL_FILE_ID="57"
 
 INSTALL_DIR="/opt/malware_scanner/models"
 
