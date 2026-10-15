@@ -2,7 +2,7 @@
 
 ## Malware scanning integration
 
-The API does not execute the notebook or scan the backend host. It dispatches a Morpheus task to VM instances; the VM-side collector extracts the notebook's six features, and FastAPI loads the trained model, scores each batch, and stores detections in the existing `alert_log`. The `GET /api/v1/malware/notifications` response is the frontend notification-table source. Each row includes `vm_name`, `resource_id`, `name` (the alert description), `severity`, `status`, and `fired_at`.
+The API does not execute the notebook or scan the backend host. It dispatches a Morpheus task to VM instances; the VM-side collector extracts the notebook's six features, and FastAPI loads the trained model, scores each batch, and stores detections in the existing `alert_log`. The frontend Notifications page separately lists persistent rows from `GET /api/v1/notifications`.
 
 ### Model artifact
 
@@ -31,7 +31,11 @@ The backend action is `POST /api/v1/malware/scans` with `X-User-Id` and either `
 
 Configure that Morpheus task to invoke `scripts/malware_scanner.py` on each target VM, passing the custom options plus that VM's Morpheus resource ID and display name as `RESOURCE_ID` and `VM_NAME`. Ensure the scanner script is installed or delivered to the VM by the task, Python 3 is available, and the VM can reach the callback URL. The scanner posts up to 100 files per request to `POST /api/v1/malware/scan-results`; callback requests must include `X-Malware-Token`. The callback endpoint runs model inference and only persists positive detections.
 
-Notifications can be loaded with `GET /api/v1/malware/notifications?limit=100&offset=0` and the normal `X-User-Id` header. Detections are recorded as Critical alerts in `alert_log`, so existing acknowledgement and audit history behavior is reused; repeated scans of the same file do not create a new row unless an acknowledged alert is re-fired.
+Detections are recorded as Critical alerts in `alert_log`, so existing acknowledgement and audit history behavior is reused; repeated scans of the same file do not create a new row unless an acknowledged alert is re-fired.
+
+## Notification feed
+
+The authenticated Notifications page polls `GET /api/v1/notifications` every 10 seconds using the `X-User-Id` header. The endpoint returns all rows from `notifications` belonging to that user, newest first. Apply the `notifications` table and `idx_notifications_user` index from `db/init.sql` before using the feed.
 
 ### MLOps lifecycle
 

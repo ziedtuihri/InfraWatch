@@ -3,6 +3,7 @@ import Topbar from '../components/ui/Topbar'
 import { MBtn } from '../components/ui/Primitives'
 
 import MalwareAnalysisView from './MalwareAnalysisView' 
+import NotificationsPage from './NotificationsPage'
 
 function NotificationIcon({ size = 16 }) {
   return (
@@ -15,7 +16,7 @@ function NotificationIcon({ size = 16 }) {
 const NAV = [
   { id: 'analysis',    label: 'AI Malware Detection',        icon: '📊', desc: 'Browse virtual machines and monitored resources.' },
   { id: 'vm-creation', label: 'AI VM outage analysis', icon: '🖥', desc: 'Describe the VM you need and let AI prepare it.' },
-  { id: 'vm-notification', label: 'Notifications', icon: <NotificationIcon />, desc: 'Describe the VM you need and let AI prepare it.' },
+  { id: 'vm-notification', label: 'Notifications', icon: <NotificationIcon />, desc: 'Latest system, VM, and malware notifications.' },
 ]
 
 function pageFromPath() {
@@ -29,14 +30,6 @@ function VMCreationPage({ state, act }) {
   return (
     <div>
       {/* VM creation form / AI prompt goes here */}
-    </div>
-  )
-}
-
-function NotificationPage({ state, act }) {
-  return (
-    <div>
-      {/* Notification page for VMs */}
     </div>
   )
 }
@@ -127,7 +120,7 @@ export default function AIAssistPage({ state, act }) {
 
           {page === 'analysis'        && <MalwareAnalysisView state={state} />}
           {page === 'vm-creation' && <VMCreationPage state={state} act={act} />}
-          {page === 'vm-notification' && <NotificationPage state={state} act={act} />}
+          {page === 'vm-notification' && <NotificationsPage auth={state.auth} />}
 
         </main>
       </div>

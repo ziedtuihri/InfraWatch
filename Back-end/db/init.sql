@@ -13,6 +13,25 @@ CREATE TABLE IF NOT EXISTS users (
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
+CREATE TABLE IF NOT EXISTS notifications (
+    id BIGSERIAL PRIMARY KEY,
+    user_id BIGINT NOT NULL,
+    type TEXT NOT NULL,
+    severity TEXT NOT NULL DEFAULT 'info'
+        CHECK (severity IN ('info', 'warning', 'critical')),
+    title TEXT NOT NULL,
+    message TEXT NOT NULL,
+    resource_name TEXT,
+    source_type TEXT,
+    source_id BIGINT,
+    is_read BOOLEAN NOT NULL DEFAULT FALSE,
+    created_at TIMESTAMPTZ NOT NULL DEFAULT now(),
+    read_at TIMESTAMPTZ
+);
+
+CREATE INDEX IF NOT EXISTS idx_notifications_user
+    ON notifications (user_id, is_read, created_at DESC);
+
 -- Per-user, per-resource subscriptions — lets a user opt in to notifications
 -- for specific VMs rather than every resource in the system. If a user has
 -- zero rows here, they're treated as subscribed to ALL resources (simpler
