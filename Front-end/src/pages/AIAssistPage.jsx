@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react'
 import Topbar from '../components/ui/Topbar'
 import { MBtn } from '../components/ui/Primitives'
 
+import MalwareAnalysisView from './MalwareAnalysisView' 
+
 function NotificationIcon({ size = 16 }) {
   return (
     <svg width={size} height={size} viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
@@ -21,14 +23,7 @@ function pageFromPath() {
   return NAV.some(n => n.id === seg) ? seg : 'analysis'
 }
 
-/* ── Placeholder pages: replace the bodies with your real UI ── */
-function AnalysisPage({ state, act }) {
-  return (
-    <div>
-      {/* chat / analysis UI goes here */}
-    </div>
-  )
-}
+
 
 function VMCreationPage({ state, act }) {
   return (
@@ -130,7 +125,7 @@ export default function AIAssistPage({ state, act }) {
             {current.desc}
           </p>
 
-          {page === 'analysis'    && <AnalysisPage   state={state} act={act} />}
+          {page === 'analysis'        && <MalwareAnalysisView state={state} />}
           {page === 'vm-creation' && <VMCreationPage state={state} act={act} />}
           {page === 'vm-notification' && <NotificationPage state={state} act={act} />}
 
