@@ -3,8 +3,8 @@ import { fetchNotifications } from './notifications'
 
 const POLL_INTERVAL_MS = 10_000
 
-export function useNotifications(auth) {
-  const userId = auth?.user?.id ?? (Number(auth?.token) > 0 ? Number(auth.token) : null)
+export function useNotifications() {
+  const userId = 1 // Hardcoded user ID
   const [notifications, setNotifications] = useState([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(null)
@@ -15,8 +15,7 @@ export function useNotifications(auth) {
 
     async function load() {
       try {
-        if (!userId) throw new Error('User identity is unavailable.')
-        const rows = await fetchNotifications(auth, { signal: controller.signal })
+        const rows = await fetchNotifications(userId, { signal: controller.signal })
         setNotifications(rows)
         setError(null)
       } catch (err) {
@@ -36,7 +35,8 @@ export function useNotifications(auth) {
       controller.abort()
       window.clearTimeout(timer)
     }
-  }, [auth, userId])
+  }, [])
 
   return { notifications, loading, error }
 }
+

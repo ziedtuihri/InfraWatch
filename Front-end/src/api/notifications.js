@@ -1,11 +1,11 @@
-import { authHeaders } from './auth'
+const API_BASE = import.meta.env.VITE_API_URL || 'http://192.168.100.77:8000'
 
-const IP_BASE = import.meta.env.VITE_GLOBAL_VM_ADRESS || ''
-const API_BASE = `${IP_BASE}:8001/api/v1`
-
-export async function fetchNotifications(auth, { signal } = {}) {
-  const response = await fetch(`${API_BASE}/notifications`, {
-    headers: authHeaders(auth),
+export async function fetchNotifications(userId = 1, { signal } = {}) {
+  const response = await fetch(`${API_BASE}/api/v1/notifications`, {
+    headers: {
+      'x-user-id': String(userId),
+      'Content-Type': 'application/json',
+    },
     signal,
   })
 
