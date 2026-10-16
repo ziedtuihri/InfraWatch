@@ -12,7 +12,8 @@ class Settings(BaseSettings):
     port: int = 8001
     
     # Local PostgreSQL (used only for login authentication)
-    database_url: str = "postgresql://postgres:postgres@localhost:5432/postgres"
+    database_url: str = "postgresql://infra:postgres@localhost:5432/infrawatch"
+
     
     # CORS settings
     cors_origins: list = ["*"]
