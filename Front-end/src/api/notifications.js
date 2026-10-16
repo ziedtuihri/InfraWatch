@@ -1,7 +1,7 @@
 import { authHeaders } from './auth'
 
-const IP_BASE = import.meta.env.VITE_GLOBAL_VM_ADRESS || ''
-const API_BASE = `${IP_BASE}:8001/api/v1`
+const IP_BASE = import.meta.env.VITE_GLOBAL_VM_ADRESS?.replace(/\/+$/, '')
+const API_BASE = IP_BASE ? `${IP_BASE}:8001/api/v1` : '/api/v1'
 
 export async function fetchNotifications(auth, { signal } = {}) {
   const response = await fetch(`${API_BASE}/notifications`, {
