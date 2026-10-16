@@ -65,9 +65,7 @@ export default function NotificationsPage({ auth }) {
                   <td style={{ padding: '11px 12px', color: 'var(--tx-second)', whiteSpace: 'nowrap' }}>
                     {notification.created_at ? new Date(notification.created_at).toLocaleString() : '—'}
                   </td>
-                  <td style={{ padding: '11px 12px', color: 'var(--tx-second)', whiteSpace: 'nowrap' }}>
-                    {notification.is_read ? 'Read' : 'Unread'}
-                  </td>
+
                 </tr>
               ))}
             </tbody>
