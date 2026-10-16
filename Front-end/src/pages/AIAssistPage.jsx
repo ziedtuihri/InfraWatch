@@ -66,7 +66,13 @@ export default function AIAssistPage({ state, act }) {
 
   return (
     <div className="app-shell">
-      <Topbar state={state} act={act} inPortal={false} />
+      <Topbar
+        state={state}
+        act={act}
+        inPortal={false}
+        notificationPageActive={page === 'vm-notification'}
+        onOpenNotifications={() => go('vm-notification')}
+      />
 
       <div style={{ display: 'flex', flex: 1, minHeight: 0 }}>
         {/* ── SIDEBAR ── */}

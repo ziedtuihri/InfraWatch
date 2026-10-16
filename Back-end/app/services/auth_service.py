@@ -611,3 +611,24 @@ async def get_notifications(user_id: int | str) -> list:
         }
         for row in rows
     ]
+
+
+async def mark_notifications_read(user_id: int | str, notification_ids: list[int]) -> int:
+    """Mark the specified notifications as read for a user."""
+    parsed_user_id = int(user_id)
+    ids = list(dict.fromkeys(notification_ids))
+    if not ids:
+        return 0
+
+    pool = get_postgres_pool()
+    async with pool.connection() as conn:
+        async with conn.cursor() as cur:
+            await cur.execute(
+                """
+                UPDATE notifications
+                SET is_read = TRUE, read_at = COALESCE(read_at, NOW())
+                WHERE user_id = %s AND id = ANY(%s) AND is_read = FALSE
+                """,
+                (parsed_user_id, ids),
+            )
+            return cur.rowcount

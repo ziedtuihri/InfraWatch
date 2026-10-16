@@ -35,7 +35,7 @@ Detections are recorded as Critical alerts in `alert_log`, so existing acknowled
 
 ## Notification feed
 
-The authenticated Notifications page polls `GET /api/v1/notifications` every 10 seconds using the `X-User-Id` header. The endpoint returns all rows from `notifications` belonging to that user, newest first. Apply the `notifications` table and `idx_notifications_user` index from `db/init.sql` before using the feed.
+The authenticated Notifications page polls `GET /api/v1/notifications` every 10 seconds using the `X-User-Id` header. The endpoint returns all rows from `notifications` belonging to that user, newest first. `POST /api/v1/notifications/read` accepts `{"notification_ids": [1, 2]}` with the same header and marks only those notifications belonging to that user as read. Opening the page marks the notifications already loaded as read; the page also supports selecting notifications and marking the selection read. Apply the `notifications` table and `idx_notifications_user` index from `db/init.sql` before using the feed.
 
 ### MLOps lifecycle
 

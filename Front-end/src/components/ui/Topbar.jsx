@@ -1,4 +1,5 @@
 import React from 'react'
+import { useNotifications } from '../../api/useNotifications'
 
 function AIIcon({ size = 16 }) {
   return (
@@ -18,16 +19,28 @@ function NotificationIcon({ size = 16 }) {
   )
 }
 
-export default function Topbar({ state, act, inPortal = false }) {
-  const { theme, auth, notifications } = state || {}
-  const hasNotifications = notifications && notifications.length > 0
+export default function Topbar({
+  state,
+  act,
+  inPortal = false,
+  notificationPageActive = false,
+  onOpenNotifications,
+}) {
+  const { theme, auth } = state || {}
+  const { notifications } = useNotifications(auth)
+  const hasUnreadNotifications = notifications.some(notification => !notification.is_read)
+  const showUnreadIndicator = hasUnreadNotifications && !notificationPageActive
 
   function openAIAssist() {
     window.history.pushState({}, '', '/ai-assist')
     act('SET_SCREEN', { screen: 'ai' })
   }
 
-    function openNotification() {
+  function openNotification() {
+    if (onOpenNotifications) {
+      onOpenNotifications()
+      return
+    }
     window.history.pushState({}, '', '/ai-assist/vm-notification')
     act('SET_SCREEN', { screen: 'ai' })
   }
@@ -62,28 +75,22 @@ export default function Topbar({ state, act, inPortal = false }) {
               <button
                 className="m-theme-btn"
                 onClick={openNotification}
-                title="Notifications"
+                title={showUnreadIndicator ? 'Unread notifications' : 'Notifications'}
                 style={{ position: 'relative' }}
+                aria-label={showUnreadIndicator ? 'Unread notifications' : 'Notifications'}
               >
                 <NotificationIcon />
-                {hasNotifications && (
+                {showUnreadIndicator && (
                   <span style={{
                     position: 'absolute',
-                    top: -4,
-                    right: -4,
-                    background: 'var(--accent, #ff4444)',
-                    color: 'white',
+                    top: 2,
+                    right: 2,
+                    background: '#ef4444',
                     borderRadius: '50%',
-                    width: 18,
-                    height: 18,
-                    fontSize: 11,
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    border: '2px solid var(--bg)'
-                  }}>
-                    {notifications.length}
-                  </span>
+                    width: 8,
+                    height: 8,
+                    border: '2px solid var(--bg)',
+                  }} />
                 )}
               </button>
             </>

@@ -1,4 +1,4 @@
-from fastapi import APIRouter, HTTPException, Header
+from fastapi import APIRouter, Body, HTTPException, Header
 from typing import Optional, Union
 import logging
 
@@ -32,7 +32,8 @@ from app.services.auth_service import (
     create_task_run,
     update_task_run,
     get_task_run_progress,
-    get_notifications
+    get_notifications,
+    mark_notifications_read,
 
 )
 
@@ -634,11 +635,28 @@ async def list_notifications(
     x_user_id: Optional[str] = Header(None, alias="x-user-id"),
 ):
     """Return every notification for the authenticated user, newest first."""
-    user_id = x_user_id
+    user_id = _require_user_id(x_user_id)
     try:
         return {"notifications": await get_notifications(user_id)}
     except HTTPException:
         raise
     except Exception as exc:
         logger.error("Could not load notifications for user %s: %s", user_id, exc, exc_info=True)
+        raise HTTPException(status_code=503, detail="Notification service unavailable")
+
+
+@router.post("/notifications/read")
+async def read_notifications(
+    notification_ids: list[int] = Body(..., embed=True),
+    x_user_id: Optional[str] = Header(None, alias="x-user-id"),
+):
+    """Mark the specified notifications as read for the current user."""
+    user_id = _require_user_id(x_user_id)
+    try:
+        updated = await mark_notifications_read(user_id, notification_ids)
+        return {"updated": updated}
+    except HTTPException:
+        raise
+    except Exception as exc:
+        logger.error("Could not mark notifications read for user %s: %s", user_id, exc, exc_info=True)
         raise HTTPException(status_code=503, detail="Notification service unavailable")
