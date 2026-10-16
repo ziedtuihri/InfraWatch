@@ -1228,9 +1228,9 @@ async def make_managed(
 
 
     
-
-async def get_notifications(user_id: int) -> list:
+async def get_notifications(user_id: int | str) -> list:
     """Return all notifications for a user, newest first."""
+    parsed_user_id = int(user_id) # Safe guard if string is passed
     pool = get_postgres_pool()
     async with pool.connection() as conn:
         async with conn.cursor(row_factory=dict_row) as cur:
@@ -1242,7 +1242,7 @@ async def get_notifications(user_id: int) -> list:
                 WHERE user_id = %s
                 ORDER BY created_at DESC, id DESC
                 """,
-                (user_id,),
+                (parsed_user_id,),
             )
             rows = await cur.fetchall()
 

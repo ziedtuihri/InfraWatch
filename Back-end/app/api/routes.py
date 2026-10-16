@@ -926,18 +926,20 @@ async def get_all_vms_metrics(all_containers: bool = False):
     return metrics_list
 
 
-
 @router.get("/notifications")
 async def list_notifications(
     x_user_id: Optional[str] = Header(None, alias="x-user-id"),
 ):
     """Return every notification for the authenticated user, newest first."""
-    user_id = _require_user_id(x_user_id)
+    raw_user_id = _require_user_id(x_user_id)
     try:
+        # Cast to int here so the service layer always receives a clean integer
+        user_id = int(raw_user_id)
         return {"notifications": await get_notifications(user_id)}
+    except ValueError:
+        raise HTTPException(status_code=400, detail="Invalid user ID format")
     except HTTPException:
         raise
     except Exception as exc:
-        logger.error("Could not load notifications for user %s: %s", user_id, exc, exc_info=True)
+        logger.error("Could not load notifications for user %s: %s", raw_user_id, exc, exc_info=True)
         raise HTTPException(status_code=503, detail="Notification service unavailable")
-
