@@ -6,9 +6,13 @@ from typing import Optional, Any, Dict, Tuple
 from fastapi import HTTPException
 from config import settings
 
+from psycopg.rows import dict_row
+from app.db.postgres import get_postgres_pool
+
 from app.core.security import decrypt_secret
 
 logger = logging.getLogger(__name__)
+
 
 
 async def _get_morpheus_creds(user_id: Optional[int]) -> Tuple[str, str]:
@@ -1225,6 +1229,10 @@ async def make_managed(
     except Exception as e:
         logger.error(f"Unexpected error in make_managed: {str(e)}", exc_info=True)
         raise HTTPException(status_code=502, detail=f"Service unavailable: {str(e)}")
+
+
+
+
 
 
     
