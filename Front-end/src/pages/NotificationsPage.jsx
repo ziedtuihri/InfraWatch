@@ -30,7 +30,7 @@ export default function NotificationsPage({ auth }) {
           <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: 12 }}>
             <thead>
               <tr style={{ background: 'var(--table-head)', textAlign: 'left' }}>
-                {['Severity', 'Title / message', 'Resource', 'Type', 'Time', 'Status'].map(label => (
+                {['Severity', 'Title / message', 'Resource', 'Type', 'Time'].map(label => (
                   <th key={label} style={{ padding: '10px 12px', color: 'var(--tx-muted)', whiteSpace: 'nowrap' }}>
                     {label}
                   </th>
