@@ -582,3 +582,32 @@ async def get_all_user_sessions(user_id: int) -> list:
             return await cur.fetchall()
 
 
+
+
+    
+async def get_notifications(user_id: int | str) -> list:
+    """Return all notifications for a user, newest first."""
+    parsed_user_id = int(user_id) # Safe guard if string is passed
+    pool = get_postgres_pool()
+    async with pool.connection() as conn:
+        async with conn.cursor(row_factory=dict_row) as cur:
+            await cur.execute(
+                """
+                SELECT id, user_id, type, severity, title, message, resource_name,
+                       source_type, source_id, is_read, created_at, read_at
+                FROM notifications
+                WHERE user_id = %s
+                ORDER BY created_at DESC, id DESC
+                """,
+                (parsed_user_id,),
+            )
+            rows = await cur.fetchall()
+
+    return [
+        {
+            **row,
+            "created_at": row["created_at"].isoformat() if row["created_at"] else None,
+            "read_at": row["read_at"].isoformat() if row["read_at"] else None,
+        }
+        for row in rows
+    ]
