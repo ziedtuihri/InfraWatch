@@ -12,8 +12,7 @@ from app.services.external_api import (
     get_clients,
     get_All_Images,
     execute_task,
-    make_managed,
-    get_notifications
+    make_managed
     
 )
 import logging

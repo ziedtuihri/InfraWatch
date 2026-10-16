@@ -32,6 +32,7 @@ from app.services.auth_service import (
     create_task_run,
     update_task_run,
     get_task_run_progress,
+    get_notifications
 
 )
 
