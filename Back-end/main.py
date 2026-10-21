@@ -3,6 +3,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from contextlib import asynccontextmanager
 from app.api.routes import router as api_router
 from app.api.auth_routes import router as auth_router
+from app.api.malware_routes import router as malware_router
 from app.db.postgres import init_postgres_pool, close_postgres_pool
 
 # Lifespan context manager
@@ -36,6 +37,7 @@ app.add_middleware(
 # Include routers
 app.include_router(api_router)
 app.include_router(auth_router)
+app.include_router(malware_router)
 
 # Health check endpoint
 @app.get("/health")
@@ -52,4 +54,3 @@ async def root():
 if __name__ == "__main__":
     import uvicorn
     uvicorn.run(app, host="0.0.0.0", port=8001)
-
