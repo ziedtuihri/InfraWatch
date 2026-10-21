@@ -17,14 +17,38 @@ const NAV = [
   { id: 'analysis',    label: 'AI Malware Detection',        icon: '📊', desc: 'Browse virtual machines and monitored resources.' },
   { id: 'vm-creation', label: 'AI VM outage analysis', icon: '🖥', desc: 'Describe the VM you need and let AI prepare it.' },
   { id: 'vm-notification', label: 'Notifications', icon: <NotificationIcon />, desc: 'Latest system, VM, and malware notifications.' },
+  { id: 'ansible-automation', label: 'Ansible Automation', icon: '⚙️', desc: 'Manage automation with Ansible.' },
+  { id: 'kibana-dashboard', label: 'Kibana Dashboard', icon: '📈', desc: 'View the Kibana monitoring dashboard.' },
 ]
+
+const EMBED_URLS = {
+  'ansible-automation': 'http://192.168.100.77:8080/',
+  'kibana-dashboard': 'http://192.168.100.77:5601/app/dashboards#/view/088d842b-f37b-4e82-aac2-04f2a7e84172?_g=(filters:!(),refreshInterval:(pause:!t,value:60000),time:(from:now-15m,to:now))',
+}
 
 function pageFromPath() {
   const seg = window.location.pathname.split('/')[2]
   return NAV.some(n => n.id === seg) ? seg : 'analysis'
 }
 
-
+function EmbeddedService({ page }) {
+  return (
+    <iframe
+      title={page === 'kibana-dashboard' ? 'Kibana Dashboard' : 'Ansible Automation'}
+      src={EMBED_URLS[page]}
+      allowFullScreen
+      style={{
+        display: 'block',
+        width: '100%',
+        height: 'calc(100vh - 190px)',
+        minHeight: 500,
+        border: '1px solid var(--card-border)',
+        borderRadius: 8,
+        background: 'var(--card-bg)',
+      }}
+    />
+  )
+}
 
 function VMCreationPage({ state, act }) {
   return (
@@ -127,6 +151,7 @@ export default function AIAssistPage({ state, act }) {
           {page === 'analysis'        && <MalwareAnalysisView state={state} />}
           {page === 'vm-creation' && <VMCreationPage state={state} act={act} />}
           {page === 'vm-notification' && <NotificationsPage auth={state.auth} />}
+          {EMBED_URLS[page] && <EmbeddedService page={page} />}
 
         </main>
       </div>
