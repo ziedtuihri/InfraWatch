@@ -899,12 +899,14 @@ def extract_container_metrics(container: docker.models.containers.Container) -> 
         "memory_percent": mem_percent
     }
 
+
 @router.get("/vms/metrics", response_model=List[Dict[str, Any]])
 async def get_all_vms_metrics(all_containers: bool = False):
     """
-    Dynamically fetches CPU, Memory, and status for ALL Docker containers.
-    - default: lists all RUNNING containers (`docker ps`)
-    - all_containers=True: lists ALL containers including stopped ones (`docker ps -a`)
+    Dynamically fetches CPU, Memory, and status for Docker containers
+    whose names start with 'vm' or 'VM'.
+    - default: lists matching running containers
+    - all_containers=True: lists matching containers including stopped ones
     """
     try:
         client = docker.from_env()
@@ -919,8 +921,10 @@ async def get_all_vms_metrics(all_containers: bool = False):
     
     metrics_list = []
     for container in containers:
-        metrics = extract_container_metrics(container)
-        metrics_list.append(metrics)
+        # Filter: Only process containers whose names start with 'vm' or 'VM'
+        if container.name.lower().startswith("vm"):
+            metrics = extract_container_metrics(container)
+            metrics_list.append(metrics)
 
     return metrics_list
 
