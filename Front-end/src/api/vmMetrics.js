@@ -1,4 +1,4 @@
-const API_BASE = import.meta.env.VITE_API_URL || 'http://192.168.100.77:8000'
+const API_BASE = import.meta.env.VITE_API_URL || 'http://192.168.100.77:8005'
 
 export async function fetchVMMetrics({ allContainers = false, signal } = {}) {
   const res = await fetch(
