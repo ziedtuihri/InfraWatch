@@ -5,5 +5,7 @@ Backdoor
 trojen
 Trojen
 test_rat
+test_payload
+rat
 test_backdoor
 test_Backdoor
