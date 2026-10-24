@@ -4,6 +4,7 @@ import { MBtn } from '../components/ui/Primitives'
 
 import MalwareAnalysisView from './MalwareAnalysisView' 
 import NotificationsPage from './NotificationsPage'
+import VMOutageAnalysisPage from './VMOutageAnalysisPage'
 
 function NotificationIcon({ size = 16 }) {
   return (
@@ -15,7 +16,7 @@ function NotificationIcon({ size = 16 }) {
 
 const NAV = [
   { id: 'analysis',    label: 'AI Malware Detection',        icon: '📊', desc: 'Browse virtual machines and monitored resources.' },
-  { id: 'vm-creation', label: 'AI VM outage analysis', icon: '🖥', desc: 'Describe the VM you need and let AI prepare it.' },
+  { id: 'vm-creation', label: 'AI VM outage analysis', icon: '🖥', desc: 'Review outage likelihood for all virtual machines.' },
   { id: 'vm-notification', label: 'Notifications', icon: <NotificationIcon />, desc: 'Latest system, VM, and malware notifications.' },
   { id: 'ansible-automation', label: 'Ansible Automation', icon: '⚙️', desc: 'Manage automation with Ansible.' },
   { id: 'kibana-dashboard', label: 'Kibana Dashboard', icon: '📈', desc: 'View the Kibana monitoring dashboard.' },
@@ -47,14 +48,6 @@ function EmbeddedService({ page }) {
         background: 'var(--card-bg)',
       }}
     />
-  )
-}
-
-function VMCreationPage({ state, act }) {
-  return (
-    <div>
-      {/* VM creation form / AI prompt goes here */}
-    </div>
   )
 }
 
@@ -149,7 +142,7 @@ export default function AIAssistPage({ state, act }) {
           </p>
 
           {page === 'analysis'        && <MalwareAnalysisView state={state} />}
-          {page === 'vm-creation' && <VMCreationPage state={state} act={act} />}
+          {page === 'vm-creation' && <VMOutageAnalysisPage />}
           {page === 'vm-notification' && <NotificationsPage auth={state.auth} />}
           {EMBED_URLS[page] && <EmbeddedService page={page} />}
 

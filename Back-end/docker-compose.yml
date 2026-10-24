@@ -10,8 +10,10 @@ services:
       - HOST=0.0.0.0
       - PORT=8000
       - MALWARE_MODEL_PATH=/app/models/malware_detection_model.pkl
+      - CLUSTER_OUTAGE_MODEL_PATH=/app/outage-models/cluster_outage_model.pkl
     volumes:
       - .:/app
       - /var/run/docker.sock:/var/run/docker.sock
       - ../MLOps_InfraWatch-/malware_detection_model.pkl:/app/models/malware_detection_model.pkl:ro
+      - ../MLOps_InfraWatch-/models:/app/outage-models:ro
     command: uvicorn main:app --host 0.0.0.0 --port 8000 --reload

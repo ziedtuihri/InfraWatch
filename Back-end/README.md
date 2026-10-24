@@ -27,6 +27,14 @@ The default target is `/`. A different absolute, non-system path can be supplied
 
 Recurring schedules use `POST /api/v1/malware/scans/schedule` with `container_ids`, `target_path`, and `interval_seconds` (20 seconds to 48 hours). `GET` returns the caller's current schedule and latest result. Schedules are scoped by `X-User-Id`; requests without that header share an anonymous schedule.
 
+## VM outage analysis
+
+`GET /api/v1/vms/outage-analysis` returns every matching Docker VM, its live CPU and memory metrics, and an `outage_probability_pct`. Running VMs are scored by the Random Forest trained in `MLOps_InfraWatch-/Monitor_Cluster.py`; non-running VMs are reported as 100%. The model now uses only CPU and memory because these are the signals collected by the live VM metrics endpoint. CPU is normalized against total host CPU capacity to match the model's 0–100 training range.
+
+Train/export the model from `MLOps_InfraWatch-` with `python Monitor_Cluster.py`. It writes `models/cluster_outage_model.pkl` by default; set `CLUSTER_OUTAGE_MODEL_PATH` to change the destination. The backend Compose service mounts that directory read-only at `/app/outage-models`. The endpoint reports HTTP 503 until a compatible artifact is available.
+
+The current training target is synthetic: it is generated from CPU/memory thresholds with seeded noise, not observed outage records. Accordingly, the returned percentage is a model probability for that proxy target and must not be treated as a validated operational outage rate.
+
 ## Notification feed
 
 The authenticated Notifications page polls `GET /api/v1/notifications` every 10 seconds using the `X-User-Id` header. The endpoint returns all rows from `notifications` belonging to that user, newest first. `POST /api/v1/notifications/read` accepts `{"notification_ids": [1, 2]}` with the same header and marks only those notifications belonging to that user as read. Opening the page marks the notifications already loaded as read; the page also supports selecting notifications and marking the selection read. Apply the `notifications` table and `idx_notifications_user` index from `db/init.sql` before using the feed.

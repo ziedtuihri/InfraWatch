@@ -20,6 +20,12 @@ from typing import Optional, Dict, Any, List
 
 import docker
 
+from app.services.outage_analysis import (
+    OutageModelUnavailable,
+    analyze_vm_outages,
+    load_outage_model,
+)
+
 logger = logging.getLogger(__name__)
 
 router = APIRouter(prefix="/api/v1", tags=["items"])
@@ -843,8 +849,6 @@ async def query_loki_logs(
 
 def calculate_cpu_percent(stats: dict) -> float:
     """Calculates CPU usage percentage from raw Docker stats dict."""
-    cpu_count = stats["cpu_stats"].get("online_cpus", 1)
-    
     cpu_delta = stats["cpu_stats"]["cpu_usage"]["total_usage"] - \
                 stats["precpu_stats"]["cpu_usage"]["total_usage"]
     
@@ -852,7 +856,7 @@ def calculate_cpu_percent(stats: dict) -> float:
                    stats["precpu_stats"].get("system_cpu_usage", 0)
     
     if system_delta > 0 and cpu_delta > 0:
-        cpu_percent = (cpu_delta / system_delta) * cpu_count * 100.0
+        cpu_percent = (cpu_delta / system_delta) * 100.0
         return round(cpu_percent, 2)
     return 0.0
 
@@ -929,3 +933,11 @@ async def get_all_vms_metrics(all_containers: bool = False):
     return metrics_list
 
 
+@router.get("/vms/outage-analysis")
+async def get_vm_outage_analysis():
+    """Return current outage likelihoods for all Docker VMs."""
+    vm_metrics = await get_all_vms_metrics(all_containers=True)
+    try:
+        return analyze_vm_outages(vm_metrics, load_outage_model())
+    except OutageModelUnavailable as exc:
+        raise HTTPException(status_code=503, detail=str(exc)) from exc
