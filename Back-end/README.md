@@ -25,7 +25,14 @@ Each container scan is capped at 5,000 files, 32 MiB per file, and 256 MiB total
 
 The default target is `/`. A different absolute, non-system path can be supplied as `target_path`.
 
-Recurring schedules use `POST /api/v1/malware/scans/schedule` with `container_ids`, `target_path`, and `interval_seconds` (20 seconds to 48 hours). `GET` returns the caller's current schedule and latest result. Schedules are scoped by `X-User-Id`; requests without that header share an anonymous schedule.
+Each detected malicious file creates a `critical` row in `notifications` for the
+scanning user, with a short message naming the file and VM. Scan requests and
+schedule creation require the `X-User-Id` header so alerts are assigned to the
+same user shown on the Notifications page. Scheduled scans also create alerts
+for detections. Apply the `notifications` table from `db/init.sql` before
+enabling this behavior.
+
+Recurring schedules use `POST /api/v1/malware/scans/schedule` with `container_ids`, `target_path`, and `interval_seconds` (20 seconds to 48 hours). `GET` returns the caller's current schedule and latest result. Schedules are scoped by `X-User-Id`; schedule creation requires this header to attribute notifications, while `GET` and `DELETE` without it address the anonymous schedule.
 
 ## VM outage analysis
 

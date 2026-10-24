@@ -15,6 +15,15 @@ def test_build_ansible_command_runs_selected_tags():
     ]
 
 
+def test_build_ansible_command_runs_deployment_tag():
+    assert build_ansible_command("/usr/bin/ansible-playbook", ["deployment"]) == [
+        "/usr/bin/ansible-playbook",
+        str(PLAYBOOK_PATH),
+        "--tags",
+        "deployment",
+    ]
+
+
 def test_build_ansible_command_without_tags_runs_all_steps():
     assert build_ansible_command("/usr/bin/ansible-playbook", None) == [
         "/usr/bin/ansible-playbook",
@@ -25,3 +34,7 @@ def test_build_ansible_command_without_tags_runs_all_steps():
 def test_run_request_rejects_unlisted_tags():
     with pytest.raises(ValidationError):
         RunRequest(tags=["quality", "--extra-vars"])
+
+
+def test_run_request_accepts_deployment_tag():
+    assert RunRequest(tags=["deployment"]).tags == ["deployment"]

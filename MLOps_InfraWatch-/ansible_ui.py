@@ -10,7 +10,7 @@ from pydantic import BaseModel
 
 PROJECT_DIR = Path(__file__).resolve().parent
 PLAYBOOK_PATH = PROJECT_DIR / "ansible" / "site.yml"
-RunTag = Literal["setup", "quality", "training", "tests", "stack"]
+RunTag = Literal["setup", "quality", "training", "tests", "stack", "deployment"]
 MAX_OUTPUT_LENGTH = 100_000
 MAX_RUN_HISTORY = 20
 
@@ -337,7 +337,7 @@ HTML_PAGE = """
 
   <main class="wrap">
     <h1 class="title">Ansible Workflow Runner</h1>
-    <p class="subtitle">Runs the local playbook. Only the steps you select can be started.</p>
+    <p class="subtitle">Runs the local playbook. Deployment builds and pushes the MLOps image to Docker Hub and is opt-in.</p>
 
     <div class="grid">
       <!-- LEFT: steps -->
@@ -384,11 +384,17 @@ HTML_PAGE = """
             <div class="step-info"><div class="step-name">Training</div><div class="step-desc">Train models (also starts the stack)</div></div>
             <span class="tag">training</span><div class="check">&#10003;</div>
           </label>
+          <label class="step">
+            <input type="checkbox" name="tag" value="deployment">
+            <div class="step-icon">&#128640;</div>
+            <div class="step-info"><div class="step-name">Deployment</div><div class="step-desc">Log in, build, and push ziedth/infrawatch:latest</div></div>
+            <span class="tag">deployment</span><div class="check">&#10003;</div>
+          </label>
         </div>
 
         <div class="footer">
           <button type="submit" class="btn btn-primary" id="run-selected">Run selected steps</button>
-          <button type="button" class="btn btn-ghost" id="run-all">Run all steps</button>
+          <button type="button" class="btn btn-ghost" id="run-all">Run all (without deployment)</button>
         </div>
       </form>
 

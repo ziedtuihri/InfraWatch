@@ -120,6 +120,7 @@ services:
 
   # MLflow Application
   mlopsapp:
+    image: ${DOCKERHUB_IMAGE:-ziedth/infrawatch:latest}
     build:
       context: .
       dockerfile: Dockerfile

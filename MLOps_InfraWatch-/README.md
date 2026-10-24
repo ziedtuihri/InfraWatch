@@ -211,10 +211,28 @@ ansible-playbook ansible/site.yml --tags stack
 
 Available tags are `setup` (`make install`), `quality` (`make check`),
 `training` (the malware, UCI, and Iris training targets), `tests` (`make test`),
-and `stack` (`make up`). The stack starts detached before training and Ansible
-waits for the MLflow tracking server. Selecting `training` also starts and
-waits for the stack, and configures the training runs to log to its MLflow
-server. Running the playbook without tags runs every listed step in order.
+`stack` (`make up`), and `deployment` (Docker Hub login, image build, and push).
+The deployment image defaults to `ziedth/infrawatch:latest`; set
+`DOCKERHUB_IMAGE` to use a different repository or tag. The stack starts
+detached before training and Ansible waits for the MLflow tracking server.
+Selecting `training` also starts and waits for the stack, and configures the
+training runs to log to its MLflow server. Running the playbook without tags
+runs every default step in order.
+Deployment is explicitly opt-in and is excluded when running the playbook
+without tags or using the UI's "Run all (without deployment)" button.
+
+Set the rotated Docker Hub access token in the environment of the Ansible UI
+server; do not put it in the playbook, Compose file, or browser. The username
+defaults to `ziedth` and can be overridden with `DOCKERHUB_USERNAME`:
+
+```bash
+export DOCKERHUB_TOKEN='your-rotated-docker-hub-token'
+make ansible-ui
+```
+
+Select the Deployment step in the UI, or run it directly with
+`ansible-playbook ansible/site.yml --tags deployment`. The login task reads the
+token from standard input and suppresses Ansible logging for that task.
 
 The `quality` step checks formatting, lint, and security for the project-root
 Python files without changing them. Run `make format` separately to apply

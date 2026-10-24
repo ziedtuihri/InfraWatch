@@ -613,6 +613,45 @@ async def get_notifications(user_id: int | str) -> list:
     ]
 
 
+async def create_malware_notifications(
+    user_id: int | str, scan_result: dict
+) -> int:
+    """Persist one critical notification for each malware detection."""
+    parsed_user_id = int(user_id)
+    detections = [
+        (container, detection)
+        for container in scan_result.get("containers", [])
+        for detection in container.get("detections", [])
+    ]
+    if not detections:
+        return 0
+
+    pool = get_postgres_pool()
+    async with pool.connection() as conn:
+        async with conn.cursor() as cur:
+            for container, detection in detections:
+                vm_name = str(container.get("name") or "unknown VM")
+                file_path = str(detection.get("path") or "unknown file")
+                file_name = file_path.rsplit("/", 1)[-1] or file_path
+                await cur.execute(
+                    """
+                    INSERT INTO notifications (
+                        user_id, type, severity, title, message, resource_name,
+                        source_type
+                    )
+                    VALUES (%s, 'malware_scan', 'critical', %s, %s, %s, 'malware_scan')
+                    """,
+                    (
+                        parsed_user_id,
+                        "Malicious file detected",
+                        f"A malicious file named {file_name} was found on {vm_name}.",
+                        vm_name,
+                    ),
+                )
+
+    return len(detections)
+
+
 async def mark_notifications_read(user_id: int | str, notification_ids: list[int]) -> int:
     """Mark the specified notifications as read for a user."""
     parsed_user_id = int(user_id)

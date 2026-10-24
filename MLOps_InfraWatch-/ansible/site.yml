@@ -6,6 +6,7 @@
 
   vars:
     project_dir: "{{ playbook_dir }}/.."
+    dockerhub_username: "{{ lookup('env', 'DOCKERHUB_USERNAME') | default('ziedth', true) }}"
 
   tasks:
     - name: Install project dependencies
@@ -54,3 +55,35 @@
         - train_hex_model
         - train_iris_model
       tags: [training]
+
+    - name: Require Docker Hub token for deployment
+      ansible.builtin.assert:
+        that:
+          - lookup('env', 'DOCKERHUB_TOKEN') | length > 0
+        fail_msg: Set DOCKERHUB_TOKEN in the Ansible UI server environment before deployment.
+      tags: [deployment, never]
+
+    - name: Log in to Docker Hub
+      ansible.builtin.command:
+        argv:
+          - docker
+          - login
+          - --username
+          - "{{ dockerhub_username }}"
+          - --password-stdin
+        stdin: "{{ lookup('env', 'DOCKERHUB_TOKEN') }}"
+        stdin_add_newline: false
+      no_log: true
+      tags: [deployment, never]
+
+    - name: Build the MLOps application image
+      ansible.builtin.command: docker compose build mlopsapp
+      args:
+        chdir: "{{ project_dir }}"
+      tags: [deployment, never]
+
+    - name: Push the MLOps application image to Docker Hub
+      ansible.builtin.command: docker compose push mlopsapp
+      args:
+        chdir: "{{ project_dir }}"
+      tags: [deployment, never]
