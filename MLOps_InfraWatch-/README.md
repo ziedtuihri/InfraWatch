@@ -71,20 +71,41 @@ the held-out Iris dataset. It also writes a structured evaluation event to
 view. The metrics are available as `event_data.metric_rmse` and
 `event_data.metric_r2`.
 
-## Cluster monitoring notebook
+## Cluster outage analysis
 
-Run `notebooks/Monitoring_Cluster.ipynb` from top to bottom. It reads
-`dataset/datacenter_warehouse_50k.csv`, checks the required telemetry columns,
-cleans missing/non-numeric model inputs, creates a reproducible proxy outage
-target, trains and evaluates a Random Forest, reviews feature importance and
-correlations, and compares additional models. The generated outage labels are
-demonstration labels based on CPU/memory thresholds with seeded noise; they
-are not observed outage records.
+The script `Monitor_Cluster.py` reads `dataset/datacenter_warehouse_50k.csv`,
+uses CPU and memory as its model inputs, creates a reproducible proxy outage
+target, evaluates a Random Forest, and compares additional models. The generated
+outage labels are demonstration labels based on CPU/memory thresholds with
+seeded noise; they are not observed outage records.
 
-Run the script equivalent from the repository root with
-`python Monitor_Cluster.py`. It reads `dataset/datacenter_warehouse_50k.csv`
-relative to the script location and writes structured evaluation events to
-`logs/cluster_monitoring.log`.
+Run it from the repository root with `python Monitor_Cluster.py`. It reads
+`dataset/datacenter_warehouse_50k.csv` relative to the script location, writes
+the compatible CPU/memory model to
+`models/cluster_outage_model.pkl`, and writes structured evaluation events to
+`logs/cluster_monitoring.log`. Set `CLUSTER_OUTAGE_MODEL_PATH` to export the
+artifact elsewhere. The backend uses this artifact to report VM outage
+probabilities; those percentages reflect the synthetic training target, not
+validated historical outage likelihood.
+
+To quickly create the artifact without running plots or MLflow comparisons:
+
+```bash
+python3 -m venv .venv
+source .venv/bin/activate
+python -m pip install numpy pandas scikit-learn==1.9.1 joblib==1.4.2
+python Monitor_Cluster.py --export-only
+```
+
+The command prints the exact `.pkl` output path. If the frontend calls a backend
+on another machine, training this checkout locally is not enough: place the
+exported file on the backend host at the path configured by
+`CLUSTER_OUTAGE_MODEL_PATH`. In the provided Compose setup, that path is
+`/app/outage-models/cluster_outage_model.pkl`, backed by
+`MLOps_InfraWatch-/models/cluster_outage_model.pkl` on the Docker host.
+
+`notebooks/Monitoring_Cluster.ipynb` remains an exploratory notebook for the
+original wider telemetry feature set and does not export the backend model.
 
 ## Kibana malware metrics
 

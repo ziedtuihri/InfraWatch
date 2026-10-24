@@ -1,15 +1,13 @@
 """Train and compare models for datacenter cluster outage prediction."""
 
+import argparse
 import logging
 import os
 from pathlib import Path
 
-import matplotlib.pyplot as plt
-import mlflow
-import mlflow.sklearn
+import joblib
 import numpy as np
 import pandas as pd
-import seaborn as sns
 from sklearn.ensemble import GradientBoostingClassifier, RandomForestClassifier
 from sklearn.linear_model import LogisticRegression
 from sklearn.metrics import (
@@ -28,24 +26,14 @@ from sklearn.svm import LinearSVC
 from sklearn.tree import DecisionTreeClassifier
 
 from logging_config import setup_logging
-from mlflow_utils import mlflow_run
 
 logger = logging.getLogger("cluster_monitoring")
 MLFLOW_EXPERIMENT = "Datacenter Outage Prediction"
 
 
 REQUIRED_COLUMNS = [
-    "Server_Age_Years",
-    "Workload_Intensity",
     "CPU_Usage_Pct",
     "Memory_Usage_Pct",
-    "Storage_Utilization_Pct",
-    "Active_IOPS",
-    "Power_Consumption_kW",
-    "Carbon_Emission_kg",
-    "Network_Throughput_Gbps",
-    "Packet_Rate",
-    "Failed_Logins",
 ]
 
 
@@ -59,6 +47,11 @@ def _log_model_run(
     training_data,
 ):
     """Log one evaluated outage model and its reproducibility artifacts."""
+    import mlflow
+    import mlflow.sklearn
+
+    from mlflow_utils import mlflow_run
+
     classes = [0, 1]
     report = classification_report(
         y_test, predictions, labels=classes, output_dict=True, zero_division=0
@@ -117,7 +110,7 @@ def _log_model_run(
         )
 
 
-def main():
+def main(export_only=False):
     project_root = Path(__file__).resolve().parent
     log_path = os.getenv(
         "CLUSTER_LOG_FILE", str(project_root / "logs" / "cluster_monitoring.log")
@@ -166,10 +159,24 @@ def main():
     training_data = X_train.copy()
     training_data["Is_Outage"] = y_train
 
-    model = RandomForestClassifier(
-        n_estimators=100, random_state=42, class_weight="balanced", n_jobs=-1
-    )
+    model = RandomForestClassifier(n_estimators=100, random_state=42, n_jobs=-1)
     model.fit(X_train, y_train)
+    model_path = Path(
+        os.getenv(
+            "CLUSTER_OUTAGE_MODEL_PATH",
+            str(project_root / "models" / "cluster_outage_model.pkl"),
+        )
+    )
+    model_path.parent.mkdir(parents=True, exist_ok=True)
+    joblib.dump(model, model_path)
+    logger.info("event=model_exported model=Random_Forest path=%s", model_path)
+    print(f"Exported outage model to {model_path}")
+    if export_only:
+        return
+
+    import matplotlib.pyplot as plt
+    import seaborn as sns
+
     predictions = model.predict(X_test)
     rf_metrics = {
         "accuracy": accuracy_score(y_test, predictions),
@@ -343,4 +350,10 @@ def main():
 
 
 if __name__ == "__main__":
-    main()
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument(
+        "--export-only",
+        action="store_true",
+        help="Train and export the outage model without plots or MLflow logging.",
+    )
+    main(export_only=parser.parse_args().export_only)
