@@ -1,0 +1,60 @@
+{
+  "run_id": "sample-20261024",
+  "collected_at": "2026-10-24T12:00:00+00:00",
+  "source": "morpheus",
+  "environment": "lab-vm-essentials",
+  "hosts": [
+    {
+      "id": 501,
+      "name": "kvm-lab-01",
+      "serverType": {
+        "code": "vmHypervisor"
+      },
+      "status": "online",
+      "cpuUsagePct": 47.1,
+      "memoryUsagePct": 61.8,
+      "cpuCount": 24
+    }
+  ],
+  "vms": [
+    {
+      "id": 601,
+      "name": "vm-worker-01",
+      "status": "running",
+      "server": {
+        "id": 501,
+        "name": "kvm-lab-01"
+      },
+      "cpuPercent": 31.2,
+      "memoryUsagePercent": 52.6,
+      "containerDetails": [
+        {
+          "id": 701,
+          "name": "worker-api",
+          "status": "running",
+          "cpuUsagePct": 12.3,
+          "memoryUsagePct": 28.1
+        }
+      ]
+    }
+  ],
+  "containers": [],
+  "networks": [
+    {
+      "id": 801,
+      "name": "tenant-net-lab",
+      "status": "active",
+      "networkThroughputMbps": 42.0
+    }
+  ],
+  "datastores": [
+    {
+      "id": 901,
+      "name": "ceph-lab-01",
+      "status": "online",
+      "capacity": 549755813888,
+      "freeSpace": 164926744166,
+      "usedSpace": 384829069722
+    }
+  ]
+}

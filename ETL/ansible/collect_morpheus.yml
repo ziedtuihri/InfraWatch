@@ -1,0 +1,47 @@
+---
+- name: Collect read-only HPE Morpheus VM Essentials inventory
+  hosts: localhost
+  connection: local
+  gather_facts: true
+
+  vars:
+    project_dir: "{{ playbook_dir }}/.."
+    run_id: "{{ lookup('env', 'ETL_RUN_ID') | default(ansible_date_time.iso8601_basic_short, true) }}"
+    staging_dir: "{{ project_dir }}/staging/{{ run_id }}"
+    morpheus_max_pages: "{{ lookup('env', 'MORPHEUS_MAX_PAGES') | default('100', true) | int }}"
+
+  tasks:
+    - name: Require Morpheus API connection settings
+      ansible.builtin.assert:
+        that:
+          - lookup('env', 'MORPHEUS_URL') | length > 0
+          - lookup('env', 'MORPHEUS_TOKEN') | length > 0
+        fail_msg: Set MORPHEUS_URL and MORPHEUS_TOKEN in the Ansible controller environment.
+      tags: [morpheus]
+
+    - name: Create run-specific staging directory
+      ansible.builtin.file:
+        path: "{{ staging_dir }}"
+        state: directory
+        mode: "0750"
+      tags: [morpheus]
+
+    - name: Collect all paginated Morpheus inventory
+      ansible.builtin.command:
+        argv:
+          - "{{ ansible_playbook_python }}"
+          - "{{ project_dir }}/python/collect_morpheus.py"
+          - "--output"
+          - "{{ staging_dir }}/morpheus.json"
+          - "--run-id"
+          - "{{ run_id }}"
+      environment:
+        MORPHEUS_URL: "{{ lookup('env', 'MORPHEUS_URL') }}"
+        MORPHEUS_TOKEN: "{{ lookup('env', 'MORPHEUS_TOKEN') }}"
+        MORPHEUS_ENVIRONMENT: "{{ lookup('env', 'MORPHEUS_ENVIRONMENT') | default('morpheus-vm-essentials', true) }}"
+        MORPHEUS_VALIDATE_CERTS: "{{ lookup('env', 'MORPHEUS_VALIDATE_CERTS') | default('true', true) }}"
+        MORPHEUS_MAX_PAGES: "{{ morpheus_max_pages }}"
+      register: morpheus_collection
+      changed_when: true
+      no_log: true
+      tags: [morpheus]

@@ -1,0 +1,8 @@
+---
+- name: Run VMware collection
+  ansible.builtin.import_playbook: collect_vcenter.yml
+  tags: [vmware]
+
+- name: Run HPE Morpheus VM Essentials collection
+  ansible.builtin.import_playbook: collect_morpheus.yml
+  tags: [morpheus]

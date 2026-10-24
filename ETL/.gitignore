@@ -1,0 +1,5 @@
+staging/*
+!staging/.gitkeep
+output/
+__pycache__/
+.venv/

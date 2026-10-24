@@ -1,0 +1,46 @@
+{
+  "run_id": "sample-20261024",
+  "collected_at": "2026-10-24T12:00:00+00:00",
+  "source": "vmware",
+  "environment": "lab-vsphere",
+  "hosts": [
+    {
+      "name": "esxi-lab-01",
+      "moid": "host-101",
+      "connection_state": "connected",
+      "cpu_usage_pct": 36.4,
+      "memory_usage_pct": 58.2,
+      "cpu_cores": 16,
+      "memory_capacity_bytes": 137438953472
+    }
+  ],
+  "vms": [
+    {
+      "name": "vm-app-01",
+      "moid": "vm-201",
+      "power_state": "poweredOn",
+      "esxi_hostname": "esxi-lab-01",
+      "cpu_usage_pct": 22.5,
+      "memory_usage_pct": 64.0,
+      "network_rx_bytes": 10485760,
+      "network_tx_bytes": 7340032
+    }
+  ],
+  "containers": [],
+  "networks": [
+    {
+      "name": "dvSwitch-Lab",
+      "uuid": "dvs-301",
+      "network_throughput_mbps": 125.5
+    }
+  ],
+  "datastores": [
+    {
+      "name": "vsan-lab-01",
+      "uuid": "datastore-401",
+      "capacity": 1099511627776,
+      "freeSpace": 274877906944,
+      "usedSpace": 824633720832
+    }
+  ]
+}

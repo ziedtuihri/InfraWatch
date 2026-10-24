@@ -1,48 +1,140 @@
-- hosts: localhost
-  gather_facts: false
+---
+- name: Collect read-only VMware vCenter inventory
+  hosts: localhost
+  connection: local
+  gather_facts: true
+  collections:
+    - community.vmware
+    - vmware.vmware
 
   vars:
     project_dir: "{{ playbook_dir }}/.."
-    staging_dir: "{{ project_dir }}/staging"
+    run_id: "{{ lookup('env', 'ETL_RUN_ID') | default(ansible_date_time.iso8601_basic_short, true) }}"
+    staging_dir: "{{ project_dir }}/staging/{{ run_id }}"
+    vcenter_host: "{{ lookup('env', 'VCENTER_HOST') }}"
+    vcenter_user: "{{ lookup('env', 'VCENTER_USERNAME') }}"
+    vcenter_password: "{{ lookup('env', 'VCENTER_PASSWORD') }}"
+    vcenter_validate_certs: "{{ lookup('env', 'VCENTER_VALIDATE_CERTS') | default('true', true) | bool }}"
 
   tasks:
-    - name: Create staging directory
-      file:
+    - name: Require vCenter connection settings
+      ansible.builtin.assert:
+        that:
+          - vcenter_host | length > 0
+          - vcenter_user | length > 0
+          - vcenter_password | length > 0
+          - lookup('env', 'VCENTER_DATACENTER') | length > 0
+        fail_msg: Set VCENTER_HOST, VCENTER_USERNAME, VCENTER_PASSWORD, and VCENTER_DATACENTER in the Ansible controller environment.
+      tags: [vmware]
+
+    - name: Create run-specific staging directory
+      ansible.builtin.file:
         path: "{{ staging_dir }}"
         state: directory
+        mode: "0750"
+      tags: [vmware]
 
-    - name: VM inventory
+    - name: Collect virtual machine inventory
       community.vmware.vmware_vm_info:
-        hostname: "{{ vcenter _host }}"
-        username: "{{ vcenter_user }}"
-        password: "{{ vcenter_pass }}"
-        validate_certs: false
-        vm_type: vm
-      register: vms
-
-    - name: ESXi hosts
-      community.vmware.vmware_host_info:
         hostname: "{{ vcenter_host }}"
         username: "{{ vcenter_user }}"
-        password: "{{ vcenter_pass }}"
-        validate_certs: false
-      register: hosts
+        password: "{{ vcenter_password }}"
+        validate_certs: "{{ vcenter_validate_certs }}"
+        vm_type: vm
+        show_cluster: true
+        show_datacenter: true
+        show_datastore: true
+        show_esxi_hostname: true
+        show_net: true
+        show_allocated: true
+      register: vmware_vms
+      no_log: true
+      tags: [vmware]
 
-    - name: Datastores
+    - name: Collect ESXi host facts and capacity
+      vmware.vmware.esxi_info:
+        hostname: "{{ vcenter_host }}"
+        username: "{{ vcenter_user }}"
+        password: "{{ vcenter_password }}"
+        validate_certs: "{{ vcenter_validate_certs }}"
+        datacenter: "{{ lookup('env', 'VCENTER_DATACENTER') }}"
+      register: vmware_hosts
+      no_log: true
+      tags: [vmware]
+
+    - name: Collect datastore inventory and capacity
       community.vmware.vmware_datastore_info:
         hostname: "{{ vcenter_host }}"
         username: "{{ vcenter_user }}"
-        password: "{{ vcenter_pass }}"
-        validate_certs: false
-      register: ds
+        password: "{{ vcenter_password }}"
+        validate_certs: "{{ vcenter_validate_certs }}"
+        datacenter: "{{ lookup('env', 'VCENTER_DATACENTER') | default('ha-datacenter', true) }}"
+        gather_vmfs_mount_info: true
+        gather_nfs_mount_info: true
+      register: vmware_datastores
+      no_log: true
+      tags: [vmware]
 
-    - name: Save vCenter data to JSON
-      copy:
+    - name: Collect distributed switch inventory
+      community.vmware.vmware_dvswitch_info:
+        hostname: "{{ vcenter_host }}"
+        username: "{{ vcenter_user }}"
+        password: "{{ vcenter_password }}"
+        validate_certs: "{{ vcenter_validate_certs }}"
+      register: vmware_switches
+      no_log: true
+      tags: [vmware]
+
+    - name: Collect ESXi port group inventory
+      community.vmware.vmware_portgroup_info:
+        hostname: "{{ vcenter_host }}"
+        username: "{{ vcenter_user }}"
+        password: "{{ vcenter_password }}"
+        validate_certs: "{{ vcenter_validate_certs }}"
+        esxi_hostname: "{{ item }}"
+      loop: "{{ lookup('env', 'VCENTER_ESXI_HOSTS').split(',') | map('trim') | reject('equalto', '') | list }}"
+      register: vmware_portgroups
+      no_log: true
+      when: lookup('env', 'VCENTER_ESXI_HOSTS') | length > 0
+      tags: [vmware]
+
+    - name: Write VMware snapshot
+      ansible.builtin.copy:
         dest: "{{ staging_dir }}/vcenter.json"
+        mode: "0640"
         content: >-
-          {{ {'run_id': run_id, 'collected_at': ansible_date_time.iso8601 | default(''),
-              'source': 'vcenter',
-              'vms': vms.virtual_machines,
-              'hosts': hosts.hosts_info | default(hosts),
-              'datastores': ds.datastores} | to_nice_json }}
+          {{
+            {
+              'run_id': run_id,
+              'collected_at': ansible_date_time.iso8601,
+              'source': 'vmware',
+              'environment': lookup('env', 'VCENTER_ENVIRONMENT') | default('vmware-production', true),
+              'hosts': vmware_hosts.hosts | default([]),
+              'vms': vmware_vms.virtual_machines | default([]),
+              'datastores': vmware_datastores.datastores | default([]),
+              'networks':
+                (vmware_switches.distributed_virtual_switches | default([]))
+                + (vmware_portgroups.results | default([])
+                  | map(attribute='hosts_portgroup_info')
+                  | map('dict2items') | flatten
+                  | map(attribute='value') | flatten | list),
+              'containers': []
+            } | to_nice_json
+          }}
+      tags: [vmware]
 
+    - name: Collect current VMware performance counters
+      ansible.builtin.command:
+        argv:
+          - "{{ ansible_playbook_python }}"
+          - "{{ project_dir }}/python/collect_vmware_metrics.py"
+          - "--snapshot"
+          - "{{ staging_dir }}/vcenter.json"
+      environment:
+        VCENTER_HOST: "{{ vcenter_host }}"
+        VCENTER_USERNAME: "{{ vcenter_user }}"
+        VCENTER_PASSWORD: "{{ vcenter_password }}"
+        VCENTER_VALIDATE_CERTS: "{{ vcenter_validate_certs | string }}"
+      register: vmware_performance
+      changed_when: true
+      tags: [vmware]
