@@ -564,7 +564,7 @@ function PowerBIView({ activeRes }) {
         <div style={{ height: '850px', width: '100%' }}>
           <iframe
             title="Power BI Dashboard"
-            src="https://playground.powerbi.com/sampleReportEmbed"
+            src="https://app.powerbi.com/groups/me/reports/da62c32c-0b17-4905-ae0a-89f59b21092e/3bc8f5ba655eb91a8813?experience=power-bi"
             width="100%"
             height="100%"
             frameBorder="0"
