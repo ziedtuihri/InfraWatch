@@ -15,7 +15,7 @@ export default function VMOutageAnalysisPage() {
   return (
     <section>
       <p style={{ fontSize: 13, color: 'var(--tx-muted)', margin: '0 0 14px' }}>
-        Current outage likelihood for every Docker VM, refreshed every 10 seconds.
+        Current outage likelihood for every VM, refreshed every 10 seconds.
         Running VMs are scored from CPU and memory; stopped VMs are shown as 100%.
       </p>
 
