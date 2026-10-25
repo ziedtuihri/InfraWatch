@@ -1,46 +1,5325 @@
 {
-  "run_id": "sample-20261024",
-  "collected_at": "2026-10-24T12:00:00+00:00",
+  "run_id": "synthetic-500",
+  "collected_at": "2026-10-25T12:00:00+00:00",
   "source": "vmware",
-  "environment": "lab-vsphere",
+  "environment": "synthetic-vsphere",
   "hosts": [
     {
-      "name": "esxi-lab-01",
-      "moid": "host-101",
+      "name": "esxi-lab-001",
+      "moid": "host-001",
       "connection_state": "connected",
-      "cpu_usage_pct": 36.4,
-      "memory_usage_pct": 58.2,
+      "cpu_usage_pct": 21.7,
+      "memory_usage_pct": 32.3,
+      "cpu_cores": 24,
+      "memory_capacity_bytes": 206158430208
+    },
+    {
+      "name": "esxi-lab-002",
+      "moid": "host-002",
+      "connection_state": "connected",
+      "cpu_usage_pct": 23.4,
+      "memory_usage_pct": 34.6,
+      "cpu_cores": 32,
+      "memory_capacity_bytes": 274877906944
+    },
+    {
+      "name": "esxi-lab-003",
+      "moid": "host-003",
+      "connection_state": "connected",
+      "cpu_usage_pct": 25.1,
+      "memory_usage_pct": 36.9,
+      "cpu_cores": 40,
+      "memory_capacity_bytes": 343597383680
+    },
+    {
+      "name": "esxi-lab-004",
+      "moid": "host-004",
+      "connection_state": "connected",
+      "cpu_usage_pct": 26.8,
+      "memory_usage_pct": 39.2,
       "cpu_cores": 16,
       "memory_capacity_bytes": 137438953472
+    },
+    {
+      "name": "esxi-lab-005",
+      "moid": "host-005",
+      "connection_state": "connected",
+      "cpu_usage_pct": 28.5,
+      "memory_usage_pct": 41.5,
+      "cpu_cores": 24,
+      "memory_capacity_bytes": 206158430208
+    },
+    {
+      "name": "esxi-lab-006",
+      "moid": "host-006",
+      "connection_state": "connected",
+      "cpu_usage_pct": 30.2,
+      "memory_usage_pct": 43.8,
+      "cpu_cores": 32,
+      "memory_capacity_bytes": 274877906944
+    },
+    {
+      "name": "esxi-lab-007",
+      "moid": "host-007",
+      "connection_state": "connected",
+      "cpu_usage_pct": 31.9,
+      "memory_usage_pct": 46.1,
+      "cpu_cores": 40,
+      "memory_capacity_bytes": 343597383680
+    },
+    {
+      "name": "esxi-lab-008",
+      "moid": "host-008",
+      "connection_state": "connected",
+      "cpu_usage_pct": 33.6,
+      "memory_usage_pct": 48.4,
+      "cpu_cores": 16,
+      "memory_capacity_bytes": 137438953472
+    },
+    {
+      "name": "esxi-lab-009",
+      "moid": "host-009",
+      "connection_state": "connected",
+      "cpu_usage_pct": 35.3,
+      "memory_usage_pct": 50.7,
+      "cpu_cores": 24,
+      "memory_capacity_bytes": 206158430208
+    },
+    {
+      "name": "esxi-lab-010",
+      "moid": "host-010",
+      "connection_state": "connected",
+      "cpu_usage_pct": 37.0,
+      "memory_usage_pct": 53.0,
+      "cpu_cores": 32,
+      "memory_capacity_bytes": 274877906944
+    },
+    {
+      "name": "esxi-lab-011",
+      "moid": "host-011",
+      "connection_state": "connected",
+      "cpu_usage_pct": 38.7,
+      "memory_usage_pct": 55.3,
+      "cpu_cores": 40,
+      "memory_capacity_bytes": 343597383680
+    },
+    {
+      "name": "esxi-lab-012",
+      "moid": "host-012",
+      "connection_state": "connected",
+      "cpu_usage_pct": 40.4,
+      "memory_usage_pct": 57.6,
+      "cpu_cores": 16,
+      "memory_capacity_bytes": 137438953472
+    },
+    {
+      "name": "esxi-lab-013",
+      "moid": "host-013",
+      "connection_state": "connected",
+      "cpu_usage_pct": 42.1,
+      "memory_usage_pct": 59.9,
+      "cpu_cores": 24,
+      "memory_capacity_bytes": 206158430208
+    },
+    {
+      "name": "esxi-lab-014",
+      "moid": "host-014",
+      "connection_state": "connected",
+      "cpu_usage_pct": 43.8,
+      "memory_usage_pct": 62.2,
+      "cpu_cores": 32,
+      "memory_capacity_bytes": 274877906944
+    },
+    {
+      "name": "esxi-lab-015",
+      "moid": "host-015",
+      "connection_state": "connected",
+      "cpu_usage_pct": 45.5,
+      "memory_usage_pct": 64.5,
+      "cpu_cores": 40,
+      "memory_capacity_bytes": 343597383680
+    },
+    {
+      "name": "esxi-lab-016",
+      "moid": "host-016",
+      "connection_state": "connected",
+      "cpu_usage_pct": 47.2,
+      "memory_usage_pct": 66.8,
+      "cpu_cores": 16,
+      "memory_capacity_bytes": 137438953472
+    },
+    {
+      "name": "esxi-lab-017",
+      "moid": "host-017",
+      "connection_state": "connected",
+      "cpu_usage_pct": 48.9,
+      "memory_usage_pct": 69.1,
+      "cpu_cores": 24,
+      "memory_capacity_bytes": 206158430208
+    },
+    {
+      "name": "esxi-lab-018",
+      "moid": "host-018",
+      "connection_state": "connected",
+      "cpu_usage_pct": 50.6,
+      "memory_usage_pct": 71.4,
+      "cpu_cores": 32,
+      "memory_capacity_bytes": 274877906944
+    },
+    {
+      "name": "esxi-lab-019",
+      "moid": "host-019",
+      "connection_state": "connected",
+      "cpu_usage_pct": 52.3,
+      "memory_usage_pct": 73.7,
+      "cpu_cores": 40,
+      "memory_capacity_bytes": 343597383680
+    },
+    {
+      "name": "esxi-lab-020",
+      "moid": "host-020",
+      "connection_state": "connected",
+      "cpu_usage_pct": 54.0,
+      "memory_usage_pct": 76.0,
+      "cpu_cores": 16,
+      "memory_capacity_bytes": 137438953472
+    },
+    {
+      "name": "esxi-lab-021",
+      "moid": "host-021",
+      "connection_state": "connected",
+      "cpu_usage_pct": 55.7,
+      "memory_usage_pct": 78.3,
+      "cpu_cores": 24,
+      "memory_capacity_bytes": 206158430208
+    },
+    {
+      "name": "esxi-lab-022",
+      "moid": "host-022",
+      "connection_state": "connected",
+      "cpu_usage_pct": 57.4,
+      "memory_usage_pct": 80.6,
+      "cpu_cores": 32,
+      "memory_capacity_bytes": 274877906944
+    },
+    {
+      "name": "esxi-lab-023",
+      "moid": "host-023",
+      "connection_state": "connected",
+      "cpu_usage_pct": 59.1,
+      "memory_usage_pct": 82.9,
+      "cpu_cores": 40,
+      "memory_capacity_bytes": 343597383680
+    },
+    {
+      "name": "esxi-lab-024",
+      "moid": "host-024",
+      "connection_state": "connected",
+      "cpu_usage_pct": 60.8,
+      "memory_usage_pct": 85.2,
+      "cpu_cores": 16,
+      "memory_capacity_bytes": 137438953472
+    },
+    {
+      "name": "esxi-lab-025",
+      "moid": "host-025",
+      "connection_state": "connected",
+      "cpu_usage_pct": 62.5,
+      "memory_usage_pct": 87.5,
+      "cpu_cores": 24,
+      "memory_capacity_bytes": 206158430208
     }
   ],
   "vms": [
     {
-      "name": "vm-app-01",
-      "moid": "vm-201",
+      "name": "vm-lab-00001",
+      "moid": "vm-10001",
       "power_state": "poweredOn",
-      "esxi_hostname": "esxi-lab-01",
-      "cpu_usage_pct": 22.5,
-      "memory_usage_pct": 64.0,
-      "network_rx_bytes": 10485760,
+      "esxi_hostname": "esxi-lab-001",
+      "cpu_usage_pct": 6.3,
+      "memory_usage_pct": 11.7,
+      "network_rx_bytes": 3145728,
       "network_tx_bytes": 7340032
+    },
+    {
+      "name": "vm-lab-00002",
+      "moid": "vm-10002",
+      "power_state": "poweredOn",
+      "esxi_hostname": "esxi-lab-002",
+      "cpu_usage_pct": 7.6,
+      "memory_usage_pct": 13.4,
+      "network_rx_bytes": 6291456,
+      "network_tx_bytes": 14680064
+    },
+    {
+      "name": "vm-lab-00003",
+      "moid": "vm-10003",
+      "power_state": "poweredOn",
+      "esxi_hostname": "esxi-lab-003",
+      "cpu_usage_pct": 8.9,
+      "memory_usage_pct": 15.1,
+      "network_rx_bytes": 9437184,
+      "network_tx_bytes": 22020096
+    },
+    {
+      "name": "vm-lab-00004",
+      "moid": "vm-10004",
+      "power_state": "poweredOn",
+      "esxi_hostname": "esxi-lab-004",
+      "cpu_usage_pct": 10.2,
+      "memory_usage_pct": 16.8,
+      "network_rx_bytes": 12582912,
+      "network_tx_bytes": 29360128
+    },
+    {
+      "name": "vm-lab-00005",
+      "moid": "vm-10005",
+      "power_state": "poweredOn",
+      "esxi_hostname": "esxi-lab-005",
+      "cpu_usage_pct": 11.5,
+      "memory_usage_pct": 18.5,
+      "network_rx_bytes": 15728640,
+      "network_tx_bytes": 36700160
+    },
+    {
+      "name": "vm-lab-00006",
+      "moid": "vm-10006",
+      "power_state": "poweredOn",
+      "esxi_hostname": "esxi-lab-006",
+      "cpu_usage_pct": 12.8,
+      "memory_usage_pct": 20.2,
+      "network_rx_bytes": 18874368,
+      "network_tx_bytes": 44040192
+    },
+    {
+      "name": "vm-lab-00007",
+      "moid": "vm-10007",
+      "power_state": "poweredOn",
+      "esxi_hostname": "esxi-lab-007",
+      "cpu_usage_pct": 14.1,
+      "memory_usage_pct": 21.9,
+      "network_rx_bytes": 22020096,
+      "network_tx_bytes": 51380224
+    },
+    {
+      "name": "vm-lab-00008",
+      "moid": "vm-10008",
+      "power_state": "poweredOn",
+      "esxi_hostname": "esxi-lab-008",
+      "cpu_usage_pct": 15.4,
+      "memory_usage_pct": 23.6,
+      "network_rx_bytes": 25165824,
+      "network_tx_bytes": 58720256
+    },
+    {
+      "name": "vm-lab-00009",
+      "moid": "vm-10009",
+      "power_state": "poweredOn",
+      "esxi_hostname": "esxi-lab-009",
+      "cpu_usage_pct": 16.7,
+      "memory_usage_pct": 25.3,
+      "network_rx_bytes": 28311552,
+      "network_tx_bytes": 66060288
+    },
+    {
+      "name": "vm-lab-00010",
+      "moid": "vm-10010",
+      "power_state": "poweredOn",
+      "esxi_hostname": "esxi-lab-010",
+      "cpu_usage_pct": 18.0,
+      "memory_usage_pct": 27.0,
+      "network_rx_bytes": 31457280,
+      "network_tx_bytes": 73400320
+    },
+    {
+      "name": "vm-lab-00011",
+      "moid": "vm-10011",
+      "power_state": "poweredOn",
+      "esxi_hostname": "esxi-lab-011",
+      "cpu_usage_pct": 19.3,
+      "memory_usage_pct": 28.7,
+      "network_rx_bytes": 34603008,
+      "network_tx_bytes": 80740352
+    },
+    {
+      "name": "vm-lab-00012",
+      "moid": "vm-10012",
+      "power_state": "poweredOn",
+      "esxi_hostname": "esxi-lab-012",
+      "cpu_usage_pct": 20.6,
+      "memory_usage_pct": 30.4,
+      "network_rx_bytes": 37748736,
+      "network_tx_bytes": 88080384
+    },
+    {
+      "name": "vm-lab-00013",
+      "moid": "vm-10013",
+      "power_state": "poweredOn",
+      "esxi_hostname": "esxi-lab-013",
+      "cpu_usage_pct": 21.9,
+      "memory_usage_pct": 32.1,
+      "network_rx_bytes": 40894464,
+      "network_tx_bytes": 95420416
+    },
+    {
+      "name": "vm-lab-00014",
+      "moid": "vm-10014",
+      "power_state": "poweredOn",
+      "esxi_hostname": "esxi-lab-014",
+      "cpu_usage_pct": 23.2,
+      "memory_usage_pct": 33.8,
+      "network_rx_bytes": 44040192,
+      "network_tx_bytes": 102760448
+    },
+    {
+      "name": "vm-lab-00015",
+      "moid": "vm-10015",
+      "power_state": "poweredOn",
+      "esxi_hostname": "esxi-lab-015",
+      "cpu_usage_pct": 24.5,
+      "memory_usage_pct": 35.5,
+      "network_rx_bytes": 47185920,
+      "network_tx_bytes": 110100480
+    },
+    {
+      "name": "vm-lab-00016",
+      "moid": "vm-10016",
+      "power_state": "poweredOn",
+      "esxi_hostname": "esxi-lab-016",
+      "cpu_usage_pct": 25.8,
+      "memory_usage_pct": 37.2,
+      "network_rx_bytes": 50331648,
+      "network_tx_bytes": 117440512
+    },
+    {
+      "name": "vm-lab-00017",
+      "moid": "vm-10017",
+      "power_state": "poweredOn",
+      "esxi_hostname": "esxi-lab-017",
+      "cpu_usage_pct": 27.1,
+      "memory_usage_pct": 38.9,
+      "network_rx_bytes": 53477376,
+      "network_tx_bytes": 124780544
+    },
+    {
+      "name": "vm-lab-00018",
+      "moid": "vm-10018",
+      "power_state": "poweredOn",
+      "esxi_hostname": "esxi-lab-018",
+      "cpu_usage_pct": 28.4,
+      "memory_usage_pct": 40.6,
+      "network_rx_bytes": 56623104,
+      "network_tx_bytes": 132120576
+    },
+    {
+      "name": "vm-lab-00019",
+      "moid": "vm-10019",
+      "power_state": "poweredOn",
+      "esxi_hostname": "esxi-lab-019",
+      "cpu_usage_pct": 29.7,
+      "memory_usage_pct": 42.3,
+      "network_rx_bytes": 59768832,
+      "network_tx_bytes": 139460608
+    },
+    {
+      "name": "vm-lab-00020",
+      "moid": "vm-10020",
+      "power_state": "poweredOn",
+      "esxi_hostname": "esxi-lab-020",
+      "cpu_usage_pct": 31.0,
+      "memory_usage_pct": 44.0,
+      "network_rx_bytes": 62914560,
+      "network_tx_bytes": 146800640
+    },
+    {
+      "name": "vm-lab-00021",
+      "moid": "vm-10021",
+      "power_state": "poweredOn",
+      "esxi_hostname": "esxi-lab-021",
+      "cpu_usage_pct": 32.3,
+      "memory_usage_pct": 45.7,
+      "network_rx_bytes": 66060288,
+      "network_tx_bytes": 154140672
+    },
+    {
+      "name": "vm-lab-00022",
+      "moid": "vm-10022",
+      "power_state": "poweredOn",
+      "esxi_hostname": "esxi-lab-022",
+      "cpu_usage_pct": 33.6,
+      "memory_usage_pct": 47.4,
+      "network_rx_bytes": 69206016,
+      "network_tx_bytes": 161480704
+    },
+    {
+      "name": "vm-lab-00023",
+      "moid": "vm-10023",
+      "power_state": "poweredOn",
+      "esxi_hostname": "esxi-lab-023",
+      "cpu_usage_pct": 34.9,
+      "memory_usage_pct": 49.1,
+      "network_rx_bytes": 72351744,
+      "network_tx_bytes": 168820736
+    },
+    {
+      "name": "vm-lab-00024",
+      "moid": "vm-10024",
+      "power_state": "poweredOn",
+      "esxi_hostname": "esxi-lab-024",
+      "cpu_usage_pct": 36.2,
+      "memory_usage_pct": 50.8,
+      "network_rx_bytes": 75497472,
+      "network_tx_bytes": 176160768
+    },
+    {
+      "name": "vm-lab-00025",
+      "moid": "vm-10025",
+      "power_state": "poweredOn",
+      "esxi_hostname": "esxi-lab-025",
+      "cpu_usage_pct": 37.5,
+      "memory_usage_pct": 52.5,
+      "network_rx_bytes": 78643200,
+      "network_tx_bytes": 183500800
+    },
+    {
+      "name": "vm-lab-00026",
+      "moid": "vm-10026",
+      "power_state": "poweredOn",
+      "esxi_hostname": "esxi-lab-001",
+      "cpu_usage_pct": 38.8,
+      "memory_usage_pct": 54.2,
+      "network_rx_bytes": 81788928,
+      "network_tx_bytes": 190840832
+    },
+    {
+      "name": "vm-lab-00027",
+      "moid": "vm-10027",
+      "power_state": "poweredOn",
+      "esxi_hostname": "esxi-lab-002",
+      "cpu_usage_pct": 40.1,
+      "memory_usage_pct": 55.9,
+      "network_rx_bytes": 84934656,
+      "network_tx_bytes": 198180864
+    },
+    {
+      "name": "vm-lab-00028",
+      "moid": "vm-10028",
+      "power_state": "poweredOn",
+      "esxi_hostname": "esxi-lab-003",
+      "cpu_usage_pct": 41.4,
+      "memory_usage_pct": 57.6,
+      "network_rx_bytes": 88080384,
+      "network_tx_bytes": 205520896
+    },
+    {
+      "name": "vm-lab-00029",
+      "moid": "vm-10029",
+      "power_state": "poweredOn",
+      "esxi_hostname": "esxi-lab-004",
+      "cpu_usage_pct": 42.7,
+      "memory_usage_pct": 59.3,
+      "network_rx_bytes": 91226112,
+      "network_tx_bytes": 212860928
+    },
+    {
+      "name": "vm-lab-00030",
+      "moid": "vm-10030",
+      "power_state": "poweredOn",
+      "esxi_hostname": "esxi-lab-005",
+      "cpu_usage_pct": 44.0,
+      "memory_usage_pct": 61.0,
+      "network_rx_bytes": 94371840,
+      "network_tx_bytes": 220200960
+    },
+    {
+      "name": "vm-lab-00031",
+      "moid": "vm-10031",
+      "power_state": "poweredOn",
+      "esxi_hostname": "esxi-lab-006",
+      "cpu_usage_pct": 45.3,
+      "memory_usage_pct": 62.7,
+      "network_rx_bytes": 97517568,
+      "network_tx_bytes": 227540992
+    },
+    {
+      "name": "vm-lab-00032",
+      "moid": "vm-10032",
+      "power_state": "poweredOn",
+      "esxi_hostname": "esxi-lab-007",
+      "cpu_usage_pct": 46.6,
+      "memory_usage_pct": 64.4,
+      "network_rx_bytes": 100663296,
+      "network_tx_bytes": 234881024
+    },
+    {
+      "name": "vm-lab-00033",
+      "moid": "vm-10033",
+      "power_state": "poweredOn",
+      "esxi_hostname": "esxi-lab-008",
+      "cpu_usage_pct": 47.9,
+      "memory_usage_pct": 66.1,
+      "network_rx_bytes": 103809024,
+      "network_tx_bytes": 242221056
+    },
+    {
+      "name": "vm-lab-00034",
+      "moid": "vm-10034",
+      "power_state": "poweredOn",
+      "esxi_hostname": "esxi-lab-009",
+      "cpu_usage_pct": 49.2,
+      "memory_usage_pct": 67.8,
+      "network_rx_bytes": 106954752,
+      "network_tx_bytes": 249561088
+    },
+    {
+      "name": "vm-lab-00035",
+      "moid": "vm-10035",
+      "power_state": "poweredOn",
+      "esxi_hostname": "esxi-lab-010",
+      "cpu_usage_pct": 50.5,
+      "memory_usage_pct": 69.5,
+      "network_rx_bytes": 110100480,
+      "network_tx_bytes": 256901120
+    },
+    {
+      "name": "vm-lab-00036",
+      "moid": "vm-10036",
+      "power_state": "poweredOn",
+      "esxi_hostname": "esxi-lab-011",
+      "cpu_usage_pct": 51.8,
+      "memory_usage_pct": 71.2,
+      "network_rx_bytes": 113246208,
+      "network_tx_bytes": 264241152
+    },
+    {
+      "name": "vm-lab-00037",
+      "moid": "vm-10037",
+      "power_state": "poweredOff",
+      "esxi_hostname": "esxi-lab-012",
+      "cpu_usage_pct": 53.1,
+      "memory_usage_pct": 72.9,
+      "network_rx_bytes": 116391936,
+      "network_tx_bytes": 271581184
+    },
+    {
+      "name": "vm-lab-00038",
+      "moid": "vm-10038",
+      "power_state": "poweredOn",
+      "esxi_hostname": "esxi-lab-013",
+      "cpu_usage_pct": 54.4,
+      "memory_usage_pct": 74.6,
+      "network_rx_bytes": 119537664,
+      "network_tx_bytes": 278921216
+    },
+    {
+      "name": "vm-lab-00039",
+      "moid": "vm-10039",
+      "power_state": "poweredOn",
+      "esxi_hostname": "esxi-lab-014",
+      "cpu_usage_pct": 55.7,
+      "memory_usage_pct": 76.3,
+      "network_rx_bytes": 122683392,
+      "network_tx_bytes": 286261248
+    },
+    {
+      "name": "vm-lab-00040",
+      "moid": "vm-10040",
+      "power_state": "poweredOn",
+      "esxi_hostname": "esxi-lab-015",
+      "cpu_usage_pct": 57.0,
+      "memory_usage_pct": 78.0,
+      "network_rx_bytes": 125829120,
+      "network_tx_bytes": 293601280
+    },
+    {
+      "name": "vm-lab-00041",
+      "moid": "vm-10041",
+      "power_state": "poweredOn",
+      "esxi_hostname": "esxi-lab-016",
+      "cpu_usage_pct": 58.3,
+      "memory_usage_pct": 79.7,
+      "network_rx_bytes": 128974848,
+      "network_tx_bytes": 300941312
+    },
+    {
+      "name": "vm-lab-00042",
+      "moid": "vm-10042",
+      "power_state": "poweredOn",
+      "esxi_hostname": "esxi-lab-017",
+      "cpu_usage_pct": 59.6,
+      "memory_usage_pct": 81.4,
+      "network_rx_bytes": 132120576,
+      "network_tx_bytes": 308281344
+    },
+    {
+      "name": "vm-lab-00043",
+      "moid": "vm-10043",
+      "power_state": "poweredOn",
+      "esxi_hostname": "esxi-lab-018",
+      "cpu_usage_pct": 60.9,
+      "memory_usage_pct": 83.1,
+      "network_rx_bytes": 135266304,
+      "network_tx_bytes": 315621376
+    },
+    {
+      "name": "vm-lab-00044",
+      "moid": "vm-10044",
+      "power_state": "poweredOn",
+      "esxi_hostname": "esxi-lab-019",
+      "cpu_usage_pct": 62.2,
+      "memory_usage_pct": 84.8,
+      "network_rx_bytes": 138412032,
+      "network_tx_bytes": 322961408
+    },
+    {
+      "name": "vm-lab-00045",
+      "moid": "vm-10045",
+      "power_state": "poweredOn",
+      "esxi_hostname": "esxi-lab-020",
+      "cpu_usage_pct": 63.5,
+      "memory_usage_pct": 86.5,
+      "network_rx_bytes": 141557760,
+      "network_tx_bytes": 330301440
+    },
+    {
+      "name": "vm-lab-00046",
+      "moid": "vm-10046",
+      "power_state": "poweredOn",
+      "esxi_hostname": "esxi-lab-021",
+      "cpu_usage_pct": 64.8,
+      "memory_usage_pct": 88.2,
+      "network_rx_bytes": 144703488,
+      "network_tx_bytes": 337641472
+    },
+    {
+      "name": "vm-lab-00047",
+      "moid": "vm-10047",
+      "power_state": "poweredOn",
+      "esxi_hostname": "esxi-lab-022",
+      "cpu_usage_pct": 66.1,
+      "memory_usage_pct": 89.9,
+      "network_rx_bytes": 147849216,
+      "network_tx_bytes": 344981504
+    },
+    {
+      "name": "vm-lab-00048",
+      "moid": "vm-10048",
+      "power_state": "poweredOn",
+      "esxi_hostname": "esxi-lab-023",
+      "cpu_usage_pct": 67.4,
+      "memory_usage_pct": 11.6,
+      "network_rx_bytes": 150994944,
+      "network_tx_bytes": 352321536
+    },
+    {
+      "name": "vm-lab-00049",
+      "moid": "vm-10049",
+      "power_state": "poweredOn",
+      "esxi_hostname": "esxi-lab-024",
+      "cpu_usage_pct": 68.7,
+      "memory_usage_pct": 13.3,
+      "network_rx_bytes": 154140672,
+      "network_tx_bytes": 359661568
+    },
+    {
+      "name": "vm-lab-00050",
+      "moid": "vm-10050",
+      "power_state": "poweredOn",
+      "esxi_hostname": "esxi-lab-025",
+      "cpu_usage_pct": 70.0,
+      "memory_usage_pct": 15.0,
+      "network_rx_bytes": 157286400,
+      "network_tx_bytes": 367001600
+    },
+    {
+      "name": "vm-lab-00051",
+      "moid": "vm-10051",
+      "power_state": "poweredOn",
+      "esxi_hostname": "esxi-lab-001",
+      "cpu_usage_pct": 71.3,
+      "memory_usage_pct": 16.7,
+      "network_rx_bytes": 160432128,
+      "network_tx_bytes": 374341632
+    },
+    {
+      "name": "vm-lab-00052",
+      "moid": "vm-10052",
+      "power_state": "poweredOn",
+      "esxi_hostname": "esxi-lab-002",
+      "cpu_usage_pct": 72.6,
+      "memory_usage_pct": 18.4,
+      "network_rx_bytes": 163577856,
+      "network_tx_bytes": 381681664
+    },
+    {
+      "name": "vm-lab-00053",
+      "moid": "vm-10053",
+      "power_state": "poweredOn",
+      "esxi_hostname": "esxi-lab-003",
+      "cpu_usage_pct": 73.9,
+      "memory_usage_pct": 20.1,
+      "network_rx_bytes": 166723584,
+      "network_tx_bytes": 389021696
+    },
+    {
+      "name": "vm-lab-00054",
+      "moid": "vm-10054",
+      "power_state": "poweredOn",
+      "esxi_hostname": "esxi-lab-004",
+      "cpu_usage_pct": 75.2,
+      "memory_usage_pct": 21.8,
+      "network_rx_bytes": 169869312,
+      "network_tx_bytes": 396361728
+    },
+    {
+      "name": "vm-lab-00055",
+      "moid": "vm-10055",
+      "power_state": "poweredOn",
+      "esxi_hostname": "esxi-lab-005",
+      "cpu_usage_pct": 76.5,
+      "memory_usage_pct": 23.5,
+      "network_rx_bytes": 173015040,
+      "network_tx_bytes": 403701760
+    },
+    {
+      "name": "vm-lab-00056",
+      "moid": "vm-10056",
+      "power_state": "poweredOn",
+      "esxi_hostname": "esxi-lab-006",
+      "cpu_usage_pct": 77.8,
+      "memory_usage_pct": 25.2,
+      "network_rx_bytes": 176160768,
+      "network_tx_bytes": 411041792
+    },
+    {
+      "name": "vm-lab-00057",
+      "moid": "vm-10057",
+      "power_state": "poweredOn",
+      "esxi_hostname": "esxi-lab-007",
+      "cpu_usage_pct": 79.1,
+      "memory_usage_pct": 26.9,
+      "network_rx_bytes": 179306496,
+      "network_tx_bytes": 418381824
+    },
+    {
+      "name": "vm-lab-00058",
+      "moid": "vm-10058",
+      "power_state": "poweredOn",
+      "esxi_hostname": "esxi-lab-008",
+      "cpu_usage_pct": 80.4,
+      "memory_usage_pct": 28.6,
+      "network_rx_bytes": 182452224,
+      "network_tx_bytes": 425721856
+    },
+    {
+      "name": "vm-lab-00059",
+      "moid": "vm-10059",
+      "power_state": "poweredOn",
+      "esxi_hostname": "esxi-lab-009",
+      "cpu_usage_pct": 81.7,
+      "memory_usage_pct": 30.3,
+      "network_rx_bytes": 185597952,
+      "network_tx_bytes": 433061888
+    },
+    {
+      "name": "vm-lab-00060",
+      "moid": "vm-10060",
+      "power_state": "poweredOn",
+      "esxi_hostname": "esxi-lab-010",
+      "cpu_usage_pct": 83.0,
+      "memory_usage_pct": 32.0,
+      "network_rx_bytes": 188743680,
+      "network_tx_bytes": 440401920
+    },
+    {
+      "name": "vm-lab-00061",
+      "moid": "vm-10061",
+      "power_state": "poweredOn",
+      "esxi_hostname": "esxi-lab-011",
+      "cpu_usage_pct": 84.3,
+      "memory_usage_pct": 33.7,
+      "network_rx_bytes": 191889408,
+      "network_tx_bytes": 447741952
+    },
+    {
+      "name": "vm-lab-00062",
+      "moid": "vm-10062",
+      "power_state": "poweredOn",
+      "esxi_hostname": "esxi-lab-012",
+      "cpu_usage_pct": 85.6,
+      "memory_usage_pct": 35.4,
+      "network_rx_bytes": 195035136,
+      "network_tx_bytes": 455081984
+    },
+    {
+      "name": "vm-lab-00063",
+      "moid": "vm-10063",
+      "power_state": "poweredOn",
+      "esxi_hostname": "esxi-lab-013",
+      "cpu_usage_pct": 86.9,
+      "memory_usage_pct": 37.1,
+      "network_rx_bytes": 198180864,
+      "network_tx_bytes": 462422016
+    },
+    {
+      "name": "vm-lab-00064",
+      "moid": "vm-10064",
+      "power_state": "poweredOn",
+      "esxi_hostname": "esxi-lab-014",
+      "cpu_usage_pct": 88.2,
+      "memory_usage_pct": 38.8,
+      "network_rx_bytes": 201326592,
+      "network_tx_bytes": 469762048
+    },
+    {
+      "name": "vm-lab-00065",
+      "moid": "vm-10065",
+      "power_state": "poweredOn",
+      "esxi_hostname": "esxi-lab-015",
+      "cpu_usage_pct": 89.5,
+      "memory_usage_pct": 40.5,
+      "network_rx_bytes": 204472320,
+      "network_tx_bytes": 477102080
+    },
+    {
+      "name": "vm-lab-00066",
+      "moid": "vm-10066",
+      "power_state": "poweredOn",
+      "esxi_hostname": "esxi-lab-016",
+      "cpu_usage_pct": 5.8,
+      "memory_usage_pct": 42.2,
+      "network_rx_bytes": 207618048,
+      "network_tx_bytes": 484442112
+    },
+    {
+      "name": "vm-lab-00067",
+      "moid": "vm-10067",
+      "power_state": "poweredOn",
+      "esxi_hostname": "esxi-lab-017",
+      "cpu_usage_pct": 7.1,
+      "memory_usage_pct": 43.9,
+      "network_rx_bytes": 210763776,
+      "network_tx_bytes": 491782144
+    },
+    {
+      "name": "vm-lab-00068",
+      "moid": "vm-10068",
+      "power_state": "poweredOn",
+      "esxi_hostname": "esxi-lab-018",
+      "cpu_usage_pct": 8.4,
+      "memory_usage_pct": 45.6,
+      "network_rx_bytes": 213909504,
+      "network_tx_bytes": 499122176
+    },
+    {
+      "name": "vm-lab-00069",
+      "moid": "vm-10069",
+      "power_state": "poweredOn",
+      "esxi_hostname": "esxi-lab-019",
+      "cpu_usage_pct": 9.7,
+      "memory_usage_pct": 47.3,
+      "network_rx_bytes": 217055232,
+      "network_tx_bytes": 506462208
+    },
+    {
+      "name": "vm-lab-00070",
+      "moid": "vm-10070",
+      "power_state": "poweredOn",
+      "esxi_hostname": "esxi-lab-020",
+      "cpu_usage_pct": 11.0,
+      "memory_usage_pct": 49.0,
+      "network_rx_bytes": 220200960,
+      "network_tx_bytes": 513802240
+    },
+    {
+      "name": "vm-lab-00071",
+      "moid": "vm-10071",
+      "power_state": "poweredOn",
+      "esxi_hostname": "esxi-lab-021",
+      "cpu_usage_pct": 12.3,
+      "memory_usage_pct": 50.7,
+      "network_rx_bytes": 223346688,
+      "network_tx_bytes": 521142272
+    },
+    {
+      "name": "vm-lab-00072",
+      "moid": "vm-10072",
+      "power_state": "poweredOn",
+      "esxi_hostname": "esxi-lab-022",
+      "cpu_usage_pct": 13.6,
+      "memory_usage_pct": 52.4,
+      "network_rx_bytes": 226492416,
+      "network_tx_bytes": 528482304
+    },
+    {
+      "name": "vm-lab-00073",
+      "moid": "vm-10073",
+      "power_state": "poweredOn",
+      "esxi_hostname": "esxi-lab-023",
+      "cpu_usage_pct": 14.9,
+      "memory_usage_pct": 54.1,
+      "network_rx_bytes": 229638144,
+      "network_tx_bytes": 535822336
+    },
+    {
+      "name": "vm-lab-00074",
+      "moid": "vm-10074",
+      "power_state": "poweredOff",
+      "esxi_hostname": "esxi-lab-024",
+      "cpu_usage_pct": 16.2,
+      "memory_usage_pct": 55.8,
+      "network_rx_bytes": 232783872,
+      "network_tx_bytes": 543162368
+    },
+    {
+      "name": "vm-lab-00075",
+      "moid": "vm-10075",
+      "power_state": "poweredOn",
+      "esxi_hostname": "esxi-lab-025",
+      "cpu_usage_pct": 17.5,
+      "memory_usage_pct": 57.5,
+      "network_rx_bytes": 235929600,
+      "network_tx_bytes": 550502400
+    },
+    {
+      "name": "vm-lab-00076",
+      "moid": "vm-10076",
+      "power_state": "poweredOn",
+      "esxi_hostname": "esxi-lab-001",
+      "cpu_usage_pct": 18.8,
+      "memory_usage_pct": 59.2,
+      "network_rx_bytes": 239075328,
+      "network_tx_bytes": 557842432
+    },
+    {
+      "name": "vm-lab-00077",
+      "moid": "vm-10077",
+      "power_state": "poweredOn",
+      "esxi_hostname": "esxi-lab-002",
+      "cpu_usage_pct": 20.1,
+      "memory_usage_pct": 60.9,
+      "network_rx_bytes": 242221056,
+      "network_tx_bytes": 565182464
+    },
+    {
+      "name": "vm-lab-00078",
+      "moid": "vm-10078",
+      "power_state": "poweredOn",
+      "esxi_hostname": "esxi-lab-003",
+      "cpu_usage_pct": 21.4,
+      "memory_usage_pct": 62.6,
+      "network_rx_bytes": 245366784,
+      "network_tx_bytes": 572522496
+    },
+    {
+      "name": "vm-lab-00079",
+      "moid": "vm-10079",
+      "power_state": "poweredOn",
+      "esxi_hostname": "esxi-lab-004",
+      "cpu_usage_pct": 22.7,
+      "memory_usage_pct": 64.3,
+      "network_rx_bytes": 248512512,
+      "network_tx_bytes": 579862528
+    },
+    {
+      "name": "vm-lab-00080",
+      "moid": "vm-10080",
+      "power_state": "poweredOn",
+      "esxi_hostname": "esxi-lab-005",
+      "cpu_usage_pct": 24.0,
+      "memory_usage_pct": 66.0,
+      "network_rx_bytes": 251658240,
+      "network_tx_bytes": 587202560
+    },
+    {
+      "name": "vm-lab-00081",
+      "moid": "vm-10081",
+      "power_state": "poweredOn",
+      "esxi_hostname": "esxi-lab-006",
+      "cpu_usage_pct": 25.3,
+      "memory_usage_pct": 67.7,
+      "network_rx_bytes": 254803968,
+      "network_tx_bytes": 594542592
+    },
+    {
+      "name": "vm-lab-00082",
+      "moid": "vm-10082",
+      "power_state": "poweredOn",
+      "esxi_hostname": "esxi-lab-007",
+      "cpu_usage_pct": 26.6,
+      "memory_usage_pct": 69.4,
+      "network_rx_bytes": 257949696,
+      "network_tx_bytes": 601882624
+    },
+    {
+      "name": "vm-lab-00083",
+      "moid": "vm-10083",
+      "power_state": "poweredOn",
+      "esxi_hostname": "esxi-lab-008",
+      "cpu_usage_pct": 27.9,
+      "memory_usage_pct": 71.1,
+      "network_rx_bytes": 261095424,
+      "network_tx_bytes": 609222656
+    },
+    {
+      "name": "vm-lab-00084",
+      "moid": "vm-10084",
+      "power_state": "poweredOn",
+      "esxi_hostname": "esxi-lab-009",
+      "cpu_usage_pct": 29.2,
+      "memory_usage_pct": 72.8,
+      "network_rx_bytes": 264241152,
+      "network_tx_bytes": 616562688
+    },
+    {
+      "name": "vm-lab-00085",
+      "moid": "vm-10085",
+      "power_state": "poweredOn",
+      "esxi_hostname": "esxi-lab-010",
+      "cpu_usage_pct": 30.5,
+      "memory_usage_pct": 74.5,
+      "network_rx_bytes": 267386880,
+      "network_tx_bytes": 623902720
+    },
+    {
+      "name": "vm-lab-00086",
+      "moid": "vm-10086",
+      "power_state": "poweredOn",
+      "esxi_hostname": "esxi-lab-011",
+      "cpu_usage_pct": 31.8,
+      "memory_usage_pct": 76.2,
+      "network_rx_bytes": 270532608,
+      "network_tx_bytes": 631242752
+    },
+    {
+      "name": "vm-lab-00087",
+      "moid": "vm-10087",
+      "power_state": "poweredOn",
+      "esxi_hostname": "esxi-lab-012",
+      "cpu_usage_pct": 33.1,
+      "memory_usage_pct": 77.9,
+      "network_rx_bytes": 273678336,
+      "network_tx_bytes": 638582784
+    },
+    {
+      "name": "vm-lab-00088",
+      "moid": "vm-10088",
+      "power_state": "poweredOn",
+      "esxi_hostname": "esxi-lab-013",
+      "cpu_usage_pct": 34.4,
+      "memory_usage_pct": 79.6,
+      "network_rx_bytes": 276824064,
+      "network_tx_bytes": 645922816
+    },
+    {
+      "name": "vm-lab-00089",
+      "moid": "vm-10089",
+      "power_state": "poweredOn",
+      "esxi_hostname": "esxi-lab-014",
+      "cpu_usage_pct": 35.7,
+      "memory_usage_pct": 81.3,
+      "network_rx_bytes": 279969792,
+      "network_tx_bytes": 653262848
+    },
+    {
+      "name": "vm-lab-00090",
+      "moid": "vm-10090",
+      "power_state": "poweredOn",
+      "esxi_hostname": "esxi-lab-015",
+      "cpu_usage_pct": 37.0,
+      "memory_usage_pct": 83.0,
+      "network_rx_bytes": 283115520,
+      "network_tx_bytes": 660602880
+    },
+    {
+      "name": "vm-lab-00091",
+      "moid": "vm-10091",
+      "power_state": "poweredOn",
+      "esxi_hostname": "esxi-lab-016",
+      "cpu_usage_pct": 38.3,
+      "memory_usage_pct": 84.7,
+      "network_rx_bytes": 286261248,
+      "network_tx_bytes": 667942912
+    },
+    {
+      "name": "vm-lab-00092",
+      "moid": "vm-10092",
+      "power_state": "poweredOn",
+      "esxi_hostname": "esxi-lab-017",
+      "cpu_usage_pct": 39.6,
+      "memory_usage_pct": 86.4,
+      "network_rx_bytes": 289406976,
+      "network_tx_bytes": 675282944
+    },
+    {
+      "name": "vm-lab-00093",
+      "moid": "vm-10093",
+      "power_state": "poweredOn",
+      "esxi_hostname": "esxi-lab-018",
+      "cpu_usage_pct": 40.9,
+      "memory_usage_pct": 88.1,
+      "network_rx_bytes": 292552704,
+      "network_tx_bytes": 682622976
+    },
+    {
+      "name": "vm-lab-00094",
+      "moid": "vm-10094",
+      "power_state": "poweredOn",
+      "esxi_hostname": "esxi-lab-019",
+      "cpu_usage_pct": 42.2,
+      "memory_usage_pct": 89.8,
+      "network_rx_bytes": 295698432,
+      "network_tx_bytes": 689963008
+    },
+    {
+      "name": "vm-lab-00095",
+      "moid": "vm-10095",
+      "power_state": "poweredOn",
+      "esxi_hostname": "esxi-lab-020",
+      "cpu_usage_pct": 43.5,
+      "memory_usage_pct": 11.5,
+      "network_rx_bytes": 298844160,
+      "network_tx_bytes": 697303040
+    },
+    {
+      "name": "vm-lab-00096",
+      "moid": "vm-10096",
+      "power_state": "poweredOn",
+      "esxi_hostname": "esxi-lab-021",
+      "cpu_usage_pct": 44.8,
+      "memory_usage_pct": 13.2,
+      "network_rx_bytes": 301989888,
+      "network_tx_bytes": 704643072
+    },
+    {
+      "name": "vm-lab-00097",
+      "moid": "vm-10097",
+      "power_state": "poweredOn",
+      "esxi_hostname": "esxi-lab-022",
+      "cpu_usage_pct": 46.1,
+      "memory_usage_pct": 14.9,
+      "network_rx_bytes": 305135616,
+      "network_tx_bytes": 711983104
+    },
+    {
+      "name": "vm-lab-00098",
+      "moid": "vm-10098",
+      "power_state": "poweredOn",
+      "esxi_hostname": "esxi-lab-023",
+      "cpu_usage_pct": 47.4,
+      "memory_usage_pct": 16.6,
+      "network_rx_bytes": 308281344,
+      "network_tx_bytes": 719323136
+    },
+    {
+      "name": "vm-lab-00099",
+      "moid": "vm-10099",
+      "power_state": "poweredOn",
+      "esxi_hostname": "esxi-lab-024",
+      "cpu_usage_pct": 48.7,
+      "memory_usage_pct": 18.3,
+      "network_rx_bytes": 311427072,
+      "network_tx_bytes": 726663168
+    },
+    {
+      "name": "vm-lab-00100",
+      "moid": "vm-10100",
+      "power_state": "poweredOn",
+      "esxi_hostname": "esxi-lab-025",
+      "cpu_usage_pct": 50.0,
+      "memory_usage_pct": 20.0,
+      "network_rx_bytes": 314572800,
+      "network_tx_bytes": 734003200
+    },
+    {
+      "name": "vm-lab-00101",
+      "moid": "vm-10101",
+      "power_state": "poweredOn",
+      "esxi_hostname": "esxi-lab-001",
+      "cpu_usage_pct": 51.3,
+      "memory_usage_pct": 21.7,
+      "network_rx_bytes": 317718528,
+      "network_tx_bytes": 741343232
+    },
+    {
+      "name": "vm-lab-00102",
+      "moid": "vm-10102",
+      "power_state": "poweredOn",
+      "esxi_hostname": "esxi-lab-002",
+      "cpu_usage_pct": 52.6,
+      "memory_usage_pct": 23.4,
+      "network_rx_bytes": 320864256,
+      "network_tx_bytes": 748683264
+    },
+    {
+      "name": "vm-lab-00103",
+      "moid": "vm-10103",
+      "power_state": "poweredOn",
+      "esxi_hostname": "esxi-lab-003",
+      "cpu_usage_pct": 53.9,
+      "memory_usage_pct": 25.1,
+      "network_rx_bytes": 324009984,
+      "network_tx_bytes": 756023296
+    },
+    {
+      "name": "vm-lab-00104",
+      "moid": "vm-10104",
+      "power_state": "poweredOn",
+      "esxi_hostname": "esxi-lab-004",
+      "cpu_usage_pct": 55.2,
+      "memory_usage_pct": 26.8,
+      "network_rx_bytes": 327155712,
+      "network_tx_bytes": 763363328
+    },
+    {
+      "name": "vm-lab-00105",
+      "moid": "vm-10105",
+      "power_state": "poweredOn",
+      "esxi_hostname": "esxi-lab-005",
+      "cpu_usage_pct": 56.5,
+      "memory_usage_pct": 28.5,
+      "network_rx_bytes": 330301440,
+      "network_tx_bytes": 770703360
+    },
+    {
+      "name": "vm-lab-00106",
+      "moid": "vm-10106",
+      "power_state": "poweredOn",
+      "esxi_hostname": "esxi-lab-006",
+      "cpu_usage_pct": 57.8,
+      "memory_usage_pct": 30.2,
+      "network_rx_bytes": 333447168,
+      "network_tx_bytes": 778043392
+    },
+    {
+      "name": "vm-lab-00107",
+      "moid": "vm-10107",
+      "power_state": "poweredOn",
+      "esxi_hostname": "esxi-lab-007",
+      "cpu_usage_pct": 59.1,
+      "memory_usage_pct": 31.9,
+      "network_rx_bytes": 336592896,
+      "network_tx_bytes": 785383424
+    },
+    {
+      "name": "vm-lab-00108",
+      "moid": "vm-10108",
+      "power_state": "poweredOn",
+      "esxi_hostname": "esxi-lab-008",
+      "cpu_usage_pct": 60.4,
+      "memory_usage_pct": 33.6,
+      "network_rx_bytes": 339738624,
+      "network_tx_bytes": 792723456
+    },
+    {
+      "name": "vm-lab-00109",
+      "moid": "vm-10109",
+      "power_state": "poweredOn",
+      "esxi_hostname": "esxi-lab-009",
+      "cpu_usage_pct": 61.7,
+      "memory_usage_pct": 35.3,
+      "network_rx_bytes": 342884352,
+      "network_tx_bytes": 800063488
+    },
+    {
+      "name": "vm-lab-00110",
+      "moid": "vm-10110",
+      "power_state": "poweredOn",
+      "esxi_hostname": "esxi-lab-010",
+      "cpu_usage_pct": 63.0,
+      "memory_usage_pct": 37.0,
+      "network_rx_bytes": 346030080,
+      "network_tx_bytes": 807403520
+    },
+    {
+      "name": "vm-lab-00111",
+      "moid": "vm-10111",
+      "power_state": "poweredOff",
+      "esxi_hostname": "esxi-lab-011",
+      "cpu_usage_pct": 64.3,
+      "memory_usage_pct": 38.7,
+      "network_rx_bytes": 349175808,
+      "network_tx_bytes": 814743552
+    },
+    {
+      "name": "vm-lab-00112",
+      "moid": "vm-10112",
+      "power_state": "poweredOn",
+      "esxi_hostname": "esxi-lab-012",
+      "cpu_usage_pct": 65.6,
+      "memory_usage_pct": 40.4,
+      "network_rx_bytes": 352321536,
+      "network_tx_bytes": 822083584
+    },
+    {
+      "name": "vm-lab-00113",
+      "moid": "vm-10113",
+      "power_state": "poweredOn",
+      "esxi_hostname": "esxi-lab-013",
+      "cpu_usage_pct": 66.9,
+      "memory_usage_pct": 42.1,
+      "network_rx_bytes": 355467264,
+      "network_tx_bytes": 829423616
+    },
+    {
+      "name": "vm-lab-00114",
+      "moid": "vm-10114",
+      "power_state": "poweredOn",
+      "esxi_hostname": "esxi-lab-014",
+      "cpu_usage_pct": 68.2,
+      "memory_usage_pct": 43.8,
+      "network_rx_bytes": 358612992,
+      "network_tx_bytes": 836763648
+    },
+    {
+      "name": "vm-lab-00115",
+      "moid": "vm-10115",
+      "power_state": "poweredOn",
+      "esxi_hostname": "esxi-lab-015",
+      "cpu_usage_pct": 69.5,
+      "memory_usage_pct": 45.5,
+      "network_rx_bytes": 361758720,
+      "network_tx_bytes": 844103680
+    },
+    {
+      "name": "vm-lab-00116",
+      "moid": "vm-10116",
+      "power_state": "poweredOn",
+      "esxi_hostname": "esxi-lab-016",
+      "cpu_usage_pct": 70.8,
+      "memory_usage_pct": 47.2,
+      "network_rx_bytes": 364904448,
+      "network_tx_bytes": 851443712
+    },
+    {
+      "name": "vm-lab-00117",
+      "moid": "vm-10117",
+      "power_state": "poweredOn",
+      "esxi_hostname": "esxi-lab-017",
+      "cpu_usage_pct": 72.1,
+      "memory_usage_pct": 48.9,
+      "network_rx_bytes": 368050176,
+      "network_tx_bytes": 858783744
+    },
+    {
+      "name": "vm-lab-00118",
+      "moid": "vm-10118",
+      "power_state": "poweredOn",
+      "esxi_hostname": "esxi-lab-018",
+      "cpu_usage_pct": 73.4,
+      "memory_usage_pct": 50.6,
+      "network_rx_bytes": 371195904,
+      "network_tx_bytes": 866123776
+    },
+    {
+      "name": "vm-lab-00119",
+      "moid": "vm-10119",
+      "power_state": "poweredOn",
+      "esxi_hostname": "esxi-lab-019",
+      "cpu_usage_pct": 74.7,
+      "memory_usage_pct": 52.3,
+      "network_rx_bytes": 374341632,
+      "network_tx_bytes": 873463808
+    },
+    {
+      "name": "vm-lab-00120",
+      "moid": "vm-10120",
+      "power_state": "poweredOn",
+      "esxi_hostname": "esxi-lab-020",
+      "cpu_usage_pct": 76.0,
+      "memory_usage_pct": 54.0,
+      "network_rx_bytes": 377487360,
+      "network_tx_bytes": 880803840
+    },
+    {
+      "name": "vm-lab-00121",
+      "moid": "vm-10121",
+      "power_state": "poweredOn",
+      "esxi_hostname": "esxi-lab-021",
+      "cpu_usage_pct": 77.3,
+      "memory_usage_pct": 55.7,
+      "network_rx_bytes": 380633088,
+      "network_tx_bytes": 888143872
+    },
+    {
+      "name": "vm-lab-00122",
+      "moid": "vm-10122",
+      "power_state": "poweredOn",
+      "esxi_hostname": "esxi-lab-022",
+      "cpu_usage_pct": 78.6,
+      "memory_usage_pct": 57.4,
+      "network_rx_bytes": 383778816,
+      "network_tx_bytes": 895483904
+    },
+    {
+      "name": "vm-lab-00123",
+      "moid": "vm-10123",
+      "power_state": "poweredOn",
+      "esxi_hostname": "esxi-lab-023",
+      "cpu_usage_pct": 79.9,
+      "memory_usage_pct": 59.1,
+      "network_rx_bytes": 386924544,
+      "network_tx_bytes": 902823936
+    },
+    {
+      "name": "vm-lab-00124",
+      "moid": "vm-10124",
+      "power_state": "poweredOn",
+      "esxi_hostname": "esxi-lab-024",
+      "cpu_usage_pct": 81.2,
+      "memory_usage_pct": 60.8,
+      "network_rx_bytes": 390070272,
+      "network_tx_bytes": 910163968
+    },
+    {
+      "name": "vm-lab-00125",
+      "moid": "vm-10125",
+      "power_state": "poweredOn",
+      "esxi_hostname": "esxi-lab-025",
+      "cpu_usage_pct": 82.5,
+      "memory_usage_pct": 62.5,
+      "network_rx_bytes": 393216000,
+      "network_tx_bytes": 917504000
+    },
+    {
+      "name": "vm-lab-00126",
+      "moid": "vm-10126",
+      "power_state": "poweredOn",
+      "esxi_hostname": "esxi-lab-001",
+      "cpu_usage_pct": 83.8,
+      "memory_usage_pct": 64.2,
+      "network_rx_bytes": 396361728,
+      "network_tx_bytes": 924844032
+    },
+    {
+      "name": "vm-lab-00127",
+      "moid": "vm-10127",
+      "power_state": "poweredOn",
+      "esxi_hostname": "esxi-lab-002",
+      "cpu_usage_pct": 85.1,
+      "memory_usage_pct": 65.9,
+      "network_rx_bytes": 399507456,
+      "network_tx_bytes": 932184064
+    },
+    {
+      "name": "vm-lab-00128",
+      "moid": "vm-10128",
+      "power_state": "poweredOn",
+      "esxi_hostname": "esxi-lab-003",
+      "cpu_usage_pct": 86.4,
+      "memory_usage_pct": 67.6,
+      "network_rx_bytes": 402653184,
+      "network_tx_bytes": 939524096
+    },
+    {
+      "name": "vm-lab-00129",
+      "moid": "vm-10129",
+      "power_state": "poweredOn",
+      "esxi_hostname": "esxi-lab-004",
+      "cpu_usage_pct": 87.7,
+      "memory_usage_pct": 69.3,
+      "network_rx_bytes": 405798912,
+      "network_tx_bytes": 946864128
+    },
+    {
+      "name": "vm-lab-00130",
+      "moid": "vm-10130",
+      "power_state": "poweredOn",
+      "esxi_hostname": "esxi-lab-005",
+      "cpu_usage_pct": 89.0,
+      "memory_usage_pct": 71.0,
+      "network_rx_bytes": 408944640,
+      "network_tx_bytes": 954204160
+    },
+    {
+      "name": "vm-lab-00131",
+      "moid": "vm-10131",
+      "power_state": "poweredOn",
+      "esxi_hostname": "esxi-lab-006",
+      "cpu_usage_pct": 5.3,
+      "memory_usage_pct": 72.7,
+      "network_rx_bytes": 412090368,
+      "network_tx_bytes": 961544192
+    },
+    {
+      "name": "vm-lab-00132",
+      "moid": "vm-10132",
+      "power_state": "poweredOn",
+      "esxi_hostname": "esxi-lab-007",
+      "cpu_usage_pct": 6.6,
+      "memory_usage_pct": 74.4,
+      "network_rx_bytes": 415236096,
+      "network_tx_bytes": 968884224
+    },
+    {
+      "name": "vm-lab-00133",
+      "moid": "vm-10133",
+      "power_state": "poweredOn",
+      "esxi_hostname": "esxi-lab-008",
+      "cpu_usage_pct": 7.9,
+      "memory_usage_pct": 76.1,
+      "network_rx_bytes": 418381824,
+      "network_tx_bytes": 976224256
+    },
+    {
+      "name": "vm-lab-00134",
+      "moid": "vm-10134",
+      "power_state": "poweredOn",
+      "esxi_hostname": "esxi-lab-009",
+      "cpu_usage_pct": 9.2,
+      "memory_usage_pct": 77.8,
+      "network_rx_bytes": 421527552,
+      "network_tx_bytes": 983564288
+    },
+    {
+      "name": "vm-lab-00135",
+      "moid": "vm-10135",
+      "power_state": "poweredOn",
+      "esxi_hostname": "esxi-lab-010",
+      "cpu_usage_pct": 10.5,
+      "memory_usage_pct": 79.5,
+      "network_rx_bytes": 424673280,
+      "network_tx_bytes": 990904320
+    },
+    {
+      "name": "vm-lab-00136",
+      "moid": "vm-10136",
+      "power_state": "poweredOn",
+      "esxi_hostname": "esxi-lab-011",
+      "cpu_usage_pct": 11.8,
+      "memory_usage_pct": 81.2,
+      "network_rx_bytes": 427819008,
+      "network_tx_bytes": 998244352
+    },
+    {
+      "name": "vm-lab-00137",
+      "moid": "vm-10137",
+      "power_state": "poweredOn",
+      "esxi_hostname": "esxi-lab-012",
+      "cpu_usage_pct": 13.1,
+      "memory_usage_pct": 82.9,
+      "network_rx_bytes": 430964736,
+      "network_tx_bytes": 1005584384
+    },
+    {
+      "name": "vm-lab-00138",
+      "moid": "vm-10138",
+      "power_state": "poweredOn",
+      "esxi_hostname": "esxi-lab-013",
+      "cpu_usage_pct": 14.4,
+      "memory_usage_pct": 84.6,
+      "network_rx_bytes": 434110464,
+      "network_tx_bytes": 1012924416
+    },
+    {
+      "name": "vm-lab-00139",
+      "moid": "vm-10139",
+      "power_state": "poweredOn",
+      "esxi_hostname": "esxi-lab-014",
+      "cpu_usage_pct": 15.7,
+      "memory_usage_pct": 86.3,
+      "network_rx_bytes": 437256192,
+      "network_tx_bytes": 1020264448
+    },
+    {
+      "name": "vm-lab-00140",
+      "moid": "vm-10140",
+      "power_state": "poweredOn",
+      "esxi_hostname": "esxi-lab-015",
+      "cpu_usage_pct": 17.0,
+      "memory_usage_pct": 88.0,
+      "network_rx_bytes": 440401920,
+      "network_tx_bytes": 1027604480
+    },
+    {
+      "name": "vm-lab-00141",
+      "moid": "vm-10141",
+      "power_state": "poweredOn",
+      "esxi_hostname": "esxi-lab-016",
+      "cpu_usage_pct": 18.3,
+      "memory_usage_pct": 89.7,
+      "network_rx_bytes": 443547648,
+      "network_tx_bytes": 1034944512
+    },
+    {
+      "name": "vm-lab-00142",
+      "moid": "vm-10142",
+      "power_state": "poweredOn",
+      "esxi_hostname": "esxi-lab-017",
+      "cpu_usage_pct": 19.6,
+      "memory_usage_pct": 11.4,
+      "network_rx_bytes": 446693376,
+      "network_tx_bytes": 1042284544
+    },
+    {
+      "name": "vm-lab-00143",
+      "moid": "vm-10143",
+      "power_state": "poweredOn",
+      "esxi_hostname": "esxi-lab-018",
+      "cpu_usage_pct": 20.9,
+      "memory_usage_pct": 13.1,
+      "network_rx_bytes": 449839104,
+      "network_tx_bytes": 1048576
+    },
+    {
+      "name": "vm-lab-00144",
+      "moid": "vm-10144",
+      "power_state": "poweredOn",
+      "esxi_hostname": "esxi-lab-019",
+      "cpu_usage_pct": 22.2,
+      "memory_usage_pct": 14.8,
+      "network_rx_bytes": 452984832,
+      "network_tx_bytes": 8388608
+    },
+    {
+      "name": "vm-lab-00145",
+      "moid": "vm-10145",
+      "power_state": "poweredOn",
+      "esxi_hostname": "esxi-lab-020",
+      "cpu_usage_pct": 23.5,
+      "memory_usage_pct": 16.5,
+      "network_rx_bytes": 456130560,
+      "network_tx_bytes": 15728640
+    },
+    {
+      "name": "vm-lab-00146",
+      "moid": "vm-10146",
+      "power_state": "poweredOn",
+      "esxi_hostname": "esxi-lab-021",
+      "cpu_usage_pct": 24.8,
+      "memory_usage_pct": 18.2,
+      "network_rx_bytes": 459276288,
+      "network_tx_bytes": 23068672
+    },
+    {
+      "name": "vm-lab-00147",
+      "moid": "vm-10147",
+      "power_state": "poweredOn",
+      "esxi_hostname": "esxi-lab-022",
+      "cpu_usage_pct": 26.1,
+      "memory_usage_pct": 19.9,
+      "network_rx_bytes": 462422016,
+      "network_tx_bytes": 30408704
+    },
+    {
+      "name": "vm-lab-00148",
+      "moid": "vm-10148",
+      "power_state": "poweredOff",
+      "esxi_hostname": "esxi-lab-023",
+      "cpu_usage_pct": 27.4,
+      "memory_usage_pct": 21.6,
+      "network_rx_bytes": 465567744,
+      "network_tx_bytes": 37748736
+    },
+    {
+      "name": "vm-lab-00149",
+      "moid": "vm-10149",
+      "power_state": "poweredOn",
+      "esxi_hostname": "esxi-lab-024",
+      "cpu_usage_pct": 28.7,
+      "memory_usage_pct": 23.3,
+      "network_rx_bytes": 468713472,
+      "network_tx_bytes": 45088768
+    },
+    {
+      "name": "vm-lab-00150",
+      "moid": "vm-10150",
+      "power_state": "poweredOn",
+      "esxi_hostname": "esxi-lab-025",
+      "cpu_usage_pct": 30.0,
+      "memory_usage_pct": 25.0,
+      "network_rx_bytes": 471859200,
+      "network_tx_bytes": 52428800
+    },
+    {
+      "name": "vm-lab-00151",
+      "moid": "vm-10151",
+      "power_state": "poweredOn",
+      "esxi_hostname": "esxi-lab-001",
+      "cpu_usage_pct": 31.3,
+      "memory_usage_pct": 26.7,
+      "network_rx_bytes": 475004928,
+      "network_tx_bytes": 59768832
+    },
+    {
+      "name": "vm-lab-00152",
+      "moid": "vm-10152",
+      "power_state": "poweredOn",
+      "esxi_hostname": "esxi-lab-002",
+      "cpu_usage_pct": 32.6,
+      "memory_usage_pct": 28.4,
+      "network_rx_bytes": 478150656,
+      "network_tx_bytes": 67108864
+    },
+    {
+      "name": "vm-lab-00153",
+      "moid": "vm-10153",
+      "power_state": "poweredOn",
+      "esxi_hostname": "esxi-lab-003",
+      "cpu_usage_pct": 33.9,
+      "memory_usage_pct": 30.1,
+      "network_rx_bytes": 481296384,
+      "network_tx_bytes": 74448896
+    },
+    {
+      "name": "vm-lab-00154",
+      "moid": "vm-10154",
+      "power_state": "poweredOn",
+      "esxi_hostname": "esxi-lab-004",
+      "cpu_usage_pct": 35.2,
+      "memory_usage_pct": 31.8,
+      "network_rx_bytes": 484442112,
+      "network_tx_bytes": 81788928
+    },
+    {
+      "name": "vm-lab-00155",
+      "moid": "vm-10155",
+      "power_state": "poweredOn",
+      "esxi_hostname": "esxi-lab-005",
+      "cpu_usage_pct": 36.5,
+      "memory_usage_pct": 33.5,
+      "network_rx_bytes": 487587840,
+      "network_tx_bytes": 89128960
+    },
+    {
+      "name": "vm-lab-00156",
+      "moid": "vm-10156",
+      "power_state": "poweredOn",
+      "esxi_hostname": "esxi-lab-006",
+      "cpu_usage_pct": 37.8,
+      "memory_usage_pct": 35.2,
+      "network_rx_bytes": 490733568,
+      "network_tx_bytes": 96468992
+    },
+    {
+      "name": "vm-lab-00157",
+      "moid": "vm-10157",
+      "power_state": "poweredOn",
+      "esxi_hostname": "esxi-lab-007",
+      "cpu_usage_pct": 39.1,
+      "memory_usage_pct": 36.9,
+      "network_rx_bytes": 493879296,
+      "network_tx_bytes": 103809024
+    },
+    {
+      "name": "vm-lab-00158",
+      "moid": "vm-10158",
+      "power_state": "poweredOn",
+      "esxi_hostname": "esxi-lab-008",
+      "cpu_usage_pct": 40.4,
+      "memory_usage_pct": 38.6,
+      "network_rx_bytes": 497025024,
+      "network_tx_bytes": 111149056
+    },
+    {
+      "name": "vm-lab-00159",
+      "moid": "vm-10159",
+      "power_state": "poweredOn",
+      "esxi_hostname": "esxi-lab-009",
+      "cpu_usage_pct": 41.7,
+      "memory_usage_pct": 40.3,
+      "network_rx_bytes": 500170752,
+      "network_tx_bytes": 118489088
+    },
+    {
+      "name": "vm-lab-00160",
+      "moid": "vm-10160",
+      "power_state": "poweredOn",
+      "esxi_hostname": "esxi-lab-010",
+      "cpu_usage_pct": 43.0,
+      "memory_usage_pct": 42.0,
+      "network_rx_bytes": 503316480,
+      "network_tx_bytes": 125829120
+    },
+    {
+      "name": "vm-lab-00161",
+      "moid": "vm-10161",
+      "power_state": "poweredOn",
+      "esxi_hostname": "esxi-lab-011",
+      "cpu_usage_pct": 44.3,
+      "memory_usage_pct": 43.7,
+      "network_rx_bytes": 506462208,
+      "network_tx_bytes": 133169152
+    },
+    {
+      "name": "vm-lab-00162",
+      "moid": "vm-10162",
+      "power_state": "poweredOn",
+      "esxi_hostname": "esxi-lab-012",
+      "cpu_usage_pct": 45.6,
+      "memory_usage_pct": 45.4,
+      "network_rx_bytes": 509607936,
+      "network_tx_bytes": 140509184
+    },
+    {
+      "name": "vm-lab-00163",
+      "moid": "vm-10163",
+      "power_state": "poweredOn",
+      "esxi_hostname": "esxi-lab-013",
+      "cpu_usage_pct": 46.9,
+      "memory_usage_pct": 47.1,
+      "network_rx_bytes": 512753664,
+      "network_tx_bytes": 147849216
+    },
+    {
+      "name": "vm-lab-00164",
+      "moid": "vm-10164",
+      "power_state": "poweredOn",
+      "esxi_hostname": "esxi-lab-014",
+      "cpu_usage_pct": 48.2,
+      "memory_usage_pct": 48.8,
+      "network_rx_bytes": 515899392,
+      "network_tx_bytes": 155189248
+    },
+    {
+      "name": "vm-lab-00165",
+      "moid": "vm-10165",
+      "power_state": "poweredOn",
+      "esxi_hostname": "esxi-lab-015",
+      "cpu_usage_pct": 49.5,
+      "memory_usage_pct": 50.5,
+      "network_rx_bytes": 519045120,
+      "network_tx_bytes": 162529280
+    },
+    {
+      "name": "vm-lab-00166",
+      "moid": "vm-10166",
+      "power_state": "poweredOn",
+      "esxi_hostname": "esxi-lab-016",
+      "cpu_usage_pct": 50.8,
+      "memory_usage_pct": 52.2,
+      "network_rx_bytes": 522190848,
+      "network_tx_bytes": 169869312
+    },
+    {
+      "name": "vm-lab-00167",
+      "moid": "vm-10167",
+      "power_state": "poweredOn",
+      "esxi_hostname": "esxi-lab-017",
+      "cpu_usage_pct": 52.1,
+      "memory_usage_pct": 53.9,
+      "network_rx_bytes": 525336576,
+      "network_tx_bytes": 177209344
+    },
+    {
+      "name": "vm-lab-00168",
+      "moid": "vm-10168",
+      "power_state": "poweredOn",
+      "esxi_hostname": "esxi-lab-018",
+      "cpu_usage_pct": 53.4,
+      "memory_usage_pct": 55.6,
+      "network_rx_bytes": 528482304,
+      "network_tx_bytes": 184549376
+    },
+    {
+      "name": "vm-lab-00169",
+      "moid": "vm-10169",
+      "power_state": "poweredOn",
+      "esxi_hostname": "esxi-lab-019",
+      "cpu_usage_pct": 54.7,
+      "memory_usage_pct": 57.3,
+      "network_rx_bytes": 531628032,
+      "network_tx_bytes": 191889408
+    },
+    {
+      "name": "vm-lab-00170",
+      "moid": "vm-10170",
+      "power_state": "poweredOn",
+      "esxi_hostname": "esxi-lab-020",
+      "cpu_usage_pct": 56.0,
+      "memory_usage_pct": 59.0,
+      "network_rx_bytes": 534773760,
+      "network_tx_bytes": 199229440
+    },
+    {
+      "name": "vm-lab-00171",
+      "moid": "vm-10171",
+      "power_state": "poweredOn",
+      "esxi_hostname": "esxi-lab-021",
+      "cpu_usage_pct": 57.3,
+      "memory_usage_pct": 60.7,
+      "network_rx_bytes": 537919488,
+      "network_tx_bytes": 206569472
+    },
+    {
+      "name": "vm-lab-00172",
+      "moid": "vm-10172",
+      "power_state": "poweredOn",
+      "esxi_hostname": "esxi-lab-022",
+      "cpu_usage_pct": 58.6,
+      "memory_usage_pct": 62.4,
+      "network_rx_bytes": 541065216,
+      "network_tx_bytes": 213909504
+    },
+    {
+      "name": "vm-lab-00173",
+      "moid": "vm-10173",
+      "power_state": "poweredOn",
+      "esxi_hostname": "esxi-lab-023",
+      "cpu_usage_pct": 59.9,
+      "memory_usage_pct": 64.1,
+      "network_rx_bytes": 544210944,
+      "network_tx_bytes": 221249536
+    },
+    {
+      "name": "vm-lab-00174",
+      "moid": "vm-10174",
+      "power_state": "poweredOn",
+      "esxi_hostname": "esxi-lab-024",
+      "cpu_usage_pct": 61.2,
+      "memory_usage_pct": 65.8,
+      "network_rx_bytes": 547356672,
+      "network_tx_bytes": 228589568
+    },
+    {
+      "name": "vm-lab-00175",
+      "moid": "vm-10175",
+      "power_state": "poweredOn",
+      "esxi_hostname": "esxi-lab-025",
+      "cpu_usage_pct": 62.5,
+      "memory_usage_pct": 67.5,
+      "network_rx_bytes": 550502400,
+      "network_tx_bytes": 235929600
+    },
+    {
+      "name": "vm-lab-00176",
+      "moid": "vm-10176",
+      "power_state": "poweredOn",
+      "esxi_hostname": "esxi-lab-001",
+      "cpu_usage_pct": 63.8,
+      "memory_usage_pct": 69.2,
+      "network_rx_bytes": 553648128,
+      "network_tx_bytes": 243269632
+    },
+    {
+      "name": "vm-lab-00177",
+      "moid": "vm-10177",
+      "power_state": "poweredOn",
+      "esxi_hostname": "esxi-lab-002",
+      "cpu_usage_pct": 65.1,
+      "memory_usage_pct": 70.9,
+      "network_rx_bytes": 556793856,
+      "network_tx_bytes": 250609664
+    },
+    {
+      "name": "vm-lab-00178",
+      "moid": "vm-10178",
+      "power_state": "poweredOn",
+      "esxi_hostname": "esxi-lab-003",
+      "cpu_usage_pct": 66.4,
+      "memory_usage_pct": 72.6,
+      "network_rx_bytes": 559939584,
+      "network_tx_bytes": 257949696
+    },
+    {
+      "name": "vm-lab-00179",
+      "moid": "vm-10179",
+      "power_state": "poweredOn",
+      "esxi_hostname": "esxi-lab-004",
+      "cpu_usage_pct": 67.7,
+      "memory_usage_pct": 74.3,
+      "network_rx_bytes": 563085312,
+      "network_tx_bytes": 265289728
+    },
+    {
+      "name": "vm-lab-00180",
+      "moid": "vm-10180",
+      "power_state": "poweredOn",
+      "esxi_hostname": "esxi-lab-005",
+      "cpu_usage_pct": 69.0,
+      "memory_usage_pct": 76.0,
+      "network_rx_bytes": 566231040,
+      "network_tx_bytes": 272629760
+    },
+    {
+      "name": "vm-lab-00181",
+      "moid": "vm-10181",
+      "power_state": "poweredOn",
+      "esxi_hostname": "esxi-lab-006",
+      "cpu_usage_pct": 70.3,
+      "memory_usage_pct": 77.7,
+      "network_rx_bytes": 569376768,
+      "network_tx_bytes": 279969792
+    },
+    {
+      "name": "vm-lab-00182",
+      "moid": "vm-10182",
+      "power_state": "poweredOn",
+      "esxi_hostname": "esxi-lab-007",
+      "cpu_usage_pct": 71.6,
+      "memory_usage_pct": 79.4,
+      "network_rx_bytes": 572522496,
+      "network_tx_bytes": 287309824
+    },
+    {
+      "name": "vm-lab-00183",
+      "moid": "vm-10183",
+      "power_state": "poweredOn",
+      "esxi_hostname": "esxi-lab-008",
+      "cpu_usage_pct": 72.9,
+      "memory_usage_pct": 81.1,
+      "network_rx_bytes": 575668224,
+      "network_tx_bytes": 294649856
+    },
+    {
+      "name": "vm-lab-00184",
+      "moid": "vm-10184",
+      "power_state": "poweredOn",
+      "esxi_hostname": "esxi-lab-009",
+      "cpu_usage_pct": 74.2,
+      "memory_usage_pct": 82.8,
+      "network_rx_bytes": 578813952,
+      "network_tx_bytes": 301989888
+    },
+    {
+      "name": "vm-lab-00185",
+      "moid": "vm-10185",
+      "power_state": "poweredOff",
+      "esxi_hostname": "esxi-lab-010",
+      "cpu_usage_pct": 75.5,
+      "memory_usage_pct": 84.5,
+      "network_rx_bytes": 581959680,
+      "network_tx_bytes": 309329920
+    },
+    {
+      "name": "vm-lab-00186",
+      "moid": "vm-10186",
+      "power_state": "poweredOn",
+      "esxi_hostname": "esxi-lab-011",
+      "cpu_usage_pct": 76.8,
+      "memory_usage_pct": 86.2,
+      "network_rx_bytes": 585105408,
+      "network_tx_bytes": 316669952
+    },
+    {
+      "name": "vm-lab-00187",
+      "moid": "vm-10187",
+      "power_state": "poweredOn",
+      "esxi_hostname": "esxi-lab-012",
+      "cpu_usage_pct": 78.1,
+      "memory_usage_pct": 87.9,
+      "network_rx_bytes": 588251136,
+      "network_tx_bytes": 324009984
+    },
+    {
+      "name": "vm-lab-00188",
+      "moid": "vm-10188",
+      "power_state": "poweredOn",
+      "esxi_hostname": "esxi-lab-013",
+      "cpu_usage_pct": 79.4,
+      "memory_usage_pct": 89.6,
+      "network_rx_bytes": 591396864,
+      "network_tx_bytes": 331350016
+    },
+    {
+      "name": "vm-lab-00189",
+      "moid": "vm-10189",
+      "power_state": "poweredOn",
+      "esxi_hostname": "esxi-lab-014",
+      "cpu_usage_pct": 80.7,
+      "memory_usage_pct": 11.3,
+      "network_rx_bytes": 594542592,
+      "network_tx_bytes": 338690048
+    },
+    {
+      "name": "vm-lab-00190",
+      "moid": "vm-10190",
+      "power_state": "poweredOn",
+      "esxi_hostname": "esxi-lab-015",
+      "cpu_usage_pct": 82.0,
+      "memory_usage_pct": 13.0,
+      "network_rx_bytes": 597688320,
+      "network_tx_bytes": 346030080
+    },
+    {
+      "name": "vm-lab-00191",
+      "moid": "vm-10191",
+      "power_state": "poweredOn",
+      "esxi_hostname": "esxi-lab-016",
+      "cpu_usage_pct": 83.3,
+      "memory_usage_pct": 14.7,
+      "network_rx_bytes": 600834048,
+      "network_tx_bytes": 353370112
+    },
+    {
+      "name": "vm-lab-00192",
+      "moid": "vm-10192",
+      "power_state": "poweredOn",
+      "esxi_hostname": "esxi-lab-017",
+      "cpu_usage_pct": 84.6,
+      "memory_usage_pct": 16.4,
+      "network_rx_bytes": 603979776,
+      "network_tx_bytes": 360710144
+    },
+    {
+      "name": "vm-lab-00193",
+      "moid": "vm-10193",
+      "power_state": "poweredOn",
+      "esxi_hostname": "esxi-lab-018",
+      "cpu_usage_pct": 85.9,
+      "memory_usage_pct": 18.1,
+      "network_rx_bytes": 607125504,
+      "network_tx_bytes": 368050176
+    },
+    {
+      "name": "vm-lab-00194",
+      "moid": "vm-10194",
+      "power_state": "poweredOn",
+      "esxi_hostname": "esxi-lab-019",
+      "cpu_usage_pct": 87.2,
+      "memory_usage_pct": 19.8,
+      "network_rx_bytes": 610271232,
+      "network_tx_bytes": 375390208
+    },
+    {
+      "name": "vm-lab-00195",
+      "moid": "vm-10195",
+      "power_state": "poweredOn",
+      "esxi_hostname": "esxi-lab-020",
+      "cpu_usage_pct": 88.5,
+      "memory_usage_pct": 21.5,
+      "network_rx_bytes": 613416960,
+      "network_tx_bytes": 382730240
+    },
+    {
+      "name": "vm-lab-00196",
+      "moid": "vm-10196",
+      "power_state": "poweredOn",
+      "esxi_hostname": "esxi-lab-021",
+      "cpu_usage_pct": 89.8,
+      "memory_usage_pct": 23.2,
+      "network_rx_bytes": 616562688,
+      "network_tx_bytes": 390070272
+    },
+    {
+      "name": "vm-lab-00197",
+      "moid": "vm-10197",
+      "power_state": "poweredOn",
+      "esxi_hostname": "esxi-lab-022",
+      "cpu_usage_pct": 6.1,
+      "memory_usage_pct": 24.9,
+      "network_rx_bytes": 619708416,
+      "network_tx_bytes": 397410304
+    },
+    {
+      "name": "vm-lab-00198",
+      "moid": "vm-10198",
+      "power_state": "poweredOn",
+      "esxi_hostname": "esxi-lab-023",
+      "cpu_usage_pct": 7.4,
+      "memory_usage_pct": 26.6,
+      "network_rx_bytes": 622854144,
+      "network_tx_bytes": 404750336
+    },
+    {
+      "name": "vm-lab-00199",
+      "moid": "vm-10199",
+      "power_state": "poweredOn",
+      "esxi_hostname": "esxi-lab-024",
+      "cpu_usage_pct": 8.7,
+      "memory_usage_pct": 28.3,
+      "network_rx_bytes": 625999872,
+      "network_tx_bytes": 412090368
+    },
+    {
+      "name": "vm-lab-00200",
+      "moid": "vm-10200",
+      "power_state": "poweredOn",
+      "esxi_hostname": "esxi-lab-025",
+      "cpu_usage_pct": 10.0,
+      "memory_usage_pct": 30.0,
+      "network_rx_bytes": 629145600,
+      "network_tx_bytes": 419430400
+    },
+    {
+      "name": "vm-lab-00201",
+      "moid": "vm-10201",
+      "power_state": "poweredOn",
+      "esxi_hostname": "esxi-lab-001",
+      "cpu_usage_pct": 11.3,
+      "memory_usage_pct": 31.7,
+      "network_rx_bytes": 632291328,
+      "network_tx_bytes": 426770432
+    },
+    {
+      "name": "vm-lab-00202",
+      "moid": "vm-10202",
+      "power_state": "poweredOn",
+      "esxi_hostname": "esxi-lab-002",
+      "cpu_usage_pct": 12.6,
+      "memory_usage_pct": 33.4,
+      "network_rx_bytes": 635437056,
+      "network_tx_bytes": 434110464
+    },
+    {
+      "name": "vm-lab-00203",
+      "moid": "vm-10203",
+      "power_state": "poweredOn",
+      "esxi_hostname": "esxi-lab-003",
+      "cpu_usage_pct": 13.9,
+      "memory_usage_pct": 35.1,
+      "network_rx_bytes": 638582784,
+      "network_tx_bytes": 441450496
+    },
+    {
+      "name": "vm-lab-00204",
+      "moid": "vm-10204",
+      "power_state": "poweredOn",
+      "esxi_hostname": "esxi-lab-004",
+      "cpu_usage_pct": 15.2,
+      "memory_usage_pct": 36.8,
+      "network_rx_bytes": 641728512,
+      "network_tx_bytes": 448790528
+    },
+    {
+      "name": "vm-lab-00205",
+      "moid": "vm-10205",
+      "power_state": "poweredOn",
+      "esxi_hostname": "esxi-lab-005",
+      "cpu_usage_pct": 16.5,
+      "memory_usage_pct": 38.5,
+      "network_rx_bytes": 644874240,
+      "network_tx_bytes": 456130560
+    },
+    {
+      "name": "vm-lab-00206",
+      "moid": "vm-10206",
+      "power_state": "poweredOn",
+      "esxi_hostname": "esxi-lab-006",
+      "cpu_usage_pct": 17.8,
+      "memory_usage_pct": 40.2,
+      "network_rx_bytes": 648019968,
+      "network_tx_bytes": 463470592
+    },
+    {
+      "name": "vm-lab-00207",
+      "moid": "vm-10207",
+      "power_state": "poweredOn",
+      "esxi_hostname": "esxi-lab-007",
+      "cpu_usage_pct": 19.1,
+      "memory_usage_pct": 41.9,
+      "network_rx_bytes": 651165696,
+      "network_tx_bytes": 470810624
+    },
+    {
+      "name": "vm-lab-00208",
+      "moid": "vm-10208",
+      "power_state": "poweredOn",
+      "esxi_hostname": "esxi-lab-008",
+      "cpu_usage_pct": 20.4,
+      "memory_usage_pct": 43.6,
+      "network_rx_bytes": 654311424,
+      "network_tx_bytes": 478150656
+    },
+    {
+      "name": "vm-lab-00209",
+      "moid": "vm-10209",
+      "power_state": "poweredOn",
+      "esxi_hostname": "esxi-lab-009",
+      "cpu_usage_pct": 21.7,
+      "memory_usage_pct": 45.3,
+      "network_rx_bytes": 657457152,
+      "network_tx_bytes": 485490688
+    },
+    {
+      "name": "vm-lab-00210",
+      "moid": "vm-10210",
+      "power_state": "poweredOn",
+      "esxi_hostname": "esxi-lab-010",
+      "cpu_usage_pct": 23.0,
+      "memory_usage_pct": 47.0,
+      "network_rx_bytes": 660602880,
+      "network_tx_bytes": 492830720
+    },
+    {
+      "name": "vm-lab-00211",
+      "moid": "vm-10211",
+      "power_state": "poweredOn",
+      "esxi_hostname": "esxi-lab-011",
+      "cpu_usage_pct": 24.3,
+      "memory_usage_pct": 48.7,
+      "network_rx_bytes": 663748608,
+      "network_tx_bytes": 500170752
+    },
+    {
+      "name": "vm-lab-00212",
+      "moid": "vm-10212",
+      "power_state": "poweredOn",
+      "esxi_hostname": "esxi-lab-012",
+      "cpu_usage_pct": 25.6,
+      "memory_usage_pct": 50.4,
+      "network_rx_bytes": 666894336,
+      "network_tx_bytes": 507510784
+    },
+    {
+      "name": "vm-lab-00213",
+      "moid": "vm-10213",
+      "power_state": "poweredOn",
+      "esxi_hostname": "esxi-lab-013",
+      "cpu_usage_pct": 26.9,
+      "memory_usage_pct": 52.1,
+      "network_rx_bytes": 670040064,
+      "network_tx_bytes": 514850816
+    },
+    {
+      "name": "vm-lab-00214",
+      "moid": "vm-10214",
+      "power_state": "poweredOn",
+      "esxi_hostname": "esxi-lab-014",
+      "cpu_usage_pct": 28.2,
+      "memory_usage_pct": 53.8,
+      "network_rx_bytes": 673185792,
+      "network_tx_bytes": 522190848
+    },
+    {
+      "name": "vm-lab-00215",
+      "moid": "vm-10215",
+      "power_state": "poweredOn",
+      "esxi_hostname": "esxi-lab-015",
+      "cpu_usage_pct": 29.5,
+      "memory_usage_pct": 55.5,
+      "network_rx_bytes": 676331520,
+      "network_tx_bytes": 529530880
+    },
+    {
+      "name": "vm-lab-00216",
+      "moid": "vm-10216",
+      "power_state": "poweredOn",
+      "esxi_hostname": "esxi-lab-016",
+      "cpu_usage_pct": 30.8,
+      "memory_usage_pct": 57.2,
+      "network_rx_bytes": 679477248,
+      "network_tx_bytes": 536870912
+    },
+    {
+      "name": "vm-lab-00217",
+      "moid": "vm-10217",
+      "power_state": "poweredOn",
+      "esxi_hostname": "esxi-lab-017",
+      "cpu_usage_pct": 32.1,
+      "memory_usage_pct": 58.9,
+      "network_rx_bytes": 682622976,
+      "network_tx_bytes": 544210944
+    },
+    {
+      "name": "vm-lab-00218",
+      "moid": "vm-10218",
+      "power_state": "poweredOn",
+      "esxi_hostname": "esxi-lab-018",
+      "cpu_usage_pct": 33.4,
+      "memory_usage_pct": 60.6,
+      "network_rx_bytes": 685768704,
+      "network_tx_bytes": 551550976
+    },
+    {
+      "name": "vm-lab-00219",
+      "moid": "vm-10219",
+      "power_state": "poweredOn",
+      "esxi_hostname": "esxi-lab-019",
+      "cpu_usage_pct": 34.7,
+      "memory_usage_pct": 62.3,
+      "network_rx_bytes": 688914432,
+      "network_tx_bytes": 558891008
+    },
+    {
+      "name": "vm-lab-00220",
+      "moid": "vm-10220",
+      "power_state": "poweredOn",
+      "esxi_hostname": "esxi-lab-020",
+      "cpu_usage_pct": 36.0,
+      "memory_usage_pct": 64.0,
+      "network_rx_bytes": 692060160,
+      "network_tx_bytes": 566231040
+    },
+    {
+      "name": "vm-lab-00221",
+      "moid": "vm-10221",
+      "power_state": "poweredOn",
+      "esxi_hostname": "esxi-lab-021",
+      "cpu_usage_pct": 37.3,
+      "memory_usage_pct": 65.7,
+      "network_rx_bytes": 695205888,
+      "network_tx_bytes": 573571072
+    },
+    {
+      "name": "vm-lab-00222",
+      "moid": "vm-10222",
+      "power_state": "poweredOff",
+      "esxi_hostname": "esxi-lab-022",
+      "cpu_usage_pct": 38.6,
+      "memory_usage_pct": 67.4,
+      "network_rx_bytes": 698351616,
+      "network_tx_bytes": 580911104
+    },
+    {
+      "name": "vm-lab-00223",
+      "moid": "vm-10223",
+      "power_state": "poweredOn",
+      "esxi_hostname": "esxi-lab-023",
+      "cpu_usage_pct": 39.9,
+      "memory_usage_pct": 69.1,
+      "network_rx_bytes": 701497344,
+      "network_tx_bytes": 588251136
+    },
+    {
+      "name": "vm-lab-00224",
+      "moid": "vm-10224",
+      "power_state": "poweredOn",
+      "esxi_hostname": "esxi-lab-024",
+      "cpu_usage_pct": 41.2,
+      "memory_usage_pct": 70.8,
+      "network_rx_bytes": 704643072,
+      "network_tx_bytes": 595591168
+    },
+    {
+      "name": "vm-lab-00225",
+      "moid": "vm-10225",
+      "power_state": "poweredOn",
+      "esxi_hostname": "esxi-lab-025",
+      "cpu_usage_pct": 42.5,
+      "memory_usage_pct": 72.5,
+      "network_rx_bytes": 707788800,
+      "network_tx_bytes": 602931200
+    },
+    {
+      "name": "vm-lab-00226",
+      "moid": "vm-10226",
+      "power_state": "poweredOn",
+      "esxi_hostname": "esxi-lab-001",
+      "cpu_usage_pct": 43.8,
+      "memory_usage_pct": 74.2,
+      "network_rx_bytes": 710934528,
+      "network_tx_bytes": 610271232
+    },
+    {
+      "name": "vm-lab-00227",
+      "moid": "vm-10227",
+      "power_state": "poweredOn",
+      "esxi_hostname": "esxi-lab-002",
+      "cpu_usage_pct": 45.1,
+      "memory_usage_pct": 75.9,
+      "network_rx_bytes": 714080256,
+      "network_tx_bytes": 617611264
+    },
+    {
+      "name": "vm-lab-00228",
+      "moid": "vm-10228",
+      "power_state": "poweredOn",
+      "esxi_hostname": "esxi-lab-003",
+      "cpu_usage_pct": 46.4,
+      "memory_usage_pct": 77.6,
+      "network_rx_bytes": 717225984,
+      "network_tx_bytes": 624951296
+    },
+    {
+      "name": "vm-lab-00229",
+      "moid": "vm-10229",
+      "power_state": "poweredOn",
+      "esxi_hostname": "esxi-lab-004",
+      "cpu_usage_pct": 47.7,
+      "memory_usage_pct": 79.3,
+      "network_rx_bytes": 720371712,
+      "network_tx_bytes": 632291328
+    },
+    {
+      "name": "vm-lab-00230",
+      "moid": "vm-10230",
+      "power_state": "poweredOn",
+      "esxi_hostname": "esxi-lab-005",
+      "cpu_usage_pct": 49.0,
+      "memory_usage_pct": 81.0,
+      "network_rx_bytes": 723517440,
+      "network_tx_bytes": 639631360
+    },
+    {
+      "name": "vm-lab-00231",
+      "moid": "vm-10231",
+      "power_state": "poweredOn",
+      "esxi_hostname": "esxi-lab-006",
+      "cpu_usage_pct": 50.3,
+      "memory_usage_pct": 82.7,
+      "network_rx_bytes": 726663168,
+      "network_tx_bytes": 646971392
+    },
+    {
+      "name": "vm-lab-00232",
+      "moid": "vm-10232",
+      "power_state": "poweredOn",
+      "esxi_hostname": "esxi-lab-007",
+      "cpu_usage_pct": 51.6,
+      "memory_usage_pct": 84.4,
+      "network_rx_bytes": 729808896,
+      "network_tx_bytes": 654311424
+    },
+    {
+      "name": "vm-lab-00233",
+      "moid": "vm-10233",
+      "power_state": "poweredOn",
+      "esxi_hostname": "esxi-lab-008",
+      "cpu_usage_pct": 52.9,
+      "memory_usage_pct": 86.1,
+      "network_rx_bytes": 732954624,
+      "network_tx_bytes": 661651456
+    },
+    {
+      "name": "vm-lab-00234",
+      "moid": "vm-10234",
+      "power_state": "poweredOn",
+      "esxi_hostname": "esxi-lab-009",
+      "cpu_usage_pct": 54.2,
+      "memory_usage_pct": 87.8,
+      "network_rx_bytes": 736100352,
+      "network_tx_bytes": 668991488
+    },
+    {
+      "name": "vm-lab-00235",
+      "moid": "vm-10235",
+      "power_state": "poweredOn",
+      "esxi_hostname": "esxi-lab-010",
+      "cpu_usage_pct": 55.5,
+      "memory_usage_pct": 89.5,
+      "network_rx_bytes": 739246080,
+      "network_tx_bytes": 676331520
+    },
+    {
+      "name": "vm-lab-00236",
+      "moid": "vm-10236",
+      "power_state": "poweredOn",
+      "esxi_hostname": "esxi-lab-011",
+      "cpu_usage_pct": 56.8,
+      "memory_usage_pct": 11.2,
+      "network_rx_bytes": 742391808,
+      "network_tx_bytes": 683671552
+    },
+    {
+      "name": "vm-lab-00237",
+      "moid": "vm-10237",
+      "power_state": "poweredOn",
+      "esxi_hostname": "esxi-lab-012",
+      "cpu_usage_pct": 58.1,
+      "memory_usage_pct": 12.9,
+      "network_rx_bytes": 745537536,
+      "network_tx_bytes": 691011584
+    },
+    {
+      "name": "vm-lab-00238",
+      "moid": "vm-10238",
+      "power_state": "poweredOn",
+      "esxi_hostname": "esxi-lab-013",
+      "cpu_usage_pct": 59.4,
+      "memory_usage_pct": 14.6,
+      "network_rx_bytes": 748683264,
+      "network_tx_bytes": 698351616
+    },
+    {
+      "name": "vm-lab-00239",
+      "moid": "vm-10239",
+      "power_state": "poweredOn",
+      "esxi_hostname": "esxi-lab-014",
+      "cpu_usage_pct": 60.7,
+      "memory_usage_pct": 16.3,
+      "network_rx_bytes": 751828992,
+      "network_tx_bytes": 705691648
+    },
+    {
+      "name": "vm-lab-00240",
+      "moid": "vm-10240",
+      "power_state": "poweredOn",
+      "esxi_hostname": "esxi-lab-015",
+      "cpu_usage_pct": 62.0,
+      "memory_usage_pct": 18.0,
+      "network_rx_bytes": 754974720,
+      "network_tx_bytes": 713031680
+    },
+    {
+      "name": "vm-lab-00241",
+      "moid": "vm-10241",
+      "power_state": "poweredOn",
+      "esxi_hostname": "esxi-lab-016",
+      "cpu_usage_pct": 63.3,
+      "memory_usage_pct": 19.7,
+      "network_rx_bytes": 758120448,
+      "network_tx_bytes": 720371712
+    },
+    {
+      "name": "vm-lab-00242",
+      "moid": "vm-10242",
+      "power_state": "poweredOn",
+      "esxi_hostname": "esxi-lab-017",
+      "cpu_usage_pct": 64.6,
+      "memory_usage_pct": 21.4,
+      "network_rx_bytes": 761266176,
+      "network_tx_bytes": 727711744
+    },
+    {
+      "name": "vm-lab-00243",
+      "moid": "vm-10243",
+      "power_state": "poweredOn",
+      "esxi_hostname": "esxi-lab-018",
+      "cpu_usage_pct": 65.9,
+      "memory_usage_pct": 23.1,
+      "network_rx_bytes": 764411904,
+      "network_tx_bytes": 735051776
+    },
+    {
+      "name": "vm-lab-00244",
+      "moid": "vm-10244",
+      "power_state": "poweredOn",
+      "esxi_hostname": "esxi-lab-019",
+      "cpu_usage_pct": 67.2,
+      "memory_usage_pct": 24.8,
+      "network_rx_bytes": 767557632,
+      "network_tx_bytes": 742391808
+    },
+    {
+      "name": "vm-lab-00245",
+      "moid": "vm-10245",
+      "power_state": "poweredOn",
+      "esxi_hostname": "esxi-lab-020",
+      "cpu_usage_pct": 68.5,
+      "memory_usage_pct": 26.5,
+      "network_rx_bytes": 770703360,
+      "network_tx_bytes": 749731840
+    },
+    {
+      "name": "vm-lab-00246",
+      "moid": "vm-10246",
+      "power_state": "poweredOn",
+      "esxi_hostname": "esxi-lab-021",
+      "cpu_usage_pct": 69.8,
+      "memory_usage_pct": 28.2,
+      "network_rx_bytes": 773849088,
+      "network_tx_bytes": 757071872
+    },
+    {
+      "name": "vm-lab-00247",
+      "moid": "vm-10247",
+      "power_state": "poweredOn",
+      "esxi_hostname": "esxi-lab-022",
+      "cpu_usage_pct": 71.1,
+      "memory_usage_pct": 29.9,
+      "network_rx_bytes": 776994816,
+      "network_tx_bytes": 764411904
+    },
+    {
+      "name": "vm-lab-00248",
+      "moid": "vm-10248",
+      "power_state": "poweredOn",
+      "esxi_hostname": "esxi-lab-023",
+      "cpu_usage_pct": 72.4,
+      "memory_usage_pct": 31.6,
+      "network_rx_bytes": 780140544,
+      "network_tx_bytes": 771751936
+    },
+    {
+      "name": "vm-lab-00249",
+      "moid": "vm-10249",
+      "power_state": "poweredOn",
+      "esxi_hostname": "esxi-lab-024",
+      "cpu_usage_pct": 73.7,
+      "memory_usage_pct": 33.3,
+      "network_rx_bytes": 783286272,
+      "network_tx_bytes": 779091968
+    },
+    {
+      "name": "vm-lab-00250",
+      "moid": "vm-10250",
+      "power_state": "poweredOn",
+      "esxi_hostname": "esxi-lab-025",
+      "cpu_usage_pct": 75.0,
+      "memory_usage_pct": 35.0,
+      "network_rx_bytes": 786432000,
+      "network_tx_bytes": 786432000
+    },
+    {
+      "name": "vm-lab-00251",
+      "moid": "vm-10251",
+      "power_state": "poweredOn",
+      "esxi_hostname": "esxi-lab-001",
+      "cpu_usage_pct": 76.3,
+      "memory_usage_pct": 36.7,
+      "network_rx_bytes": 789577728,
+      "network_tx_bytes": 793772032
+    },
+    {
+      "name": "vm-lab-00252",
+      "moid": "vm-10252",
+      "power_state": "poweredOn",
+      "esxi_hostname": "esxi-lab-002",
+      "cpu_usage_pct": 77.6,
+      "memory_usage_pct": 38.4,
+      "network_rx_bytes": 792723456,
+      "network_tx_bytes": 801112064
+    },
+    {
+      "name": "vm-lab-00253",
+      "moid": "vm-10253",
+      "power_state": "poweredOn",
+      "esxi_hostname": "esxi-lab-003",
+      "cpu_usage_pct": 78.9,
+      "memory_usage_pct": 40.1,
+      "network_rx_bytes": 795869184,
+      "network_tx_bytes": 808452096
+    },
+    {
+      "name": "vm-lab-00254",
+      "moid": "vm-10254",
+      "power_state": "poweredOn",
+      "esxi_hostname": "esxi-lab-004",
+      "cpu_usage_pct": 80.2,
+      "memory_usage_pct": 41.8,
+      "network_rx_bytes": 799014912,
+      "network_tx_bytes": 815792128
+    },
+    {
+      "name": "vm-lab-00255",
+      "moid": "vm-10255",
+      "power_state": "poweredOn",
+      "esxi_hostname": "esxi-lab-005",
+      "cpu_usage_pct": 81.5,
+      "memory_usage_pct": 43.5,
+      "network_rx_bytes": 802160640,
+      "network_tx_bytes": 823132160
+    },
+    {
+      "name": "vm-lab-00256",
+      "moid": "vm-10256",
+      "power_state": "poweredOn",
+      "esxi_hostname": "esxi-lab-006",
+      "cpu_usage_pct": 82.8,
+      "memory_usage_pct": 45.2,
+      "network_rx_bytes": 805306368,
+      "network_tx_bytes": 830472192
+    },
+    {
+      "name": "vm-lab-00257",
+      "moid": "vm-10257",
+      "power_state": "poweredOn",
+      "esxi_hostname": "esxi-lab-007",
+      "cpu_usage_pct": 84.1,
+      "memory_usage_pct": 46.9,
+      "network_rx_bytes": 808452096,
+      "network_tx_bytes": 837812224
+    },
+    {
+      "name": "vm-lab-00258",
+      "moid": "vm-10258",
+      "power_state": "poweredOn",
+      "esxi_hostname": "esxi-lab-008",
+      "cpu_usage_pct": 85.4,
+      "memory_usage_pct": 48.6,
+      "network_rx_bytes": 811597824,
+      "network_tx_bytes": 845152256
+    },
+    {
+      "name": "vm-lab-00259",
+      "moid": "vm-10259",
+      "power_state": "poweredOff",
+      "esxi_hostname": "esxi-lab-009",
+      "cpu_usage_pct": 86.7,
+      "memory_usage_pct": 50.3,
+      "network_rx_bytes": 814743552,
+      "network_tx_bytes": 852492288
+    },
+    {
+      "name": "vm-lab-00260",
+      "moid": "vm-10260",
+      "power_state": "poweredOn",
+      "esxi_hostname": "esxi-lab-010",
+      "cpu_usage_pct": 88.0,
+      "memory_usage_pct": 52.0,
+      "network_rx_bytes": 817889280,
+      "network_tx_bytes": 859832320
+    },
+    {
+      "name": "vm-lab-00261",
+      "moid": "vm-10261",
+      "power_state": "poweredOn",
+      "esxi_hostname": "esxi-lab-011",
+      "cpu_usage_pct": 89.3,
+      "memory_usage_pct": 53.7,
+      "network_rx_bytes": 821035008,
+      "network_tx_bytes": 867172352
+    },
+    {
+      "name": "vm-lab-00262",
+      "moid": "vm-10262",
+      "power_state": "poweredOn",
+      "esxi_hostname": "esxi-lab-012",
+      "cpu_usage_pct": 5.6,
+      "memory_usage_pct": 55.4,
+      "network_rx_bytes": 824180736,
+      "network_tx_bytes": 874512384
+    },
+    {
+      "name": "vm-lab-00263",
+      "moid": "vm-10263",
+      "power_state": "poweredOn",
+      "esxi_hostname": "esxi-lab-013",
+      "cpu_usage_pct": 6.9,
+      "memory_usage_pct": 57.1,
+      "network_rx_bytes": 827326464,
+      "network_tx_bytes": 881852416
+    },
+    {
+      "name": "vm-lab-00264",
+      "moid": "vm-10264",
+      "power_state": "poweredOn",
+      "esxi_hostname": "esxi-lab-014",
+      "cpu_usage_pct": 8.2,
+      "memory_usage_pct": 58.8,
+      "network_rx_bytes": 830472192,
+      "network_tx_bytes": 889192448
+    },
+    {
+      "name": "vm-lab-00265",
+      "moid": "vm-10265",
+      "power_state": "poweredOn",
+      "esxi_hostname": "esxi-lab-015",
+      "cpu_usage_pct": 9.5,
+      "memory_usage_pct": 60.5,
+      "network_rx_bytes": 833617920,
+      "network_tx_bytes": 896532480
+    },
+    {
+      "name": "vm-lab-00266",
+      "moid": "vm-10266",
+      "power_state": "poweredOn",
+      "esxi_hostname": "esxi-lab-016",
+      "cpu_usage_pct": 10.8,
+      "memory_usage_pct": 62.2,
+      "network_rx_bytes": 836763648,
+      "network_tx_bytes": 903872512
+    },
+    {
+      "name": "vm-lab-00267",
+      "moid": "vm-10267",
+      "power_state": "poweredOn",
+      "esxi_hostname": "esxi-lab-017",
+      "cpu_usage_pct": 12.1,
+      "memory_usage_pct": 63.9,
+      "network_rx_bytes": 839909376,
+      "network_tx_bytes": 911212544
+    },
+    {
+      "name": "vm-lab-00268",
+      "moid": "vm-10268",
+      "power_state": "poweredOn",
+      "esxi_hostname": "esxi-lab-018",
+      "cpu_usage_pct": 13.4,
+      "memory_usage_pct": 65.6,
+      "network_rx_bytes": 843055104,
+      "network_tx_bytes": 918552576
+    },
+    {
+      "name": "vm-lab-00269",
+      "moid": "vm-10269",
+      "power_state": "poweredOn",
+      "esxi_hostname": "esxi-lab-019",
+      "cpu_usage_pct": 14.7,
+      "memory_usage_pct": 67.3,
+      "network_rx_bytes": 846200832,
+      "network_tx_bytes": 925892608
+    },
+    {
+      "name": "vm-lab-00270",
+      "moid": "vm-10270",
+      "power_state": "poweredOn",
+      "esxi_hostname": "esxi-lab-020",
+      "cpu_usage_pct": 16.0,
+      "memory_usage_pct": 69.0,
+      "network_rx_bytes": 849346560,
+      "network_tx_bytes": 933232640
+    },
+    {
+      "name": "vm-lab-00271",
+      "moid": "vm-10271",
+      "power_state": "poweredOn",
+      "esxi_hostname": "esxi-lab-021",
+      "cpu_usage_pct": 17.3,
+      "memory_usage_pct": 70.7,
+      "network_rx_bytes": 852492288,
+      "network_tx_bytes": 940572672
+    },
+    {
+      "name": "vm-lab-00272",
+      "moid": "vm-10272",
+      "power_state": "poweredOn",
+      "esxi_hostname": "esxi-lab-022",
+      "cpu_usage_pct": 18.6,
+      "memory_usage_pct": 72.4,
+      "network_rx_bytes": 855638016,
+      "network_tx_bytes": 947912704
+    },
+    {
+      "name": "vm-lab-00273",
+      "moid": "vm-10273",
+      "power_state": "poweredOn",
+      "esxi_hostname": "esxi-lab-023",
+      "cpu_usage_pct": 19.9,
+      "memory_usage_pct": 74.1,
+      "network_rx_bytes": 858783744,
+      "network_tx_bytes": 955252736
+    },
+    {
+      "name": "vm-lab-00274",
+      "moid": "vm-10274",
+      "power_state": "poweredOn",
+      "esxi_hostname": "esxi-lab-024",
+      "cpu_usage_pct": 21.2,
+      "memory_usage_pct": 75.8,
+      "network_rx_bytes": 861929472,
+      "network_tx_bytes": 962592768
+    },
+    {
+      "name": "vm-lab-00275",
+      "moid": "vm-10275",
+      "power_state": "poweredOn",
+      "esxi_hostname": "esxi-lab-025",
+      "cpu_usage_pct": 22.5,
+      "memory_usage_pct": 77.5,
+      "network_rx_bytes": 865075200,
+      "network_tx_bytes": 969932800
+    },
+    {
+      "name": "vm-lab-00276",
+      "moid": "vm-10276",
+      "power_state": "poweredOn",
+      "esxi_hostname": "esxi-lab-001",
+      "cpu_usage_pct": 23.8,
+      "memory_usage_pct": 79.2,
+      "network_rx_bytes": 868220928,
+      "network_tx_bytes": 977272832
+    },
+    {
+      "name": "vm-lab-00277",
+      "moid": "vm-10277",
+      "power_state": "poweredOn",
+      "esxi_hostname": "esxi-lab-002",
+      "cpu_usage_pct": 25.1,
+      "memory_usage_pct": 80.9,
+      "network_rx_bytes": 871366656,
+      "network_tx_bytes": 984612864
+    },
+    {
+      "name": "vm-lab-00278",
+      "moid": "vm-10278",
+      "power_state": "poweredOn",
+      "esxi_hostname": "esxi-lab-003",
+      "cpu_usage_pct": 26.4,
+      "memory_usage_pct": 82.6,
+      "network_rx_bytes": 874512384,
+      "network_tx_bytes": 991952896
+    },
+    {
+      "name": "vm-lab-00279",
+      "moid": "vm-10279",
+      "power_state": "poweredOn",
+      "esxi_hostname": "esxi-lab-004",
+      "cpu_usage_pct": 27.7,
+      "memory_usage_pct": 84.3,
+      "network_rx_bytes": 877658112,
+      "network_tx_bytes": 999292928
+    },
+    {
+      "name": "vm-lab-00280",
+      "moid": "vm-10280",
+      "power_state": "poweredOn",
+      "esxi_hostname": "esxi-lab-005",
+      "cpu_usage_pct": 29.0,
+      "memory_usage_pct": 86.0,
+      "network_rx_bytes": 880803840,
+      "network_tx_bytes": 1006632960
+    },
+    {
+      "name": "vm-lab-00281",
+      "moid": "vm-10281",
+      "power_state": "poweredOn",
+      "esxi_hostname": "esxi-lab-006",
+      "cpu_usage_pct": 30.3,
+      "memory_usage_pct": 87.7,
+      "network_rx_bytes": 883949568,
+      "network_tx_bytes": 1013972992
+    },
+    {
+      "name": "vm-lab-00282",
+      "moid": "vm-10282",
+      "power_state": "poweredOn",
+      "esxi_hostname": "esxi-lab-007",
+      "cpu_usage_pct": 31.6,
+      "memory_usage_pct": 89.4,
+      "network_rx_bytes": 887095296,
+      "network_tx_bytes": 1021313024
+    },
+    {
+      "name": "vm-lab-00283",
+      "moid": "vm-10283",
+      "power_state": "poweredOn",
+      "esxi_hostname": "esxi-lab-008",
+      "cpu_usage_pct": 32.9,
+      "memory_usage_pct": 11.1,
+      "network_rx_bytes": 890241024,
+      "network_tx_bytes": 1028653056
+    },
+    {
+      "name": "vm-lab-00284",
+      "moid": "vm-10284",
+      "power_state": "poweredOn",
+      "esxi_hostname": "esxi-lab-009",
+      "cpu_usage_pct": 34.2,
+      "memory_usage_pct": 12.8,
+      "network_rx_bytes": 893386752,
+      "network_tx_bytes": 1035993088
+    },
+    {
+      "name": "vm-lab-00285",
+      "moid": "vm-10285",
+      "power_state": "poweredOn",
+      "esxi_hostname": "esxi-lab-010",
+      "cpu_usage_pct": 35.5,
+      "memory_usage_pct": 14.5,
+      "network_rx_bytes": 896532480,
+      "network_tx_bytes": 1043333120
+    },
+    {
+      "name": "vm-lab-00286",
+      "moid": "vm-10286",
+      "power_state": "poweredOn",
+      "esxi_hostname": "esxi-lab-011",
+      "cpu_usage_pct": 36.8,
+      "memory_usage_pct": 16.2,
+      "network_rx_bytes": 899678208,
+      "network_tx_bytes": 2097152
+    },
+    {
+      "name": "vm-lab-00287",
+      "moid": "vm-10287",
+      "power_state": "poweredOn",
+      "esxi_hostname": "esxi-lab-012",
+      "cpu_usage_pct": 38.1,
+      "memory_usage_pct": 17.9,
+      "network_rx_bytes": 902823936,
+      "network_tx_bytes": 9437184
+    },
+    {
+      "name": "vm-lab-00288",
+      "moid": "vm-10288",
+      "power_state": "poweredOn",
+      "esxi_hostname": "esxi-lab-013",
+      "cpu_usage_pct": 39.4,
+      "memory_usage_pct": 19.6,
+      "network_rx_bytes": 905969664,
+      "network_tx_bytes": 16777216
+    },
+    {
+      "name": "vm-lab-00289",
+      "moid": "vm-10289",
+      "power_state": "poweredOn",
+      "esxi_hostname": "esxi-lab-014",
+      "cpu_usage_pct": 40.7,
+      "memory_usage_pct": 21.3,
+      "network_rx_bytes": 909115392,
+      "network_tx_bytes": 24117248
+    },
+    {
+      "name": "vm-lab-00290",
+      "moid": "vm-10290",
+      "power_state": "poweredOn",
+      "esxi_hostname": "esxi-lab-015",
+      "cpu_usage_pct": 42.0,
+      "memory_usage_pct": 23.0,
+      "network_rx_bytes": 912261120,
+      "network_tx_bytes": 31457280
+    },
+    {
+      "name": "vm-lab-00291",
+      "moid": "vm-10291",
+      "power_state": "poweredOn",
+      "esxi_hostname": "esxi-lab-016",
+      "cpu_usage_pct": 43.3,
+      "memory_usage_pct": 24.7,
+      "network_rx_bytes": 915406848,
+      "network_tx_bytes": 38797312
+    },
+    {
+      "name": "vm-lab-00292",
+      "moid": "vm-10292",
+      "power_state": "poweredOn",
+      "esxi_hostname": "esxi-lab-017",
+      "cpu_usage_pct": 44.6,
+      "memory_usage_pct": 26.4,
+      "network_rx_bytes": 918552576,
+      "network_tx_bytes": 46137344
+    },
+    {
+      "name": "vm-lab-00293",
+      "moid": "vm-10293",
+      "power_state": "poweredOn",
+      "esxi_hostname": "esxi-lab-018",
+      "cpu_usage_pct": 45.9,
+      "memory_usage_pct": 28.1,
+      "network_rx_bytes": 921698304,
+      "network_tx_bytes": 53477376
+    },
+    {
+      "name": "vm-lab-00294",
+      "moid": "vm-10294",
+      "power_state": "poweredOn",
+      "esxi_hostname": "esxi-lab-019",
+      "cpu_usage_pct": 47.2,
+      "memory_usage_pct": 29.8,
+      "network_rx_bytes": 924844032,
+      "network_tx_bytes": 60817408
+    },
+    {
+      "name": "vm-lab-00295",
+      "moid": "vm-10295",
+      "power_state": "poweredOn",
+      "esxi_hostname": "esxi-lab-020",
+      "cpu_usage_pct": 48.5,
+      "memory_usage_pct": 31.5,
+      "network_rx_bytes": 927989760,
+      "network_tx_bytes": 68157440
+    },
+    {
+      "name": "vm-lab-00296",
+      "moid": "vm-10296",
+      "power_state": "poweredOff",
+      "esxi_hostname": "esxi-lab-021",
+      "cpu_usage_pct": 49.8,
+      "memory_usage_pct": 33.2,
+      "network_rx_bytes": 931135488,
+      "network_tx_bytes": 75497472
+    },
+    {
+      "name": "vm-lab-00297",
+      "moid": "vm-10297",
+      "power_state": "poweredOn",
+      "esxi_hostname": "esxi-lab-022",
+      "cpu_usage_pct": 51.1,
+      "memory_usage_pct": 34.9,
+      "network_rx_bytes": 934281216,
+      "network_tx_bytes": 82837504
+    },
+    {
+      "name": "vm-lab-00298",
+      "moid": "vm-10298",
+      "power_state": "poweredOn",
+      "esxi_hostname": "esxi-lab-023",
+      "cpu_usage_pct": 52.4,
+      "memory_usage_pct": 36.6,
+      "network_rx_bytes": 937426944,
+      "network_tx_bytes": 90177536
+    },
+    {
+      "name": "vm-lab-00299",
+      "moid": "vm-10299",
+      "power_state": "poweredOn",
+      "esxi_hostname": "esxi-lab-024",
+      "cpu_usage_pct": 53.7,
+      "memory_usage_pct": 38.3,
+      "network_rx_bytes": 940572672,
+      "network_tx_bytes": 97517568
+    },
+    {
+      "name": "vm-lab-00300",
+      "moid": "vm-10300",
+      "power_state": "poweredOn",
+      "esxi_hostname": "esxi-lab-025",
+      "cpu_usage_pct": 55.0,
+      "memory_usage_pct": 40.0,
+      "network_rx_bytes": 943718400,
+      "network_tx_bytes": 104857600
+    },
+    {
+      "name": "vm-lab-00301",
+      "moid": "vm-10301",
+      "power_state": "poweredOn",
+      "esxi_hostname": "esxi-lab-001",
+      "cpu_usage_pct": 56.3,
+      "memory_usage_pct": 41.7,
+      "network_rx_bytes": 946864128,
+      "network_tx_bytes": 112197632
+    },
+    {
+      "name": "vm-lab-00302",
+      "moid": "vm-10302",
+      "power_state": "poweredOn",
+      "esxi_hostname": "esxi-lab-002",
+      "cpu_usage_pct": 57.6,
+      "memory_usage_pct": 43.4,
+      "network_rx_bytes": 950009856,
+      "network_tx_bytes": 119537664
+    },
+    {
+      "name": "vm-lab-00303",
+      "moid": "vm-10303",
+      "power_state": "poweredOn",
+      "esxi_hostname": "esxi-lab-003",
+      "cpu_usage_pct": 58.9,
+      "memory_usage_pct": 45.1,
+      "network_rx_bytes": 953155584,
+      "network_tx_bytes": 126877696
+    },
+    {
+      "name": "vm-lab-00304",
+      "moid": "vm-10304",
+      "power_state": "poweredOn",
+      "esxi_hostname": "esxi-lab-004",
+      "cpu_usage_pct": 60.2,
+      "memory_usage_pct": 46.8,
+      "network_rx_bytes": 956301312,
+      "network_tx_bytes": 134217728
+    },
+    {
+      "name": "vm-lab-00305",
+      "moid": "vm-10305",
+      "power_state": "poweredOn",
+      "esxi_hostname": "esxi-lab-005",
+      "cpu_usage_pct": 61.5,
+      "memory_usage_pct": 48.5,
+      "network_rx_bytes": 959447040,
+      "network_tx_bytes": 141557760
+    },
+    {
+      "name": "vm-lab-00306",
+      "moid": "vm-10306",
+      "power_state": "poweredOn",
+      "esxi_hostname": "esxi-lab-006",
+      "cpu_usage_pct": 62.8,
+      "memory_usage_pct": 50.2,
+      "network_rx_bytes": 962592768,
+      "network_tx_bytes": 148897792
+    },
+    {
+      "name": "vm-lab-00307",
+      "moid": "vm-10307",
+      "power_state": "poweredOn",
+      "esxi_hostname": "esxi-lab-007",
+      "cpu_usage_pct": 64.1,
+      "memory_usage_pct": 51.9,
+      "network_rx_bytes": 965738496,
+      "network_tx_bytes": 156237824
+    },
+    {
+      "name": "vm-lab-00308",
+      "moid": "vm-10308",
+      "power_state": "poweredOn",
+      "esxi_hostname": "esxi-lab-008",
+      "cpu_usage_pct": 65.4,
+      "memory_usage_pct": 53.6,
+      "network_rx_bytes": 968884224,
+      "network_tx_bytes": 163577856
+    },
+    {
+      "name": "vm-lab-00309",
+      "moid": "vm-10309",
+      "power_state": "poweredOn",
+      "esxi_hostname": "esxi-lab-009",
+      "cpu_usage_pct": 66.7,
+      "memory_usage_pct": 55.3,
+      "network_rx_bytes": 972029952,
+      "network_tx_bytes": 170917888
+    },
+    {
+      "name": "vm-lab-00310",
+      "moid": "vm-10310",
+      "power_state": "poweredOn",
+      "esxi_hostname": "esxi-lab-010",
+      "cpu_usage_pct": 68.0,
+      "memory_usage_pct": 57.0,
+      "network_rx_bytes": 975175680,
+      "network_tx_bytes": 178257920
+    },
+    {
+      "name": "vm-lab-00311",
+      "moid": "vm-10311",
+      "power_state": "poweredOn",
+      "esxi_hostname": "esxi-lab-011",
+      "cpu_usage_pct": 69.3,
+      "memory_usage_pct": 58.7,
+      "network_rx_bytes": 978321408,
+      "network_tx_bytes": 185597952
+    },
+    {
+      "name": "vm-lab-00312",
+      "moid": "vm-10312",
+      "power_state": "poweredOn",
+      "esxi_hostname": "esxi-lab-012",
+      "cpu_usage_pct": 70.6,
+      "memory_usage_pct": 60.4,
+      "network_rx_bytes": 981467136,
+      "network_tx_bytes": 192937984
+    },
+    {
+      "name": "vm-lab-00313",
+      "moid": "vm-10313",
+      "power_state": "poweredOn",
+      "esxi_hostname": "esxi-lab-013",
+      "cpu_usage_pct": 71.9,
+      "memory_usage_pct": 62.1,
+      "network_rx_bytes": 984612864,
+      "network_tx_bytes": 200278016
+    },
+    {
+      "name": "vm-lab-00314",
+      "moid": "vm-10314",
+      "power_state": "poweredOn",
+      "esxi_hostname": "esxi-lab-014",
+      "cpu_usage_pct": 73.2,
+      "memory_usage_pct": 63.8,
+      "network_rx_bytes": 987758592,
+      "network_tx_bytes": 207618048
+    },
+    {
+      "name": "vm-lab-00315",
+      "moid": "vm-10315",
+      "power_state": "poweredOn",
+      "esxi_hostname": "esxi-lab-015",
+      "cpu_usage_pct": 74.5,
+      "memory_usage_pct": 65.5,
+      "network_rx_bytes": 990904320,
+      "network_tx_bytes": 214958080
+    },
+    {
+      "name": "vm-lab-00316",
+      "moid": "vm-10316",
+      "power_state": "poweredOn",
+      "esxi_hostname": "esxi-lab-016",
+      "cpu_usage_pct": 75.8,
+      "memory_usage_pct": 67.2,
+      "network_rx_bytes": 994050048,
+      "network_tx_bytes": 222298112
+    },
+    {
+      "name": "vm-lab-00317",
+      "moid": "vm-10317",
+      "power_state": "poweredOn",
+      "esxi_hostname": "esxi-lab-017",
+      "cpu_usage_pct": 77.1,
+      "memory_usage_pct": 68.9,
+      "network_rx_bytes": 997195776,
+      "network_tx_bytes": 229638144
+    },
+    {
+      "name": "vm-lab-00318",
+      "moid": "vm-10318",
+      "power_state": "poweredOn",
+      "esxi_hostname": "esxi-lab-018",
+      "cpu_usage_pct": 78.4,
+      "memory_usage_pct": 70.6,
+      "network_rx_bytes": 1000341504,
+      "network_tx_bytes": 236978176
+    },
+    {
+      "name": "vm-lab-00319",
+      "moid": "vm-10319",
+      "power_state": "poweredOn",
+      "esxi_hostname": "esxi-lab-019",
+      "cpu_usage_pct": 79.7,
+      "memory_usage_pct": 72.3,
+      "network_rx_bytes": 1003487232,
+      "network_tx_bytes": 244318208
+    },
+    {
+      "name": "vm-lab-00320",
+      "moid": "vm-10320",
+      "power_state": "poweredOn",
+      "esxi_hostname": "esxi-lab-020",
+      "cpu_usage_pct": 81.0,
+      "memory_usage_pct": 74.0,
+      "network_rx_bytes": 1006632960,
+      "network_tx_bytes": 251658240
+    },
+    {
+      "name": "vm-lab-00321",
+      "moid": "vm-10321",
+      "power_state": "poweredOn",
+      "esxi_hostname": "esxi-lab-021",
+      "cpu_usage_pct": 82.3,
+      "memory_usage_pct": 75.7,
+      "network_rx_bytes": 1009778688,
+      "network_tx_bytes": 258998272
+    },
+    {
+      "name": "vm-lab-00322",
+      "moid": "vm-10322",
+      "power_state": "poweredOn",
+      "esxi_hostname": "esxi-lab-022",
+      "cpu_usage_pct": 83.6,
+      "memory_usage_pct": 77.4,
+      "network_rx_bytes": 1012924416,
+      "network_tx_bytes": 266338304
+    },
+    {
+      "name": "vm-lab-00323",
+      "moid": "vm-10323",
+      "power_state": "poweredOn",
+      "esxi_hostname": "esxi-lab-023",
+      "cpu_usage_pct": 84.9,
+      "memory_usage_pct": 79.1,
+      "network_rx_bytes": 1016070144,
+      "network_tx_bytes": 273678336
+    },
+    {
+      "name": "vm-lab-00324",
+      "moid": "vm-10324",
+      "power_state": "poweredOn",
+      "esxi_hostname": "esxi-lab-024",
+      "cpu_usage_pct": 86.2,
+      "memory_usage_pct": 80.8,
+      "network_rx_bytes": 1019215872,
+      "network_tx_bytes": 281018368
+    },
+    {
+      "name": "vm-lab-00325",
+      "moid": "vm-10325",
+      "power_state": "poweredOn",
+      "esxi_hostname": "esxi-lab-025",
+      "cpu_usage_pct": 87.5,
+      "memory_usage_pct": 82.5,
+      "network_rx_bytes": 1022361600,
+      "network_tx_bytes": 288358400
+    },
+    {
+      "name": "vm-lab-00326",
+      "moid": "vm-10326",
+      "power_state": "poweredOn",
+      "esxi_hostname": "esxi-lab-001",
+      "cpu_usage_pct": 88.8,
+      "memory_usage_pct": 84.2,
+      "network_rx_bytes": 1025507328,
+      "network_tx_bytes": 295698432
+    },
+    {
+      "name": "vm-lab-00327",
+      "moid": "vm-10327",
+      "power_state": "poweredOn",
+      "esxi_hostname": "esxi-lab-002",
+      "cpu_usage_pct": 5.1,
+      "memory_usage_pct": 85.9,
+      "network_rx_bytes": 1028653056,
+      "network_tx_bytes": 303038464
+    },
+    {
+      "name": "vm-lab-00328",
+      "moid": "vm-10328",
+      "power_state": "poweredOn",
+      "esxi_hostname": "esxi-lab-003",
+      "cpu_usage_pct": 6.4,
+      "memory_usage_pct": 87.6,
+      "network_rx_bytes": 1031798784,
+      "network_tx_bytes": 310378496
+    },
+    {
+      "name": "vm-lab-00329",
+      "moid": "vm-10329",
+      "power_state": "poweredOn",
+      "esxi_hostname": "esxi-lab-004",
+      "cpu_usage_pct": 7.7,
+      "memory_usage_pct": 89.3,
+      "network_rx_bytes": 1034944512,
+      "network_tx_bytes": 317718528
+    },
+    {
+      "name": "vm-lab-00330",
+      "moid": "vm-10330",
+      "power_state": "poweredOn",
+      "esxi_hostname": "esxi-lab-005",
+      "cpu_usage_pct": 9.0,
+      "memory_usage_pct": 11.0,
+      "network_rx_bytes": 1038090240,
+      "network_tx_bytes": 325058560
+    },
+    {
+      "name": "vm-lab-00331",
+      "moid": "vm-10331",
+      "power_state": "poweredOn",
+      "esxi_hostname": "esxi-lab-006",
+      "cpu_usage_pct": 10.3,
+      "memory_usage_pct": 12.7,
+      "network_rx_bytes": 1041235968,
+      "network_tx_bytes": 332398592
+    },
+    {
+      "name": "vm-lab-00332",
+      "moid": "vm-10332",
+      "power_state": "poweredOn",
+      "esxi_hostname": "esxi-lab-007",
+      "cpu_usage_pct": 11.6,
+      "memory_usage_pct": 14.4,
+      "network_rx_bytes": 1044381696,
+      "network_tx_bytes": 339738624
+    },
+    {
+      "name": "vm-lab-00333",
+      "moid": "vm-10333",
+      "power_state": "poweredOff",
+      "esxi_hostname": "esxi-lab-008",
+      "cpu_usage_pct": 12.9,
+      "memory_usage_pct": 16.1,
+      "network_rx_bytes": 1047527424,
+      "network_tx_bytes": 347078656
+    },
+    {
+      "name": "vm-lab-00334",
+      "moid": "vm-10334",
+      "power_state": "poweredOn",
+      "esxi_hostname": "esxi-lab-009",
+      "cpu_usage_pct": 14.2,
+      "memory_usage_pct": 17.8,
+      "network_rx_bytes": 2097152,
+      "network_tx_bytes": 354418688
+    },
+    {
+      "name": "vm-lab-00335",
+      "moid": "vm-10335",
+      "power_state": "poweredOn",
+      "esxi_hostname": "esxi-lab-010",
+      "cpu_usage_pct": 15.5,
+      "memory_usage_pct": 19.5,
+      "network_rx_bytes": 5242880,
+      "network_tx_bytes": 361758720
+    },
+    {
+      "name": "vm-lab-00336",
+      "moid": "vm-10336",
+      "power_state": "poweredOn",
+      "esxi_hostname": "esxi-lab-011",
+      "cpu_usage_pct": 16.8,
+      "memory_usage_pct": 21.2,
+      "network_rx_bytes": 8388608,
+      "network_tx_bytes": 369098752
+    },
+    {
+      "name": "vm-lab-00337",
+      "moid": "vm-10337",
+      "power_state": "poweredOn",
+      "esxi_hostname": "esxi-lab-012",
+      "cpu_usage_pct": 18.1,
+      "memory_usage_pct": 22.9,
+      "network_rx_bytes": 11534336,
+      "network_tx_bytes": 376438784
+    },
+    {
+      "name": "vm-lab-00338",
+      "moid": "vm-10338",
+      "power_state": "poweredOn",
+      "esxi_hostname": "esxi-lab-013",
+      "cpu_usage_pct": 19.4,
+      "memory_usage_pct": 24.6,
+      "network_rx_bytes": 14680064,
+      "network_tx_bytes": 383778816
+    },
+    {
+      "name": "vm-lab-00339",
+      "moid": "vm-10339",
+      "power_state": "poweredOn",
+      "esxi_hostname": "esxi-lab-014",
+      "cpu_usage_pct": 20.7,
+      "memory_usage_pct": 26.3,
+      "network_rx_bytes": 17825792,
+      "network_tx_bytes": 391118848
+    },
+    {
+      "name": "vm-lab-00340",
+      "moid": "vm-10340",
+      "power_state": "poweredOn",
+      "esxi_hostname": "esxi-lab-015",
+      "cpu_usage_pct": 22.0,
+      "memory_usage_pct": 28.0,
+      "network_rx_bytes": 20971520,
+      "network_tx_bytes": 398458880
+    },
+    {
+      "name": "vm-lab-00341",
+      "moid": "vm-10341",
+      "power_state": "poweredOn",
+      "esxi_hostname": "esxi-lab-016",
+      "cpu_usage_pct": 23.3,
+      "memory_usage_pct": 29.7,
+      "network_rx_bytes": 24117248,
+      "network_tx_bytes": 405798912
+    },
+    {
+      "name": "vm-lab-00342",
+      "moid": "vm-10342",
+      "power_state": "poweredOn",
+      "esxi_hostname": "esxi-lab-017",
+      "cpu_usage_pct": 24.6,
+      "memory_usage_pct": 31.4,
+      "network_rx_bytes": 27262976,
+      "network_tx_bytes": 413138944
+    },
+    {
+      "name": "vm-lab-00343",
+      "moid": "vm-10343",
+      "power_state": "poweredOn",
+      "esxi_hostname": "esxi-lab-018",
+      "cpu_usage_pct": 25.9,
+      "memory_usage_pct": 33.1,
+      "network_rx_bytes": 30408704,
+      "network_tx_bytes": 420478976
+    },
+    {
+      "name": "vm-lab-00344",
+      "moid": "vm-10344",
+      "power_state": "poweredOn",
+      "esxi_hostname": "esxi-lab-019",
+      "cpu_usage_pct": 27.2,
+      "memory_usage_pct": 34.8,
+      "network_rx_bytes": 33554432,
+      "network_tx_bytes": 427819008
+    },
+    {
+      "name": "vm-lab-00345",
+      "moid": "vm-10345",
+      "power_state": "poweredOn",
+      "esxi_hostname": "esxi-lab-020",
+      "cpu_usage_pct": 28.5,
+      "memory_usage_pct": 36.5,
+      "network_rx_bytes": 36700160,
+      "network_tx_bytes": 435159040
+    },
+    {
+      "name": "vm-lab-00346",
+      "moid": "vm-10346",
+      "power_state": "poweredOn",
+      "esxi_hostname": "esxi-lab-021",
+      "cpu_usage_pct": 29.8,
+      "memory_usage_pct": 38.2,
+      "network_rx_bytes": 39845888,
+      "network_tx_bytes": 442499072
+    },
+    {
+      "name": "vm-lab-00347",
+      "moid": "vm-10347",
+      "power_state": "poweredOn",
+      "esxi_hostname": "esxi-lab-022",
+      "cpu_usage_pct": 31.1,
+      "memory_usage_pct": 39.9,
+      "network_rx_bytes": 42991616,
+      "network_tx_bytes": 449839104
+    },
+    {
+      "name": "vm-lab-00348",
+      "moid": "vm-10348",
+      "power_state": "poweredOn",
+      "esxi_hostname": "esxi-lab-023",
+      "cpu_usage_pct": 32.4,
+      "memory_usage_pct": 41.6,
+      "network_rx_bytes": 46137344,
+      "network_tx_bytes": 457179136
+    },
+    {
+      "name": "vm-lab-00349",
+      "moid": "vm-10349",
+      "power_state": "poweredOn",
+      "esxi_hostname": "esxi-lab-024",
+      "cpu_usage_pct": 33.7,
+      "memory_usage_pct": 43.3,
+      "network_rx_bytes": 49283072,
+      "network_tx_bytes": 464519168
+    },
+    {
+      "name": "vm-lab-00350",
+      "moid": "vm-10350",
+      "power_state": "poweredOn",
+      "esxi_hostname": "esxi-lab-025",
+      "cpu_usage_pct": 35.0,
+      "memory_usage_pct": 45.0,
+      "network_rx_bytes": 52428800,
+      "network_tx_bytes": 471859200
+    },
+    {
+      "name": "vm-lab-00351",
+      "moid": "vm-10351",
+      "power_state": "poweredOn",
+      "esxi_hostname": "esxi-lab-001",
+      "cpu_usage_pct": 36.3,
+      "memory_usage_pct": 46.7,
+      "network_rx_bytes": 55574528,
+      "network_tx_bytes": 479199232
+    },
+    {
+      "name": "vm-lab-00352",
+      "moid": "vm-10352",
+      "power_state": "poweredOn",
+      "esxi_hostname": "esxi-lab-002",
+      "cpu_usage_pct": 37.6,
+      "memory_usage_pct": 48.4,
+      "network_rx_bytes": 58720256,
+      "network_tx_bytes": 486539264
+    },
+    {
+      "name": "vm-lab-00353",
+      "moid": "vm-10353",
+      "power_state": "poweredOn",
+      "esxi_hostname": "esxi-lab-003",
+      "cpu_usage_pct": 38.9,
+      "memory_usage_pct": 50.1,
+      "network_rx_bytes": 61865984,
+      "network_tx_bytes": 493879296
+    },
+    {
+      "name": "vm-lab-00354",
+      "moid": "vm-10354",
+      "power_state": "poweredOn",
+      "esxi_hostname": "esxi-lab-004",
+      "cpu_usage_pct": 40.2,
+      "memory_usage_pct": 51.8,
+      "network_rx_bytes": 65011712,
+      "network_tx_bytes": 501219328
+    },
+    {
+      "name": "vm-lab-00355",
+      "moid": "vm-10355",
+      "power_state": "poweredOn",
+      "esxi_hostname": "esxi-lab-005",
+      "cpu_usage_pct": 41.5,
+      "memory_usage_pct": 53.5,
+      "network_rx_bytes": 68157440,
+      "network_tx_bytes": 508559360
+    },
+    {
+      "name": "vm-lab-00356",
+      "moid": "vm-10356",
+      "power_state": "poweredOn",
+      "esxi_hostname": "esxi-lab-006",
+      "cpu_usage_pct": 42.8,
+      "memory_usage_pct": 55.2,
+      "network_rx_bytes": 71303168,
+      "network_tx_bytes": 515899392
+    },
+    {
+      "name": "vm-lab-00357",
+      "moid": "vm-10357",
+      "power_state": "poweredOn",
+      "esxi_hostname": "esxi-lab-007",
+      "cpu_usage_pct": 44.1,
+      "memory_usage_pct": 56.9,
+      "network_rx_bytes": 74448896,
+      "network_tx_bytes": 523239424
+    },
+    {
+      "name": "vm-lab-00358",
+      "moid": "vm-10358",
+      "power_state": "poweredOn",
+      "esxi_hostname": "esxi-lab-008",
+      "cpu_usage_pct": 45.4,
+      "memory_usage_pct": 58.6,
+      "network_rx_bytes": 77594624,
+      "network_tx_bytes": 530579456
+    },
+    {
+      "name": "vm-lab-00359",
+      "moid": "vm-10359",
+      "power_state": "poweredOn",
+      "esxi_hostname": "esxi-lab-009",
+      "cpu_usage_pct": 46.7,
+      "memory_usage_pct": 60.3,
+      "network_rx_bytes": 80740352,
+      "network_tx_bytes": 537919488
+    },
+    {
+      "name": "vm-lab-00360",
+      "moid": "vm-10360",
+      "power_state": "poweredOn",
+      "esxi_hostname": "esxi-lab-010",
+      "cpu_usage_pct": 48.0,
+      "memory_usage_pct": 62.0,
+      "network_rx_bytes": 83886080,
+      "network_tx_bytes": 545259520
+    },
+    {
+      "name": "vm-lab-00361",
+      "moid": "vm-10361",
+      "power_state": "poweredOn",
+      "esxi_hostname": "esxi-lab-011",
+      "cpu_usage_pct": 49.3,
+      "memory_usage_pct": 63.7,
+      "network_rx_bytes": 87031808,
+      "network_tx_bytes": 552599552
+    },
+    {
+      "name": "vm-lab-00362",
+      "moid": "vm-10362",
+      "power_state": "poweredOn",
+      "esxi_hostname": "esxi-lab-012",
+      "cpu_usage_pct": 50.6,
+      "memory_usage_pct": 65.4,
+      "network_rx_bytes": 90177536,
+      "network_tx_bytes": 559939584
+    },
+    {
+      "name": "vm-lab-00363",
+      "moid": "vm-10363",
+      "power_state": "poweredOn",
+      "esxi_hostname": "esxi-lab-013",
+      "cpu_usage_pct": 51.9,
+      "memory_usage_pct": 67.1,
+      "network_rx_bytes": 93323264,
+      "network_tx_bytes": 567279616
+    },
+    {
+      "name": "vm-lab-00364",
+      "moid": "vm-10364",
+      "power_state": "poweredOn",
+      "esxi_hostname": "esxi-lab-014",
+      "cpu_usage_pct": 53.2,
+      "memory_usage_pct": 68.8,
+      "network_rx_bytes": 96468992,
+      "network_tx_bytes": 574619648
+    },
+    {
+      "name": "vm-lab-00365",
+      "moid": "vm-10365",
+      "power_state": "poweredOn",
+      "esxi_hostname": "esxi-lab-015",
+      "cpu_usage_pct": 54.5,
+      "memory_usage_pct": 70.5,
+      "network_rx_bytes": 99614720,
+      "network_tx_bytes": 581959680
+    },
+    {
+      "name": "vm-lab-00366",
+      "moid": "vm-10366",
+      "power_state": "poweredOn",
+      "esxi_hostname": "esxi-lab-016",
+      "cpu_usage_pct": 55.8,
+      "memory_usage_pct": 72.2,
+      "network_rx_bytes": 102760448,
+      "network_tx_bytes": 589299712
+    },
+    {
+      "name": "vm-lab-00367",
+      "moid": "vm-10367",
+      "power_state": "poweredOn",
+      "esxi_hostname": "esxi-lab-017",
+      "cpu_usage_pct": 57.1,
+      "memory_usage_pct": 73.9,
+      "network_rx_bytes": 105906176,
+      "network_tx_bytes": 596639744
+    },
+    {
+      "name": "vm-lab-00368",
+      "moid": "vm-10368",
+      "power_state": "poweredOn",
+      "esxi_hostname": "esxi-lab-018",
+      "cpu_usage_pct": 58.4,
+      "memory_usage_pct": 75.6,
+      "network_rx_bytes": 109051904,
+      "network_tx_bytes": 603979776
+    },
+    {
+      "name": "vm-lab-00369",
+      "moid": "vm-10369",
+      "power_state": "poweredOn",
+      "esxi_hostname": "esxi-lab-019",
+      "cpu_usage_pct": 59.7,
+      "memory_usage_pct": 77.3,
+      "network_rx_bytes": 112197632,
+      "network_tx_bytes": 611319808
+    },
+    {
+      "name": "vm-lab-00370",
+      "moid": "vm-10370",
+      "power_state": "poweredOff",
+      "esxi_hostname": "esxi-lab-020",
+      "cpu_usage_pct": 61.0,
+      "memory_usage_pct": 79.0,
+      "network_rx_bytes": 115343360,
+      "network_tx_bytes": 618659840
+    },
+    {
+      "name": "vm-lab-00371",
+      "moid": "vm-10371",
+      "power_state": "poweredOn",
+      "esxi_hostname": "esxi-lab-021",
+      "cpu_usage_pct": 62.3,
+      "memory_usage_pct": 80.7,
+      "network_rx_bytes": 118489088,
+      "network_tx_bytes": 625999872
+    },
+    {
+      "name": "vm-lab-00372",
+      "moid": "vm-10372",
+      "power_state": "poweredOn",
+      "esxi_hostname": "esxi-lab-022",
+      "cpu_usage_pct": 63.6,
+      "memory_usage_pct": 82.4,
+      "network_rx_bytes": 121634816,
+      "network_tx_bytes": 633339904
+    },
+    {
+      "name": "vm-lab-00373",
+      "moid": "vm-10373",
+      "power_state": "poweredOn",
+      "esxi_hostname": "esxi-lab-023",
+      "cpu_usage_pct": 64.9,
+      "memory_usage_pct": 84.1,
+      "network_rx_bytes": 124780544,
+      "network_tx_bytes": 640679936
+    },
+    {
+      "name": "vm-lab-00374",
+      "moid": "vm-10374",
+      "power_state": "poweredOn",
+      "esxi_hostname": "esxi-lab-024",
+      "cpu_usage_pct": 66.2,
+      "memory_usage_pct": 85.8,
+      "network_rx_bytes": 127926272,
+      "network_tx_bytes": 648019968
+    },
+    {
+      "name": "vm-lab-00375",
+      "moid": "vm-10375",
+      "power_state": "poweredOn",
+      "esxi_hostname": "esxi-lab-025",
+      "cpu_usage_pct": 67.5,
+      "memory_usage_pct": 87.5,
+      "network_rx_bytes": 131072000,
+      "network_tx_bytes": 655360000
+    },
+    {
+      "name": "vm-lab-00376",
+      "moid": "vm-10376",
+      "power_state": "poweredOn",
+      "esxi_hostname": "esxi-lab-001",
+      "cpu_usage_pct": 68.8,
+      "memory_usage_pct": 89.2,
+      "network_rx_bytes": 134217728,
+      "network_tx_bytes": 662700032
+    },
+    {
+      "name": "vm-lab-00377",
+      "moid": "vm-10377",
+      "power_state": "poweredOn",
+      "esxi_hostname": "esxi-lab-002",
+      "cpu_usage_pct": 70.1,
+      "memory_usage_pct": 10.9,
+      "network_rx_bytes": 137363456,
+      "network_tx_bytes": 670040064
+    },
+    {
+      "name": "vm-lab-00378",
+      "moid": "vm-10378",
+      "power_state": "poweredOn",
+      "esxi_hostname": "esxi-lab-003",
+      "cpu_usage_pct": 71.4,
+      "memory_usage_pct": 12.6,
+      "network_rx_bytes": 140509184,
+      "network_tx_bytes": 677380096
+    },
+    {
+      "name": "vm-lab-00379",
+      "moid": "vm-10379",
+      "power_state": "poweredOn",
+      "esxi_hostname": "esxi-lab-004",
+      "cpu_usage_pct": 72.7,
+      "memory_usage_pct": 14.3,
+      "network_rx_bytes": 143654912,
+      "network_tx_bytes": 684720128
+    },
+    {
+      "name": "vm-lab-00380",
+      "moid": "vm-10380",
+      "power_state": "poweredOn",
+      "esxi_hostname": "esxi-lab-005",
+      "cpu_usage_pct": 74.0,
+      "memory_usage_pct": 16.0,
+      "network_rx_bytes": 146800640,
+      "network_tx_bytes": 692060160
+    },
+    {
+      "name": "vm-lab-00381",
+      "moid": "vm-10381",
+      "power_state": "poweredOn",
+      "esxi_hostname": "esxi-lab-006",
+      "cpu_usage_pct": 75.3,
+      "memory_usage_pct": 17.7,
+      "network_rx_bytes": 149946368,
+      "network_tx_bytes": 699400192
+    },
+    {
+      "name": "vm-lab-00382",
+      "moid": "vm-10382",
+      "power_state": "poweredOn",
+      "esxi_hostname": "esxi-lab-007",
+      "cpu_usage_pct": 76.6,
+      "memory_usage_pct": 19.4,
+      "network_rx_bytes": 153092096,
+      "network_tx_bytes": 706740224
+    },
+    {
+      "name": "vm-lab-00383",
+      "moid": "vm-10383",
+      "power_state": "poweredOn",
+      "esxi_hostname": "esxi-lab-008",
+      "cpu_usage_pct": 77.9,
+      "memory_usage_pct": 21.1,
+      "network_rx_bytes": 156237824,
+      "network_tx_bytes": 714080256
+    },
+    {
+      "name": "vm-lab-00384",
+      "moid": "vm-10384",
+      "power_state": "poweredOn",
+      "esxi_hostname": "esxi-lab-009",
+      "cpu_usage_pct": 79.2,
+      "memory_usage_pct": 22.8,
+      "network_rx_bytes": 159383552,
+      "network_tx_bytes": 721420288
+    },
+    {
+      "name": "vm-lab-00385",
+      "moid": "vm-10385",
+      "power_state": "poweredOn",
+      "esxi_hostname": "esxi-lab-010",
+      "cpu_usage_pct": 80.5,
+      "memory_usage_pct": 24.5,
+      "network_rx_bytes": 162529280,
+      "network_tx_bytes": 728760320
+    },
+    {
+      "name": "vm-lab-00386",
+      "moid": "vm-10386",
+      "power_state": "poweredOn",
+      "esxi_hostname": "esxi-lab-011",
+      "cpu_usage_pct": 81.8,
+      "memory_usage_pct": 26.2,
+      "network_rx_bytes": 165675008,
+      "network_tx_bytes": 736100352
+    },
+    {
+      "name": "vm-lab-00387",
+      "moid": "vm-10387",
+      "power_state": "poweredOn",
+      "esxi_hostname": "esxi-lab-012",
+      "cpu_usage_pct": 83.1,
+      "memory_usage_pct": 27.9,
+      "network_rx_bytes": 168820736,
+      "network_tx_bytes": 743440384
+    },
+    {
+      "name": "vm-lab-00388",
+      "moid": "vm-10388",
+      "power_state": "poweredOn",
+      "esxi_hostname": "esxi-lab-013",
+      "cpu_usage_pct": 84.4,
+      "memory_usage_pct": 29.6,
+      "network_rx_bytes": 171966464,
+      "network_tx_bytes": 750780416
+    },
+    {
+      "name": "vm-lab-00389",
+      "moid": "vm-10389",
+      "power_state": "poweredOn",
+      "esxi_hostname": "esxi-lab-014",
+      "cpu_usage_pct": 85.7,
+      "memory_usage_pct": 31.3,
+      "network_rx_bytes": 175112192,
+      "network_tx_bytes": 758120448
+    },
+    {
+      "name": "vm-lab-00390",
+      "moid": "vm-10390",
+      "power_state": "poweredOn",
+      "esxi_hostname": "esxi-lab-015",
+      "cpu_usage_pct": 87.0,
+      "memory_usage_pct": 33.0,
+      "network_rx_bytes": 178257920,
+      "network_tx_bytes": 765460480
+    },
+    {
+      "name": "vm-lab-00391",
+      "moid": "vm-10391",
+      "power_state": "poweredOn",
+      "esxi_hostname": "esxi-lab-016",
+      "cpu_usage_pct": 88.3,
+      "memory_usage_pct": 34.7,
+      "network_rx_bytes": 181403648,
+      "network_tx_bytes": 772800512
+    },
+    {
+      "name": "vm-lab-00392",
+      "moid": "vm-10392",
+      "power_state": "poweredOn",
+      "esxi_hostname": "esxi-lab-017",
+      "cpu_usage_pct": 89.6,
+      "memory_usage_pct": 36.4,
+      "network_rx_bytes": 184549376,
+      "network_tx_bytes": 780140544
+    },
+    {
+      "name": "vm-lab-00393",
+      "moid": "vm-10393",
+      "power_state": "poweredOn",
+      "esxi_hostname": "esxi-lab-018",
+      "cpu_usage_pct": 5.9,
+      "memory_usage_pct": 38.1,
+      "network_rx_bytes": 187695104,
+      "network_tx_bytes": 787480576
+    },
+    {
+      "name": "vm-lab-00394",
+      "moid": "vm-10394",
+      "power_state": "poweredOn",
+      "esxi_hostname": "esxi-lab-019",
+      "cpu_usage_pct": 7.2,
+      "memory_usage_pct": 39.8,
+      "network_rx_bytes": 190840832,
+      "network_tx_bytes": 794820608
+    },
+    {
+      "name": "vm-lab-00395",
+      "moid": "vm-10395",
+      "power_state": "poweredOn",
+      "esxi_hostname": "esxi-lab-020",
+      "cpu_usage_pct": 8.5,
+      "memory_usage_pct": 41.5,
+      "network_rx_bytes": 193986560,
+      "network_tx_bytes": 802160640
+    },
+    {
+      "name": "vm-lab-00396",
+      "moid": "vm-10396",
+      "power_state": "poweredOn",
+      "esxi_hostname": "esxi-lab-021",
+      "cpu_usage_pct": 9.8,
+      "memory_usage_pct": 43.2,
+      "network_rx_bytes": 197132288,
+      "network_tx_bytes": 809500672
+    },
+    {
+      "name": "vm-lab-00397",
+      "moid": "vm-10397",
+      "power_state": "poweredOn",
+      "esxi_hostname": "esxi-lab-022",
+      "cpu_usage_pct": 11.1,
+      "memory_usage_pct": 44.9,
+      "network_rx_bytes": 200278016,
+      "network_tx_bytes": 816840704
+    },
+    {
+      "name": "vm-lab-00398",
+      "moid": "vm-10398",
+      "power_state": "poweredOn",
+      "esxi_hostname": "esxi-lab-023",
+      "cpu_usage_pct": 12.4,
+      "memory_usage_pct": 46.6,
+      "network_rx_bytes": 203423744,
+      "network_tx_bytes": 824180736
+    },
+    {
+      "name": "vm-lab-00399",
+      "moid": "vm-10399",
+      "power_state": "poweredOn",
+      "esxi_hostname": "esxi-lab-024",
+      "cpu_usage_pct": 13.7,
+      "memory_usage_pct": 48.3,
+      "network_rx_bytes": 206569472,
+      "network_tx_bytes": 831520768
+    },
+    {
+      "name": "vm-lab-00400",
+      "moid": "vm-10400",
+      "power_state": "poweredOn",
+      "esxi_hostname": "esxi-lab-025",
+      "cpu_usage_pct": 15.0,
+      "memory_usage_pct": 50.0,
+      "network_rx_bytes": 209715200,
+      "network_tx_bytes": 838860800
+    },
+    {
+      "name": "vm-lab-00401",
+      "moid": "vm-10401",
+      "power_state": "poweredOn",
+      "esxi_hostname": "esxi-lab-001",
+      "cpu_usage_pct": 16.3,
+      "memory_usage_pct": 51.7,
+      "network_rx_bytes": 212860928,
+      "network_tx_bytes": 846200832
+    },
+    {
+      "name": "vm-lab-00402",
+      "moid": "vm-10402",
+      "power_state": "poweredOn",
+      "esxi_hostname": "esxi-lab-002",
+      "cpu_usage_pct": 17.6,
+      "memory_usage_pct": 53.4,
+      "network_rx_bytes": 216006656,
+      "network_tx_bytes": 853540864
+    },
+    {
+      "name": "vm-lab-00403",
+      "moid": "vm-10403",
+      "power_state": "poweredOn",
+      "esxi_hostname": "esxi-lab-003",
+      "cpu_usage_pct": 18.9,
+      "memory_usage_pct": 55.1,
+      "network_rx_bytes": 219152384,
+      "network_tx_bytes": 860880896
+    },
+    {
+      "name": "vm-lab-00404",
+      "moid": "vm-10404",
+      "power_state": "poweredOn",
+      "esxi_hostname": "esxi-lab-004",
+      "cpu_usage_pct": 20.2,
+      "memory_usage_pct": 56.8,
+      "network_rx_bytes": 222298112,
+      "network_tx_bytes": 868220928
+    },
+    {
+      "name": "vm-lab-00405",
+      "moid": "vm-10405",
+      "power_state": "poweredOn",
+      "esxi_hostname": "esxi-lab-005",
+      "cpu_usage_pct": 21.5,
+      "memory_usage_pct": 58.5,
+      "network_rx_bytes": 225443840,
+      "network_tx_bytes": 875560960
+    },
+    {
+      "name": "vm-lab-00406",
+      "moid": "vm-10406",
+      "power_state": "poweredOn",
+      "esxi_hostname": "esxi-lab-006",
+      "cpu_usage_pct": 22.8,
+      "memory_usage_pct": 60.2,
+      "network_rx_bytes": 228589568,
+      "network_tx_bytes": 882900992
+    },
+    {
+      "name": "vm-lab-00407",
+      "moid": "vm-10407",
+      "power_state": "poweredOff",
+      "esxi_hostname": "esxi-lab-007",
+      "cpu_usage_pct": 24.1,
+      "memory_usage_pct": 61.9,
+      "network_rx_bytes": 231735296,
+      "network_tx_bytes": 890241024
+    },
+    {
+      "name": "vm-lab-00408",
+      "moid": "vm-10408",
+      "power_state": "poweredOn",
+      "esxi_hostname": "esxi-lab-008",
+      "cpu_usage_pct": 25.4,
+      "memory_usage_pct": 63.6,
+      "network_rx_bytes": 234881024,
+      "network_tx_bytes": 897581056
+    },
+    {
+      "name": "vm-lab-00409",
+      "moid": "vm-10409",
+      "power_state": "poweredOn",
+      "esxi_hostname": "esxi-lab-009",
+      "cpu_usage_pct": 26.7,
+      "memory_usage_pct": 65.3,
+      "network_rx_bytes": 238026752,
+      "network_tx_bytes": 904921088
+    },
+    {
+      "name": "vm-lab-00410",
+      "moid": "vm-10410",
+      "power_state": "poweredOn",
+      "esxi_hostname": "esxi-lab-010",
+      "cpu_usage_pct": 28.0,
+      "memory_usage_pct": 67.0,
+      "network_rx_bytes": 241172480,
+      "network_tx_bytes": 912261120
+    },
+    {
+      "name": "vm-lab-00411",
+      "moid": "vm-10411",
+      "power_state": "poweredOn",
+      "esxi_hostname": "esxi-lab-011",
+      "cpu_usage_pct": 29.3,
+      "memory_usage_pct": 68.7,
+      "network_rx_bytes": 244318208,
+      "network_tx_bytes": 919601152
+    },
+    {
+      "name": "vm-lab-00412",
+      "moid": "vm-10412",
+      "power_state": "poweredOn",
+      "esxi_hostname": "esxi-lab-012",
+      "cpu_usage_pct": 30.6,
+      "memory_usage_pct": 70.4,
+      "network_rx_bytes": 247463936,
+      "network_tx_bytes": 926941184
+    },
+    {
+      "name": "vm-lab-00413",
+      "moid": "vm-10413",
+      "power_state": "poweredOn",
+      "esxi_hostname": "esxi-lab-013",
+      "cpu_usage_pct": 31.9,
+      "memory_usage_pct": 72.1,
+      "network_rx_bytes": 250609664,
+      "network_tx_bytes": 934281216
+    },
+    {
+      "name": "vm-lab-00414",
+      "moid": "vm-10414",
+      "power_state": "poweredOn",
+      "esxi_hostname": "esxi-lab-014",
+      "cpu_usage_pct": 33.2,
+      "memory_usage_pct": 73.8,
+      "network_rx_bytes": 253755392,
+      "network_tx_bytes": 941621248
+    },
+    {
+      "name": "vm-lab-00415",
+      "moid": "vm-10415",
+      "power_state": "poweredOn",
+      "esxi_hostname": "esxi-lab-015",
+      "cpu_usage_pct": 34.5,
+      "memory_usage_pct": 75.5,
+      "network_rx_bytes": 256901120,
+      "network_tx_bytes": 948961280
+    },
+    {
+      "name": "vm-lab-00416",
+      "moid": "vm-10416",
+      "power_state": "poweredOn",
+      "esxi_hostname": "esxi-lab-016",
+      "cpu_usage_pct": 35.8,
+      "memory_usage_pct": 77.2,
+      "network_rx_bytes": 260046848,
+      "network_tx_bytes": 956301312
+    },
+    {
+      "name": "vm-lab-00417",
+      "moid": "vm-10417",
+      "power_state": "poweredOn",
+      "esxi_hostname": "esxi-lab-017",
+      "cpu_usage_pct": 37.1,
+      "memory_usage_pct": 78.9,
+      "network_rx_bytes": 263192576,
+      "network_tx_bytes": 963641344
+    },
+    {
+      "name": "vm-lab-00418",
+      "moid": "vm-10418",
+      "power_state": "poweredOn",
+      "esxi_hostname": "esxi-lab-018",
+      "cpu_usage_pct": 38.4,
+      "memory_usage_pct": 80.6,
+      "network_rx_bytes": 266338304,
+      "network_tx_bytes": 970981376
+    },
+    {
+      "name": "vm-lab-00419",
+      "moid": "vm-10419",
+      "power_state": "poweredOn",
+      "esxi_hostname": "esxi-lab-019",
+      "cpu_usage_pct": 39.7,
+      "memory_usage_pct": 82.3,
+      "network_rx_bytes": 269484032,
+      "network_tx_bytes": 978321408
+    },
+    {
+      "name": "vm-lab-00420",
+      "moid": "vm-10420",
+      "power_state": "poweredOn",
+      "esxi_hostname": "esxi-lab-020",
+      "cpu_usage_pct": 41.0,
+      "memory_usage_pct": 84.0,
+      "network_rx_bytes": 272629760,
+      "network_tx_bytes": 985661440
+    },
+    {
+      "name": "vm-lab-00421",
+      "moid": "vm-10421",
+      "power_state": "poweredOn",
+      "esxi_hostname": "esxi-lab-021",
+      "cpu_usage_pct": 42.3,
+      "memory_usage_pct": 85.7,
+      "network_rx_bytes": 275775488,
+      "network_tx_bytes": 993001472
+    },
+    {
+      "name": "vm-lab-00422",
+      "moid": "vm-10422",
+      "power_state": "poweredOn",
+      "esxi_hostname": "esxi-lab-022",
+      "cpu_usage_pct": 43.6,
+      "memory_usage_pct": 87.4,
+      "network_rx_bytes": 278921216,
+      "network_tx_bytes": 1000341504
+    },
+    {
+      "name": "vm-lab-00423",
+      "moid": "vm-10423",
+      "power_state": "poweredOn",
+      "esxi_hostname": "esxi-lab-023",
+      "cpu_usage_pct": 44.9,
+      "memory_usage_pct": 89.1,
+      "network_rx_bytes": 282066944,
+      "network_tx_bytes": 1007681536
+    },
+    {
+      "name": "vm-lab-00424",
+      "moid": "vm-10424",
+      "power_state": "poweredOn",
+      "esxi_hostname": "esxi-lab-024",
+      "cpu_usage_pct": 46.2,
+      "memory_usage_pct": 10.8,
+      "network_rx_bytes": 285212672,
+      "network_tx_bytes": 1015021568
+    },
+    {
+      "name": "vm-lab-00425",
+      "moid": "vm-10425",
+      "power_state": "poweredOn",
+      "esxi_hostname": "esxi-lab-025",
+      "cpu_usage_pct": 47.5,
+      "memory_usage_pct": 12.5,
+      "network_rx_bytes": 288358400,
+      "network_tx_bytes": 1022361600
+    },
+    {
+      "name": "vm-lab-00426",
+      "moid": "vm-10426",
+      "power_state": "poweredOn",
+      "esxi_hostname": "esxi-lab-001",
+      "cpu_usage_pct": 48.8,
+      "memory_usage_pct": 14.2,
+      "network_rx_bytes": 291504128,
+      "network_tx_bytes": 1029701632
+    },
+    {
+      "name": "vm-lab-00427",
+      "moid": "vm-10427",
+      "power_state": "poweredOn",
+      "esxi_hostname": "esxi-lab-002",
+      "cpu_usage_pct": 50.1,
+      "memory_usage_pct": 15.9,
+      "network_rx_bytes": 294649856,
+      "network_tx_bytes": 1037041664
+    },
+    {
+      "name": "vm-lab-00428",
+      "moid": "vm-10428",
+      "power_state": "poweredOn",
+      "esxi_hostname": "esxi-lab-003",
+      "cpu_usage_pct": 51.4,
+      "memory_usage_pct": 17.6,
+      "network_rx_bytes": 297795584,
+      "network_tx_bytes": 1044381696
+    },
+    {
+      "name": "vm-lab-00429",
+      "moid": "vm-10429",
+      "power_state": "poweredOn",
+      "esxi_hostname": "esxi-lab-004",
+      "cpu_usage_pct": 52.7,
+      "memory_usage_pct": 19.3,
+      "network_rx_bytes": 300941312,
+      "network_tx_bytes": 3145728
+    },
+    {
+      "name": "vm-lab-00430",
+      "moid": "vm-10430",
+      "power_state": "poweredOn",
+      "esxi_hostname": "esxi-lab-005",
+      "cpu_usage_pct": 54.0,
+      "memory_usage_pct": 21.0,
+      "network_rx_bytes": 304087040,
+      "network_tx_bytes": 10485760
+    },
+    {
+      "name": "vm-lab-00431",
+      "moid": "vm-10431",
+      "power_state": "poweredOn",
+      "esxi_hostname": "esxi-lab-006",
+      "cpu_usage_pct": 55.3,
+      "memory_usage_pct": 22.7,
+      "network_rx_bytes": 307232768,
+      "network_tx_bytes": 17825792
+    },
+    {
+      "name": "vm-lab-00432",
+      "moid": "vm-10432",
+      "power_state": "poweredOn",
+      "esxi_hostname": "esxi-lab-007",
+      "cpu_usage_pct": 56.6,
+      "memory_usage_pct": 24.4,
+      "network_rx_bytes": 310378496,
+      "network_tx_bytes": 25165824
+    },
+    {
+      "name": "vm-lab-00433",
+      "moid": "vm-10433",
+      "power_state": "poweredOn",
+      "esxi_hostname": "esxi-lab-008",
+      "cpu_usage_pct": 57.9,
+      "memory_usage_pct": 26.1,
+      "network_rx_bytes": 313524224,
+      "network_tx_bytes": 32505856
+    },
+    {
+      "name": "vm-lab-00434",
+      "moid": "vm-10434",
+      "power_state": "poweredOn",
+      "esxi_hostname": "esxi-lab-009",
+      "cpu_usage_pct": 59.2,
+      "memory_usage_pct": 27.8,
+      "network_rx_bytes": 316669952,
+      "network_tx_bytes": 39845888
+    },
+    {
+      "name": "vm-lab-00435",
+      "moid": "vm-10435",
+      "power_state": "poweredOn",
+      "esxi_hostname": "esxi-lab-010",
+      "cpu_usage_pct": 60.5,
+      "memory_usage_pct": 29.5,
+      "network_rx_bytes": 319815680,
+      "network_tx_bytes": 47185920
+    },
+    {
+      "name": "vm-lab-00436",
+      "moid": "vm-10436",
+      "power_state": "poweredOn",
+      "esxi_hostname": "esxi-lab-011",
+      "cpu_usage_pct": 61.8,
+      "memory_usage_pct": 31.2,
+      "network_rx_bytes": 322961408,
+      "network_tx_bytes": 54525952
+    },
+    {
+      "name": "vm-lab-00437",
+      "moid": "vm-10437",
+      "power_state": "poweredOn",
+      "esxi_hostname": "esxi-lab-012",
+      "cpu_usage_pct": 63.1,
+      "memory_usage_pct": 32.9,
+      "network_rx_bytes": 326107136,
+      "network_tx_bytes": 61865984
+    },
+    {
+      "name": "vm-lab-00438",
+      "moid": "vm-10438",
+      "power_state": "poweredOn",
+      "esxi_hostname": "esxi-lab-013",
+      "cpu_usage_pct": 64.4,
+      "memory_usage_pct": 34.6,
+      "network_rx_bytes": 329252864,
+      "network_tx_bytes": 69206016
+    },
+    {
+      "name": "vm-lab-00439",
+      "moid": "vm-10439",
+      "power_state": "poweredOn",
+      "esxi_hostname": "esxi-lab-014",
+      "cpu_usage_pct": 65.7,
+      "memory_usage_pct": 36.3,
+      "network_rx_bytes": 332398592,
+      "network_tx_bytes": 76546048
+    },
+    {
+      "name": "vm-lab-00440",
+      "moid": "vm-10440",
+      "power_state": "poweredOn",
+      "esxi_hostname": "esxi-lab-015",
+      "cpu_usage_pct": 67.0,
+      "memory_usage_pct": 38.0,
+      "network_rx_bytes": 335544320,
+      "network_tx_bytes": 83886080
+    },
+    {
+      "name": "vm-lab-00441",
+      "moid": "vm-10441",
+      "power_state": "poweredOn",
+      "esxi_hostname": "esxi-lab-016",
+      "cpu_usage_pct": 68.3,
+      "memory_usage_pct": 39.7,
+      "network_rx_bytes": 338690048,
+      "network_tx_bytes": 91226112
+    },
+    {
+      "name": "vm-lab-00442",
+      "moid": "vm-10442",
+      "power_state": "poweredOn",
+      "esxi_hostname": "esxi-lab-017",
+      "cpu_usage_pct": 69.6,
+      "memory_usage_pct": 41.4,
+      "network_rx_bytes": 341835776,
+      "network_tx_bytes": 98566144
+    },
+    {
+      "name": "vm-lab-00443",
+      "moid": "vm-10443",
+      "power_state": "poweredOn",
+      "esxi_hostname": "esxi-lab-018",
+      "cpu_usage_pct": 70.9,
+      "memory_usage_pct": 43.1,
+      "network_rx_bytes": 344981504,
+      "network_tx_bytes": 105906176
+    },
+    {
+      "name": "vm-lab-00444",
+      "moid": "vm-10444",
+      "power_state": "poweredOff",
+      "esxi_hostname": "esxi-lab-019",
+      "cpu_usage_pct": 72.2,
+      "memory_usage_pct": 44.8,
+      "network_rx_bytes": 348127232,
+      "network_tx_bytes": 113246208
+    },
+    {
+      "name": "vm-lab-00445",
+      "moid": "vm-10445",
+      "power_state": "poweredOn",
+      "esxi_hostname": "esxi-lab-020",
+      "cpu_usage_pct": 73.5,
+      "memory_usage_pct": 46.5,
+      "network_rx_bytes": 351272960,
+      "network_tx_bytes": 120586240
+    },
+    {
+      "name": "vm-lab-00446",
+      "moid": "vm-10446",
+      "power_state": "poweredOn",
+      "esxi_hostname": "esxi-lab-021",
+      "cpu_usage_pct": 74.8,
+      "memory_usage_pct": 48.2,
+      "network_rx_bytes": 354418688,
+      "network_tx_bytes": 127926272
+    },
+    {
+      "name": "vm-lab-00447",
+      "moid": "vm-10447",
+      "power_state": "poweredOn",
+      "esxi_hostname": "esxi-lab-022",
+      "cpu_usage_pct": 76.1,
+      "memory_usage_pct": 49.9,
+      "network_rx_bytes": 357564416,
+      "network_tx_bytes": 135266304
+    },
+    {
+      "name": "vm-lab-00448",
+      "moid": "vm-10448",
+      "power_state": "poweredOn",
+      "esxi_hostname": "esxi-lab-023",
+      "cpu_usage_pct": 77.4,
+      "memory_usage_pct": 51.6,
+      "network_rx_bytes": 360710144,
+      "network_tx_bytes": 142606336
+    },
+    {
+      "name": "vm-lab-00449",
+      "moid": "vm-10449",
+      "power_state": "poweredOn",
+      "esxi_hostname": "esxi-lab-024",
+      "cpu_usage_pct": 78.7,
+      "memory_usage_pct": 53.3,
+      "network_rx_bytes": 363855872,
+      "network_tx_bytes": 149946368
+    },
+    {
+      "name": "vm-lab-00450",
+      "moid": "vm-10450",
+      "power_state": "poweredOn",
+      "esxi_hostname": "esxi-lab-025",
+      "cpu_usage_pct": 80.0,
+      "memory_usage_pct": 55.0,
+      "network_rx_bytes": 367001600,
+      "network_tx_bytes": 157286400
+    },
+    {
+      "name": "vm-lab-00451",
+      "moid": "vm-10451",
+      "power_state": "poweredOn",
+      "esxi_hostname": "esxi-lab-001",
+      "cpu_usage_pct": 81.3,
+      "memory_usage_pct": 56.7,
+      "network_rx_bytes": 370147328,
+      "network_tx_bytes": 164626432
+    },
+    {
+      "name": "vm-lab-00452",
+      "moid": "vm-10452",
+      "power_state": "poweredOn",
+      "esxi_hostname": "esxi-lab-002",
+      "cpu_usage_pct": 82.6,
+      "memory_usage_pct": 58.4,
+      "network_rx_bytes": 373293056,
+      "network_tx_bytes": 171966464
+    },
+    {
+      "name": "vm-lab-00453",
+      "moid": "vm-10453",
+      "power_state": "poweredOn",
+      "esxi_hostname": "esxi-lab-003",
+      "cpu_usage_pct": 83.9,
+      "memory_usage_pct": 60.1,
+      "network_rx_bytes": 376438784,
+      "network_tx_bytes": 179306496
+    },
+    {
+      "name": "vm-lab-00454",
+      "moid": "vm-10454",
+      "power_state": "poweredOn",
+      "esxi_hostname": "esxi-lab-004",
+      "cpu_usage_pct": 85.2,
+      "memory_usage_pct": 61.8,
+      "network_rx_bytes": 379584512,
+      "network_tx_bytes": 186646528
+    },
+    {
+      "name": "vm-lab-00455",
+      "moid": "vm-10455",
+      "power_state": "poweredOn",
+      "esxi_hostname": "esxi-lab-005",
+      "cpu_usage_pct": 86.5,
+      "memory_usage_pct": 63.5,
+      "network_rx_bytes": 382730240,
+      "network_tx_bytes": 193986560
+    },
+    {
+      "name": "vm-lab-00456",
+      "moid": "vm-10456",
+      "power_state": "poweredOn",
+      "esxi_hostname": "esxi-lab-006",
+      "cpu_usage_pct": 87.8,
+      "memory_usage_pct": 65.2,
+      "network_rx_bytes": 385875968,
+      "network_tx_bytes": 201326592
+    },
+    {
+      "name": "vm-lab-00457",
+      "moid": "vm-10457",
+      "power_state": "poweredOn",
+      "esxi_hostname": "esxi-lab-007",
+      "cpu_usage_pct": 89.1,
+      "memory_usage_pct": 66.9,
+      "network_rx_bytes": 389021696,
+      "network_tx_bytes": 208666624
+    },
+    {
+      "name": "vm-lab-00458",
+      "moid": "vm-10458",
+      "power_state": "poweredOn",
+      "esxi_hostname": "esxi-lab-008",
+      "cpu_usage_pct": 5.4,
+      "memory_usage_pct": 68.6,
+      "network_rx_bytes": 392167424,
+      "network_tx_bytes": 216006656
+    },
+    {
+      "name": "vm-lab-00459",
+      "moid": "vm-10459",
+      "power_state": "poweredOn",
+      "esxi_hostname": "esxi-lab-009",
+      "cpu_usage_pct": 6.7,
+      "memory_usage_pct": 70.3,
+      "network_rx_bytes": 395313152,
+      "network_tx_bytes": 223346688
+    },
+    {
+      "name": "vm-lab-00460",
+      "moid": "vm-10460",
+      "power_state": "poweredOn",
+      "esxi_hostname": "esxi-lab-010",
+      "cpu_usage_pct": 8.0,
+      "memory_usage_pct": 72.0,
+      "network_rx_bytes": 398458880,
+      "network_tx_bytes": 230686720
+    },
+    {
+      "name": "vm-lab-00461",
+      "moid": "vm-10461",
+      "power_state": "poweredOn",
+      "esxi_hostname": "esxi-lab-011",
+      "cpu_usage_pct": 9.3,
+      "memory_usage_pct": 73.7,
+      "network_rx_bytes": 401604608,
+      "network_tx_bytes": 238026752
+    },
+    {
+      "name": "vm-lab-00462",
+      "moid": "vm-10462",
+      "power_state": "poweredOn",
+      "esxi_hostname": "esxi-lab-012",
+      "cpu_usage_pct": 10.6,
+      "memory_usage_pct": 75.4,
+      "network_rx_bytes": 404750336,
+      "network_tx_bytes": 245366784
+    },
+    {
+      "name": "vm-lab-00463",
+      "moid": "vm-10463",
+      "power_state": "poweredOn",
+      "esxi_hostname": "esxi-lab-013",
+      "cpu_usage_pct": 11.9,
+      "memory_usage_pct": 77.1,
+      "network_rx_bytes": 407896064,
+      "network_tx_bytes": 252706816
+    },
+    {
+      "name": "vm-lab-00464",
+      "moid": "vm-10464",
+      "power_state": "poweredOn",
+      "esxi_hostname": "esxi-lab-014",
+      "cpu_usage_pct": 13.2,
+      "memory_usage_pct": 78.8,
+      "network_rx_bytes": 411041792,
+      "network_tx_bytes": 260046848
+    },
+    {
+      "name": "vm-lab-00465",
+      "moid": "vm-10465",
+      "power_state": "poweredOn",
+      "esxi_hostname": "esxi-lab-015",
+      "cpu_usage_pct": 14.5,
+      "memory_usage_pct": 80.5,
+      "network_rx_bytes": 414187520,
+      "network_tx_bytes": 267386880
+    },
+    {
+      "name": "vm-lab-00466",
+      "moid": "vm-10466",
+      "power_state": "poweredOn",
+      "esxi_hostname": "esxi-lab-016",
+      "cpu_usage_pct": 15.8,
+      "memory_usage_pct": 82.2,
+      "network_rx_bytes": 417333248,
+      "network_tx_bytes": 274726912
+    },
+    {
+      "name": "vm-lab-00467",
+      "moid": "vm-10467",
+      "power_state": "poweredOn",
+      "esxi_hostname": "esxi-lab-017",
+      "cpu_usage_pct": 17.1,
+      "memory_usage_pct": 83.9,
+      "network_rx_bytes": 420478976,
+      "network_tx_bytes": 282066944
+    },
+    {
+      "name": "vm-lab-00468",
+      "moid": "vm-10468",
+      "power_state": "poweredOn",
+      "esxi_hostname": "esxi-lab-018",
+      "cpu_usage_pct": 18.4,
+      "memory_usage_pct": 85.6,
+      "network_rx_bytes": 423624704,
+      "network_tx_bytes": 289406976
+    },
+    {
+      "name": "vm-lab-00469",
+      "moid": "vm-10469",
+      "power_state": "poweredOn",
+      "esxi_hostname": "esxi-lab-019",
+      "cpu_usage_pct": 19.7,
+      "memory_usage_pct": 87.3,
+      "network_rx_bytes": 426770432,
+      "network_tx_bytes": 296747008
+    },
+    {
+      "name": "vm-lab-00470",
+      "moid": "vm-10470",
+      "power_state": "poweredOn",
+      "esxi_hostname": "esxi-lab-020",
+      "cpu_usage_pct": 21.0,
+      "memory_usage_pct": 89.0,
+      "network_rx_bytes": 429916160,
+      "network_tx_bytes": 304087040
+    },
+    {
+      "name": "vm-lab-00471",
+      "moid": "vm-10471",
+      "power_state": "poweredOn",
+      "esxi_hostname": "esxi-lab-021",
+      "cpu_usage_pct": 22.3,
+      "memory_usage_pct": 10.7,
+      "network_rx_bytes": 433061888,
+      "network_tx_bytes": 311427072
+    },
+    {
+      "name": "vm-lab-00472",
+      "moid": "vm-10472",
+      "power_state": "poweredOn",
+      "esxi_hostname": "esxi-lab-022",
+      "cpu_usage_pct": 23.6,
+      "memory_usage_pct": 12.4,
+      "network_rx_bytes": 436207616,
+      "network_tx_bytes": 318767104
+    },
+    {
+      "name": "vm-lab-00473",
+      "moid": "vm-10473",
+      "power_state": "poweredOn",
+      "esxi_hostname": "esxi-lab-023",
+      "cpu_usage_pct": 24.9,
+      "memory_usage_pct": 14.1,
+      "network_rx_bytes": 439353344,
+      "network_tx_bytes": 326107136
+    },
+    {
+      "name": "vm-lab-00474",
+      "moid": "vm-10474",
+      "power_state": "poweredOn",
+      "esxi_hostname": "esxi-lab-024",
+      "cpu_usage_pct": 26.2,
+      "memory_usage_pct": 15.8,
+      "network_rx_bytes": 442499072,
+      "network_tx_bytes": 333447168
+    },
+    {
+      "name": "vm-lab-00475",
+      "moid": "vm-10475",
+      "power_state": "poweredOn",
+      "esxi_hostname": "esxi-lab-025",
+      "cpu_usage_pct": 27.5,
+      "memory_usage_pct": 17.5,
+      "network_rx_bytes": 445644800,
+      "network_tx_bytes": 340787200
+    },
+    {
+      "name": "vm-lab-00476",
+      "moid": "vm-10476",
+      "power_state": "poweredOn",
+      "esxi_hostname": "esxi-lab-001",
+      "cpu_usage_pct": 28.8,
+      "memory_usage_pct": 19.2,
+      "network_rx_bytes": 448790528,
+      "network_tx_bytes": 348127232
+    },
+    {
+      "name": "vm-lab-00477",
+      "moid": "vm-10477",
+      "power_state": "poweredOn",
+      "esxi_hostname": "esxi-lab-002",
+      "cpu_usage_pct": 30.1,
+      "memory_usage_pct": 20.9,
+      "network_rx_bytes": 451936256,
+      "network_tx_bytes": 355467264
+    },
+    {
+      "name": "vm-lab-00478",
+      "moid": "vm-10478",
+      "power_state": "poweredOn",
+      "esxi_hostname": "esxi-lab-003",
+      "cpu_usage_pct": 31.4,
+      "memory_usage_pct": 22.6,
+      "network_rx_bytes": 455081984,
+      "network_tx_bytes": 362807296
+    },
+    {
+      "name": "vm-lab-00479",
+      "moid": "vm-10479",
+      "power_state": "poweredOn",
+      "esxi_hostname": "esxi-lab-004",
+      "cpu_usage_pct": 32.7,
+      "memory_usage_pct": 24.3,
+      "network_rx_bytes": 458227712,
+      "network_tx_bytes": 370147328
+    },
+    {
+      "name": "vm-lab-00480",
+      "moid": "vm-10480",
+      "power_state": "poweredOn",
+      "esxi_hostname": "esxi-lab-005",
+      "cpu_usage_pct": 34.0,
+      "memory_usage_pct": 26.0,
+      "network_rx_bytes": 461373440,
+      "network_tx_bytes": 377487360
+    },
+    {
+      "name": "vm-lab-00481",
+      "moid": "vm-10481",
+      "power_state": "poweredOff",
+      "esxi_hostname": "esxi-lab-006",
+      "cpu_usage_pct": 35.3,
+      "memory_usage_pct": 27.7,
+      "network_rx_bytes": 464519168,
+      "network_tx_bytes": 384827392
+    },
+    {
+      "name": "vm-lab-00482",
+      "moid": "vm-10482",
+      "power_state": "poweredOn",
+      "esxi_hostname": "esxi-lab-007",
+      "cpu_usage_pct": 36.6,
+      "memory_usage_pct": 29.4,
+      "network_rx_bytes": 467664896,
+      "network_tx_bytes": 392167424
+    },
+    {
+      "name": "vm-lab-00483",
+      "moid": "vm-10483",
+      "power_state": "poweredOn",
+      "esxi_hostname": "esxi-lab-008",
+      "cpu_usage_pct": 37.9,
+      "memory_usage_pct": 31.1,
+      "network_rx_bytes": 470810624,
+      "network_tx_bytes": 399507456
+    },
+    {
+      "name": "vm-lab-00484",
+      "moid": "vm-10484",
+      "power_state": "poweredOn",
+      "esxi_hostname": "esxi-lab-009",
+      "cpu_usage_pct": 39.2,
+      "memory_usage_pct": 32.8,
+      "network_rx_bytes": 473956352,
+      "network_tx_bytes": 406847488
+    },
+    {
+      "name": "vm-lab-00485",
+      "moid": "vm-10485",
+      "power_state": "poweredOn",
+      "esxi_hostname": "esxi-lab-010",
+      "cpu_usage_pct": 40.5,
+      "memory_usage_pct": 34.5,
+      "network_rx_bytes": 477102080,
+      "network_tx_bytes": 414187520
+    },
+    {
+      "name": "vm-lab-00486",
+      "moid": "vm-10486",
+      "power_state": "poweredOn",
+      "esxi_hostname": "esxi-lab-011",
+      "cpu_usage_pct": 41.8,
+      "memory_usage_pct": 36.2,
+      "network_rx_bytes": 480247808,
+      "network_tx_bytes": 421527552
+    },
+    {
+      "name": "vm-lab-00487",
+      "moid": "vm-10487",
+      "power_state": "poweredOn",
+      "esxi_hostname": "esxi-lab-012",
+      "cpu_usage_pct": 43.1,
+      "memory_usage_pct": 37.9,
+      "network_rx_bytes": 483393536,
+      "network_tx_bytes": 428867584
+    },
+    {
+      "name": "vm-lab-00488",
+      "moid": "vm-10488",
+      "power_state": "poweredOn",
+      "esxi_hostname": "esxi-lab-013",
+      "cpu_usage_pct": 44.4,
+      "memory_usage_pct": 39.6,
+      "network_rx_bytes": 486539264,
+      "network_tx_bytes": 436207616
+    },
+    {
+      "name": "vm-lab-00489",
+      "moid": "vm-10489",
+      "power_state": "poweredOn",
+      "esxi_hostname": "esxi-lab-014",
+      "cpu_usage_pct": 45.7,
+      "memory_usage_pct": 41.3,
+      "network_rx_bytes": 489684992,
+      "network_tx_bytes": 443547648
+    },
+    {
+      "name": "vm-lab-00490",
+      "moid": "vm-10490",
+      "power_state": "poweredOn",
+      "esxi_hostname": "esxi-lab-015",
+      "cpu_usage_pct": 47.0,
+      "memory_usage_pct": 43.0,
+      "network_rx_bytes": 492830720,
+      "network_tx_bytes": 450887680
+    },
+    {
+      "name": "vm-lab-00491",
+      "moid": "vm-10491",
+      "power_state": "poweredOn",
+      "esxi_hostname": "esxi-lab-016",
+      "cpu_usage_pct": 48.3,
+      "memory_usage_pct": 44.7,
+      "network_rx_bytes": 495976448,
+      "network_tx_bytes": 458227712
+    },
+    {
+      "name": "vm-lab-00492",
+      "moid": "vm-10492",
+      "power_state": "poweredOn",
+      "esxi_hostname": "esxi-lab-017",
+      "cpu_usage_pct": 49.6,
+      "memory_usage_pct": 46.4,
+      "network_rx_bytes": 499122176,
+      "network_tx_bytes": 465567744
+    },
+    {
+      "name": "vm-lab-00493",
+      "moid": "vm-10493",
+      "power_state": "poweredOn",
+      "esxi_hostname": "esxi-lab-018",
+      "cpu_usage_pct": 50.9,
+      "memory_usage_pct": 48.1,
+      "network_rx_bytes": 502267904,
+      "network_tx_bytes": 472907776
+    },
+    {
+      "name": "vm-lab-00494",
+      "moid": "vm-10494",
+      "power_state": "poweredOn",
+      "esxi_hostname": "esxi-lab-019",
+      "cpu_usage_pct": 52.2,
+      "memory_usage_pct": 49.8,
+      "network_rx_bytes": 505413632,
+      "network_tx_bytes": 480247808
+    },
+    {
+      "name": "vm-lab-00495",
+      "moid": "vm-10495",
+      "power_state": "poweredOn",
+      "esxi_hostname": "esxi-lab-020",
+      "cpu_usage_pct": 53.5,
+      "memory_usage_pct": 51.5,
+      "network_rx_bytes": 508559360,
+      "network_tx_bytes": 487587840
+    },
+    {
+      "name": "vm-lab-00496",
+      "moid": "vm-10496",
+      "power_state": "poweredOn",
+      "esxi_hostname": "esxi-lab-021",
+      "cpu_usage_pct": 54.8,
+      "memory_usage_pct": 53.2,
+      "network_rx_bytes": 511705088,
+      "network_tx_bytes": 494927872
+    },
+    {
+      "name": "vm-lab-00497",
+      "moid": "vm-10497",
+      "power_state": "poweredOn",
+      "esxi_hostname": "esxi-lab-022",
+      "cpu_usage_pct": 56.1,
+      "memory_usage_pct": 54.9,
+      "network_rx_bytes": 514850816,
+      "network_tx_bytes": 502267904
+    },
+    {
+      "name": "vm-lab-00498",
+      "moid": "vm-10498",
+      "power_state": "poweredOn",
+      "esxi_hostname": "esxi-lab-023",
+      "cpu_usage_pct": 57.4,
+      "memory_usage_pct": 56.6,
+      "network_rx_bytes": 517996544,
+      "network_tx_bytes": 509607936
+    },
+    {
+      "name": "vm-lab-00499",
+      "moid": "vm-10499",
+      "power_state": "poweredOn",
+      "esxi_hostname": "esxi-lab-024",
+      "cpu_usage_pct": 58.7,
+      "memory_usage_pct": 58.3,
+      "network_rx_bytes": 521142272,
+      "network_tx_bytes": 516947968
+    },
+    {
+      "name": "vm-lab-00500",
+      "moid": "vm-10500",
+      "power_state": "poweredOn",
+      "esxi_hostname": "esxi-lab-025",
+      "cpu_usage_pct": 60.0,
+      "memory_usage_pct": 60.0,
+      "network_rx_bytes": 524288000,
+      "network_tx_bytes": 524288000
     }
   ],
   "containers": [],
   "networks": [
     {
-      "name": "dvSwitch-Lab",
-      "uuid": "dvs-301",
-      "network_throughput_mbps": 125.5
+      "name": "dvSwitch-lab-001",
+      "uuid": "dvs-001",
+      "network_throughput_mbps": 112.5
+    },
+    {
+      "name": "dvSwitch-lab-002",
+      "uuid": "dvs-002",
+      "network_throughput_mbps": 125.0
+    },
+    {
+      "name": "dvSwitch-lab-003",
+      "uuid": "dvs-003",
+      "network_throughput_mbps": 137.5
+    },
+    {
+      "name": "dvSwitch-lab-004",
+      "uuid": "dvs-004",
+      "network_throughput_mbps": 150.0
+    },
+    {
+      "name": "dvSwitch-lab-005",
+      "uuid": "dvs-005",
+      "network_throughput_mbps": 162.5
+    },
+    {
+      "name": "dvSwitch-lab-006",
+      "uuid": "dvs-006",
+      "network_throughput_mbps": 175.0
+    },
+    {
+      "name": "dvSwitch-lab-007",
+      "uuid": "dvs-007",
+      "network_throughput_mbps": 187.5
+    },
+    {
+      "name": "dvSwitch-lab-008",
+      "uuid": "dvs-008",
+      "network_throughput_mbps": 200.0
+    },
+    {
+      "name": "dvSwitch-lab-009",
+      "uuid": "dvs-009",
+      "network_throughput_mbps": 212.5
+    },
+    {
+      "name": "dvSwitch-lab-010",
+      "uuid": "dvs-010",
+      "network_throughput_mbps": 225.0
     }
   ],
   "datastores": [
     {
-      "name": "vsan-lab-01",
-      "uuid": "datastore-401",
-      "capacity": 1099511627776,
-      "freeSpace": 274877906944,
-      "usedSpace": 824633720832
+      "name": "vsan-lab-001",
+      "uuid": "datastore-001",
+      "capacity": 3298534883328,
+      "freeSpace": 1451355348665,
+      "usedSpace": 1847179534663
+    },
+    {
+      "name": "vsan-lab-002",
+      "uuid": "datastore-002",
+      "capacity": 4398046511104,
+      "freeSpace": 1891159999775,
+      "usedSpace": 2506886511329
+    },
+    {
+      "name": "vsan-lab-003",
+      "uuid": "datastore-003",
+      "capacity": 5497558138880,
+      "freeSpace": 2308974418330,
+      "usedSpace": 3188583720550
+    },
+    {
+      "name": "vsan-lab-004",
+      "uuid": "datastore-004",
+      "capacity": 2199023255552,
+      "freeSpace": 901599534777,
+      "usedSpace": 1297423720775
+    },
+    {
+      "name": "vsan-lab-005",
+      "uuid": "datastore-005",
+      "capacity": 3298534883328,
+      "freeSpace": 1319413953332,
+      "usedSpace": 1979120929996
     }
   ]
 }

@@ -45,6 +45,8 @@ or storage device. No Ansible installation, platform account, or network
 connection is needed to run the sample ETL.
 
 Requirements: Python 3.10 or later.
+The SQLite workflow uses Python's standard library. PostgreSQL support uses
+the `psycopg` dependency installed by `requirements.txt`.
 
 ```bash
 cd ETL
@@ -52,9 +54,10 @@ python3 -m venv .venv
 source .venv/bin/activate
 python -m pip install -r requirements.txt
 
-# Optional: regenerate the two fictional source snapshots.
-python python/generate_sample.py
+# Generate 500 fictional VMs for each platform (use --count 900 for 900 each).
+python python/generate_sample.py --count 500 --output sample_data
 
+# Transform and load both JSON snapshots into the SQLite data warehouse.
 python python/run_etl.py \
   --input sample_data \
   --database output/datacenter_warehouse.sqlite \
@@ -69,10 +72,85 @@ The run creates or updates a SQLite database and exports:
 - `output/powerbi/fact_metric.csv`
 - `output/powerbi/etl_run.csv`
 
+The generator writes `vcenter.json` and `morpheus.json`. `--count` is the
+number of VMs per platform; it also creates related hosts, networks, and
+datastores, plus one container for each Morpheus VM. The generated inventory
+is fictional. The default run ID is based on the selected count, so rerunning
+the same generated dataset and ETL command is idempotent. Supply `--run-id`
+when generating a new logical warehouse run:
+
+```bash
+python python/generate_sample.py \
+  --count 900 \
+  --run-id synthetic-900-run-2 \
+  --output sample_data
+```
+
+### Python steps to load the snapshots
+
+From the `ETL/` directory, Python 3.10+ and the standard library are enough
+for synthetic data generation and loading:
+
+1. Generate the source JSON files:
+
+   ```bash
+   python python/generate_sample.py --count 500 --output sample_data
+   ```
+
+2. Load/transform them into the SQLite warehouse and refresh the CSV exports:
+
+   ```bash
+   python python/run_etl.py \
+     --input sample_data \
+     --database output/datacenter_warehouse.sqlite \
+     --csv-dir output/powerbi
+   ```
+
+3. Check the JSON summary printed by the script for `resources_loaded`,
+   `metrics_loaded`, and `runs_loaded`. The SQLite database is the warehouse;
+   the CSV files are convenient exports for tools such as Power BI.
+
+### Load directly into PostgreSQL
+
+The ETL can write to PostgreSQL instead of SQLite. Set a connection URL for
+the database running on this host. The database user needs permission to
+create the `infrawatch_warehouse` schema and its tables. The script creates
+that schema and the `dim_resource`, `fact_metric`, and `etl_run` tables
+without changing the application's `public` schema.
+
+```bash
+# Enter the connection URL without echoing it or putting it in shell history.
+read -rsp 'PostgreSQL warehouse URL: ' WAREHOUSE_DATABASE_URL; echo
+export WAREHOUSE_DATABASE_URL
+
+python python/run_etl.py \
+  --input sample_data \
+  --csv-dir output/powerbi
+```
+
+The URL format is `postgresql://USER:PASSWORD@HOST:5432/DBNAME`. Alternatively,
+pass it explicitly using `--postgresql-url "$WAREHOUSE_DATABASE_URL"`. The
+ETL command reports loaded row counts and also refreshes the same Power BI CSV
+exports. Use a database role with access limited to the intended warehouse
+database; do not commit connection URLs or credentials.
+
+If your application already uses `DATABASE_URL`, set
+`WAREHOUSE_DATABASE_URL` separately so the ETL destination is explicit.
+PostgreSQL tables are under the `infrawatch_warehouse` schema; for example:
+
+```sql
+SELECT source, resource_type, COUNT(*)
+FROM infrawatch_warehouse.dim_resource
+GROUP BY source, resource_type
+ORDER BY source, resource_type;
+```
+
 The ETL can be rerun against the same warehouse. Resource dimensions are
 upserted and fact rows use a key containing the resource, run, timestamp, and
 metric, so loading the same snapshot run again is idempotent. CSV exports
-contain the warehouse data, not just the most recent run.
+contain the warehouse data, not just the most recent run. For PostgreSQL,
+repeated loads also upsert resources and metrics using the same idempotency
+keys.
 
 ## Live collection prerequisites
 

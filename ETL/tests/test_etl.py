@@ -3,13 +3,14 @@ import json
 import sqlite3
 import tempfile
 import unittest
-from unittest.mock import patch
+from unittest.mock import MagicMock, patch
 from pathlib import Path
 
 from python.collect_morpheus import collect_snapshot
 from python.extract import SnapshotError, load_snapshots
-from python.generate_sample import SAMPLES
+from python.generate_sample import SAMPLES, generate_snapshots
 from python.load import export_power_bi, load_warehouse
+from python.load_postgres import load_postgres_warehouse
 from python.transform import transform_snapshots
 
 
@@ -69,6 +70,54 @@ class MorpheusCollectorTests(unittest.TestCase):
 
 
 class WarehouseTests(unittest.TestCase):
+    def test_postgres_loader_upserts_resources_and_metrics(self):
+        transformed = transform_snapshots([SAMPLES["vcenter.json"]])
+        connection = MagicMock()
+        cursor = MagicMock()
+        connection.cursor.return_value = cursor
+        connection.execute.side_effect = (
+            lambda query, params=None: MagicMock(
+                fetchall=lambda: [
+                    (
+                        index,
+                        resource["source"],
+                        resource["resource_type"],
+                        resource["external_id"],
+                    )
+                    for index, resource in enumerate(transformed["resources"], start=1)
+                    if resource["source"] == params[0]
+                    and resource["external_id"] in params[1]
+                ]
+            )
+            if params is not None
+            else None
+        )
+        context = MagicMock()
+        context.__enter__.return_value = connection
+
+        with patch("python.load_postgres.psycopg.connect", return_value=context):
+            loaded = load_postgres_warehouse(
+                "postgresql://test.invalid/warehouse", transformed
+            )
+
+        self.assertEqual(loaded["resources_loaded"], len(transformed["resources"]))
+        self.assertEqual(loaded["metrics_loaded"], len(transformed["metrics"]))
+        self.assertEqual(loaded["runs_loaded"], 1)
+        self.assertEqual(cursor.executemany.call_count, 3)
+
+    def test_generated_snapshots_have_requested_vm_count_and_transform(self):
+        snapshots = list(generate_snapshots(12).values())
+        self.assertEqual([len(snapshot["vms"]) for snapshot in snapshots], [12, 12])
+
+        morpheus = next(s for s in snapshots if s["source"] == "morpheus")
+        self.assertEqual(len(morpheus["hosts"]), 1)
+        self.assertEqual(len(morpheus["vms"][0]["containerDetails"]), 1)
+        transformed = transform_snapshots(snapshots)
+        vm_resources = [
+            row for row in transformed["resources"] if row["resource_type"] == "vm"
+        ]
+        self.assertEqual(len(vm_resources), 24)
+
     def test_sample_transforms_loads_and_exports(self):
         snapshots = list(SAMPLES.values())
         transformed = transform_snapshots(snapshots)
