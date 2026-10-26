@@ -1,0 +1,1 @@
+2026-10-25 18:45:04 INFO elasticnet_iris event=elasticnet_evaluation_completed dataset=iris model=ElasticNet test_rows=30 metric_rmse=0.366638 metric_r2=0.421143
