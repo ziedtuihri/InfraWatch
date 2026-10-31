@@ -234,3 +234,6 @@ repository-root Compose file.
   to reach its selected API endpoint and Grafana embed URL. In production,
   serve the built frontend and configure an appropriate reverse proxy,
   authentication, TLS, and CORS policy.
+
+
+  
