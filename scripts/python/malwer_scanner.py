@@ -7,13 +7,13 @@ import psycopg2
 from datetime import datetime
 
 # --- CONFIGURATION ---
-MODEL_PATH = os.getenv("MODEL_PATH", "/opt/malware_scanner/models/malware_detection_model_selected_features.pkl")
-SCALER_PATH = os.getenv("SCALER_PATH", "/opt/malware_scanner/models/scaler_selected_features.pkl")
-TARGET_USER_ID = int(os.getenv("TARGET_USER_ID", "1"))  # Default user ID to assign notifications to
+MODEL1_PATH = os.getenv("MODEL_PATH", "/opt/ML/models/hex_malware_models.pkl")
+MODEL2_PATH = os.getenv("SCALER_PATH", "/opt/ML/models/malware_detection_model.pkl")
+TARGET_USER_ID = int(os.getenv("TARGET_USER_ID", "1"))  # Default user ID to assign notifications to>
 
-# Load trained model and scaler
-model = joblib.load(MODEL_PATH)
-scaler = joblib.load(SCALER_PATH)
+# Load trained model
+model = joblib.load(MODEL1_PATH)
+scaler = joblib.load(MODEL2_PATH)
 
 SELECTED_FEATURES = ['usage_counter', 'fs_excl_counter', 'task_size', 'end_data', 'policy', 'nivcsw']
 
@@ -60,10 +60,10 @@ def log_notification_to_db(vm_name, ip_address, file_path, prediction):
     """Inserts a critical security alert directly into the notifications table."""
     try:
         conn = psycopg2.connect(
-            dbname=os.getenv("DB_NAME", "malware_db"),
-            user=os.getenv("DB_USER", "postgres"),
-            password=os.getenv("DB_PASSWORD", "password"),
-            host=os.getenv("DB_HOST", "localhost"),
+            dbname=os.getenv("DB_NAME", "infrawatch"),
+            user=os.getenv("DB_USER", "infra"),
+            password=os.getenv("DB_PASSWORD", "postgres"),
+            host=os.getenv("DB_HOST", "192.168.100.77"),
             port=os.getenv("DB_PORT", "5432")
         )
         cursor = conn.cursor()

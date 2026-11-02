@@ -1,0 +1,33 @@
+#!/bin/bash
+set -e
+
+MORPH_URL="https://projet1-virtual-machine"
+AUTH_TOKEN="ea3c4b6b-4b64-47f5-9954-89e184ec3039"
+MODEL_FILE_ID="56"
+
+# ID 56 is   hex_malware_models.pkl
+
+INSTALL_DIR="/opt/ML/models"
+
+echo "[+] Downloading trained model package from Morpheus..."
+mkdir -p /tmp/models "$INSTALL_DIR"
+
+curl -k -L "${MORPH_URL}/api/virtual-images/${MODEL_FILE_ID}/download" \
+  -H "Authorization: Bearer ${AUTH_TOKEN}" \
+  -o /tmp/malware_pkg/package.zip
+
+# Extract package
+python3 - << 'EOF'
+import zipfile
+path = "/tmp/models/package.zip"
+if zipfile.is_zipfile(path):
+    with zipfile.ZipFile(path) as z:
+        z.extractall("/tmp/malware_pkg/")
+EOF
+
+# Move models to destination
+cp /tmp/models/*.pkl "$INSTALL_DIR/"
+echo "[+] Model successfully downloaded and placed in $INSTALL_DIR ✔"
+
+
+
